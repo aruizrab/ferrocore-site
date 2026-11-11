@@ -1,0 +1,541 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>ferrocore · a 5G Core in Rust for research and agents</title>
+  <meta name="description" content="ferrocore is a 3GPP Release 17 5G Core written in Rust for R&amp;D and ML / LLM-agent training. It runs the core network functions with an in-tree simulated RAN and turns every run into a labelled, reproducible dataset.">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f5f0ea" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0e1113" media="(prefers-color-scheme: dark)">
+  <link rel="canonical" href="https://aruizrab.github.io/ferrocore-site/">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="assets/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ferrocore">
+  <meta property="og:title" content="ferrocore · a 5G Core in Rust for research and agents">
+  <meta property="og:description" content="A 3GPP Release 17 5G Core with an in-tree simulated RAN. Every run becomes a labelled, reproducible dataset, and LLM agents can observe and act on a live core.">
+  <meta property="og:url" content="https://aruizrab.github.io/ferrocore-site/">
+  <meta property="og:image" content="https://aruizrab.github.io/ferrocore-site/assets/og.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="ferrocore: a 5G Core in Rust. Every run is a dataset.">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <script src="js/theme-init.js"></script>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/hero.js" defer></script>
+  <script src="js/progress.js" defer></script>
+  <script src="js/main.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="#top" aria-label="ferrocore, back to top">
+        <svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+          <rect x="2" y="2" width="44" height="44" rx="9" class="mark-tile"/>
+          <rect x="2" y="2" width="44" height="44" rx="9" class="mark-edge"/>
+          <text x="8" y="14" class="mark-num">26</text>
+          <text x="24" y="37" class="mark-sym" text-anchor="middle">Fe</text>
+        </svg>
+        <span class="brand-word">ferrocore</span>
+      </a>
+      <nav class="site-nav" aria-label="Sections">
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-list">
+          <span class="nav-toggle-bars" aria-hidden="true"></span>
+          <span class="nav-toggle-label">Menu</span>
+        </button>
+        <ul id="nav-list" class="nav-list">
+          <li><a href="#what">What it is</a></li>
+          <li><a href="#capabilities">Capabilities</a></li>
+          <li><a href="#architecture">Architecture</a></li>
+          <li><a href="#process">How it is built</a></li>
+          <li><a href="#roadmap">Roadmap</a></li>
+          <li><a href="#progress">Progress</a></li>
+        </ul>
+      </nav>
+      <button class="theme-toggle" type="button" aria-label="Switch colour theme" title="Switch colour theme">
+        <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.6M12 18.9v2.6M2.5 12h2.6M18.9 12h2.6M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.2 14.6A8.5 8.5 0 0 1 9.4 3.8a8.5 8.5 0 1 0 10.8 10.8Z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- Hero ------------------------------------------------------------ -->
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">3GPP Release 17 &middot; 5G Core &middot; written in Rust</p>
+          <h1 id="hero-title">A 5G Core that turns every run into a <span class="hl">dataset</span>.</h1>
+          <p class="lede">ferrocore runs the 5G core network functions together with a simulated RAN of gNBs and UEs, records every message, state change and fault as labelled, reproducible data, and lets LLM agents observe and act on a live core. It is built for R&amp;D and ML / LLM-agent training, not for production traffic.</p>
+          <div class="cta-row">
+            <a class="btn btn-primary" href="#progress">See live progress</a>
+            <a class="btn btn-ghost" href="#architecture">Explore the architecture</a>
+          </div>
+          <p class="status-chip"><span class="status-dot" aria-hidden="true"></span><span><strong>Early development.</strong> Milestone M0 (foundations) is underway; the network functions are not available yet.</span></p>
+        </div>
+
+        <figure class="hero-visual" aria-labelledby="hero-visual-caption">
+          <div class="hero-canvas-wrap">
+            <canvas id="core-canvas" role="img" aria-label="Animated sketch of a 5G core: network functions AMF, SMF, UPF, AUSF, UDM, NRF, PCF and NSSF on a service-based bus, three gNB cells below, and UEs moving between cells and handing over while signalling messages travel along the N1, N2, N3, N4 and SBI links."></canvas>
+            <button class="anim-toggle" type="button" aria-pressed="false" hidden>
+              <svg class="icon-pause" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8 5v14M16 5v14"/></svg>
+              <svg class="icon-play" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 4.5v15l12-7.5z"/></svg>
+              <span class="anim-toggle-label">Pause animation</span>
+            </button>
+          </div>
+          <figcaption id="hero-visual-caption">
+            <span class="sr-only">Illustration legend:</span>
+            <ul class="legend">
+              <li><span class="sw sw-n1" aria-hidden="true"></span>N1 <small>NAS</small></li>
+              <li><span class="sw sw-n2" aria-hidden="true"></span>N2 <small>NGAP</small></li>
+              <li><span class="sw sw-n3" aria-hidden="true"></span>N3 <small>GTP-U</small></li>
+              <li><span class="sw sw-n4" aria-hidden="true"></span>N4 <small>PFCP</small></li>
+              <li><span class="sw sw-sbi" aria-hidden="true"></span>SBI <small>HTTP/2</small></li>
+            </ul>
+          </figcaption>
+        </figure>
+      </div>
+
+      <div class="wrap">
+        <ul class="hero-facts" aria-label="Key properties">
+          <li><span class="k">Sans-IO</span> deterministic network functions</li>
+          <li><span class="k">Bit-for-bit</span> reproducible from scenario + seed</li>
+          <li><span class="k">Real bytes</span> NAS, NGAP, PFCP, GTP-U</li>
+          <li><span class="k">MCP + gRPC</span> control for agents</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- What it is ------------------------------------------------------- -->
+    <section class="section" id="what" aria-labelledby="what-title">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="section-num" aria-hidden="true">01</p>
+          <div>
+            <p class="eyebrow">What it is</p>
+            <h2 id="what-title">A research core, deliberately not a production one</h2>
+          </div>
+        </header>
+
+        <div class="what-grid">
+          <div class="prose">
+            <p>ferrocore runs the core network functions of a 5G system (<abbr title="Access and Mobility Management Function">AMF</abbr>, <abbr title="Session Management Function">SMF</abbr>, <abbr title="User Plane Function">UPF</abbr>, <abbr title="Authentication Server Function">AUSF</abbr>, <abbr title="Unified Data Management / Unified Data Repository">UDM/UDR</abbr>, <abbr title="Network Repository Function">NRF</abbr>, <abbr title="Policy Control Function">PCF</abbr> and <abbr title="Network Slice Selection Function">NSSF</abbr>, with NWDAF and NEF later) alongside an in-tree simulated RAN of gNBs and UEs.</p>
+            <p>Every run is a dataset: per-interface pcapng that Wireshark decodes, event tables in JSONL and Parquet, KPIs named after TS&nbsp;28.552, ground-truth label tables and a run manifest. The same scenario, seed and version give the same bytes, every time.</p>
+            <p>A northbound control API (gRPC and REST) and an MCP server let LLM agents read state and take actions on a live core, from operator changes to injecting faults, spawning UEs or forking a snapshot.</p>
+          </div>
+
+          <div class="audience">
+            <h3 class="minor">Built for</h3>
+            <ul class="card-list">
+              <li class="card">
+                <h4>Telecom R&amp;D</h4>
+                <p>Exercise procedures, mobility and faults on a core you can pause, step, snapshot and fork.</p>
+              </li>
+              <li class="card">
+                <h4>ML and data work</h4>
+                <p>Labelled, reproducible datasets with ground truth for faults and misbehaving UEs, plus KPI time series.</p>
+              </li>
+              <li class="card">
+                <h4>LLM agents</h4>
+                <p>MCP tools, a Gym-style reset/step wrapper and an LM corpus exporter for next-message, masked-IE, cause-prediction and RCA Q&amp;A tasks.</p>
+              </li>
+              <li class="card">
+                <h4>Interop testing</h4>
+                <p>A realtime mode with real N2 and N3 so UERANSIM, PacketRusher and srsRAN can attach.</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="nongoals">
+          <h3 class="minor">Out of scope, on purpose</h3>
+          <ul class="tag-list">
+            <li>Production traffic and HA</li>
+            <li>Charging</li>
+            <li>Lawful interception</li>
+            <li>Roaming</li>
+            <li>SMS</li>
+            <li>RRC / PHY fidelity</li>
+            <li>External DB backends</li>
+            <li>Conformance certification</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Capabilities ----------------------------------------------------- -->
+    <section class="section section-alt" id="capabilities" aria-labelledby="cap-title">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="section-num" aria-hidden="true">02</p>
+          <div>
+            <p class="eyebrow">Capabilities</p>
+            <h2 id="cap-title">Design decisions the core is built against</h2>
+            <p class="section-intro">ferrocore is early. These are the decisions every crate is held to; the tag on each card is the milestone where the capability lands.</p>
+          </div>
+        </header>
+
+        <ul class="cap-grid">
+          <li class="cap">
+            <svg class="cap-icon" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><rect x="5" y="7" width="22" height="18" rx="3"/><path d="M10 13h5M10 18h12M19 13h3"/></svg>
+            <h3>Sans-IO network functions</h3>
+            <p>Every NF and simulated node is a pure, deterministic state machine: <code>handle(input, &amp;mut Ctx)</code>. Clock, timers, randomness, outbound messages and events come through <code>Ctx</code>; no I/O, async runtime, wall clock or global state inside NF crates. All state is serialisable for snapshot, fork and restore.</p>
+            <p class="cap-tag">M0 foundation</p>
+          </li>
+          <li class="cap">
+            <svg class="cap-icon" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><circle cx="8" cy="16" r="3.5"/><circle cx="24" cy="8" r="3.5"/><circle cx="24" cy="24" r="3.5"/><path d="M11.3 14.4 20.7 9.6M11.3 17.6l9.4 4.8"/></svg>
+            <h3>One codebase, three modes</h3>
+            <p><strong>sim</strong>: all NFs and the RAN in one process on virtual time, faster than real time and bit-for-bit reproducible. <strong>run</strong>: wall clock with real N2 (SCTP 38412) and N3 (GTP-U UDP 2152). <strong>distributed</strong>: one container per NF, SBI over HTTP/2, NRF discovery, PFCP over UDP 8805.</p>
+            <p class="cap-tag">sim M1 &middot; run M3 &middot; distributed M4</p>
+          </li>
+          <li class="cap">
+            <svg class="cap-icon" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M6 9h20M6 16h20M6 23h12"/><path d="M22 21l3 3 4-6"/></svg>
+            <h3>Real bytes on every interface</h3>
+            <p>Genuine NAS (TS&nbsp;24.501), NGAP with ASN.1 APER (TS&nbsp;38.413), PFCP (TS&nbsp;29.244), GTP-U (TS&nbsp;29.281) and 5G security (TS&nbsp;33.501, TS&nbsp;35.206), checked by independent oracles: tshark decodes with no malformed packets, re-encode byte equality and a differential codec.</p>
+            <p class="cap-tag">codecs M0 &middot; procedures M1+</p>
+          </li>
+          <li class="cap">
+            <svg class="cap-icon" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M16 26V12"/><path d="M11 9a7 7 0 0 1 10 0M8 6a11 11 0 0 1 16 0"/><circle cx="16" cy="12" r="1.8"/><path d="M11 26h10"/></svg>
+            <h3>Simulated RAN in-tree</h3>
+            <p>Lightweight gNB and UE state machines with UE profiles (device class, slice, mobility, traffic, misbehaviour), a TR&nbsp;38.901-style radio model (path loss, RSRP/SINR, A3 events) driving Xn and N2 handover, and real GTP-U for a sampled subset of UEs.</p>
+            <p class="cap-tag">M1 &middot; mobility M2</p>
+          </li>
+          <li class="cap">
+            <svg class="cap-icon" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><ellipse cx="16" cy="8" rx="10" ry="3.5"/><path d="M6 8v16c0 1.9 4.5 3.5 10 3.5s10-1.6 10-3.5V8"/><path d="M6 16c0 1.9 4.5 3.5 10 3.5s10-1.6 10-3.5"/></svg>
+            <h3>Every run is a dataset</h3>
+            <p>A per-scenario event bus carries every message on N1, N2, N3, N4 and SBI, every state transition, timer, KPI tick, fault and agent action as a typed event with causal links. Hooks can observe, mutate, delay or drop. A manifest records scenario hash, seed, commit and checksums.</p>
+            <p class="cap-tag">bus M0 &middot; KPIs, labels M2</p>
+          </li>
+          <li class="cap">
+            <svg class="cap-icon" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><rect x="6" y="9" width="20" height="15" rx="4"/><circle cx="12.5" cy="16.5" r="1.8"/><circle cx="19.5" cy="16.5" r="1.8"/><path d="M16 9V5M13 5h6"/></svg>
+            <h3>Agent control plane</h3>
+            <p>gRPC, REST and MCP expose read state, operator actions (config, policy, handover, scale or restart) and scenario actions (inject fault, spawn UEs, pause, step, snapshot, fork), separated by role, policy-checked and written to a hash-chained audit log.</p>
+            <p class="cap-tag">M3</p>
+          </li>
+          <li class="cap">
+            <svg class="cap-icon" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M9 6h11l5 5v15H9z"/><path d="M20 6v5h5M13 16h8M13 20h6"/></svg>
+            <h3>Scenarios as one YAML file</h3>
+            <p>A schema-validated document describes topology, UE populations, a timeline of events, faults and config changes, capture settings, a stop condition and the seed. Scenario plus seed plus version is the whole experiment.</p>
+            <p class="cap-tag">M1</p>
+          </li>
+          <li class="cap">
+            <svg class="cap-icon" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M16 4 6 8v7c0 6.2 4.3 11 10 13 5.7-2 10-6.8 10-13V8z"/><path d="m11.5 16 3 3 6-6"/></svg>
+            <h3>Hardened by default</h3>
+            <p>No <code>unsafe</code>, every parser fuzzed, dependency and advisory checks, constant-time MAC and RES compares, zeroised keys and secrets redacted from datasets and logs. Malformed input is a dataset feature, never a crash.</p>
+            <p class="cap-tag">every milestone</p>
+          </li>
+        </ul>
+
+        <div class="targets" aria-labelledby="targets-title">
+          <h3 id="targets-title" class="minor">Scale targets <span class="muted">(design targets, not yet measured)</span></h3>
+          <dl class="target-grid">
+            <div><dt>100k UEs &times; 50 gNBs</dt><dd>register and set up a PDU session in &le;&nbsp;60&nbsp;s on one core</dd></div>
+            <div><dt>&le;&nbsp;1&nbsp;GiB</dt><dd>resident memory for that run</dd></div>
+            <div><dt>&ge;&nbsp;50k</dt><dd>messages per second per core</dd></div>
+            <div><dt>&ge;&nbsp;2M</dt><dd>scheduler events per second</dd></div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- Architecture ----------------------------------------------------- -->
+    <section class="section" id="architecture" aria-labelledby="arch-title">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="section-num" aria-hidden="true">03</p>
+          <div>
+            <p class="eyebrow">Architecture</p>
+            <h2 id="arch-title">One event bus between the core, the RAN and the data</h2>
+            <p class="section-intro">Network functions and simulated nodes never touch the network or the clock themselves. The runtime feeds them inputs, and everything they emit flows through the event bus to the dataset sinks and to whoever is watching.</p>
+          </div>
+        </header>
+
+        <div class="arch">
+          <div class="arch-main">
+            <div class="tier tier-clients">
+              <p class="tier-label">Clients</p>
+              <ul class="tier-boxes">
+                <li><strong>LLM agents</strong><span>MCP tools</span></li>
+                <li><strong>Operators and tools</strong><span>gRPC / REST</span></li>
+                <li><strong>RL training</strong><span>Gym reset / step</span></li>
+              </ul>
+            </div>
+            <p class="flow" aria-hidden="true"><span>role-separated &middot; policy-checked &middot; hash-chained audit log</span></p>
+            <div class="tier tier-control">
+              <p class="tier-label">Control plane API</p>
+              <ul class="tier-boxes">
+                <li><strong>Read state</strong><span>live core state for agents and tools</span></li>
+                <li><strong>Operator actions</strong><span>config, policy, handover, scale, restart</span></li>
+                <li><strong>Scenario actions</strong><span>inject fault, spawn UEs, pause, step, snapshot, fork</span></li>
+              </ul>
+            </div>
+            <p class="flow" aria-hidden="true"><span>inputs in, events out</span></p>
+            <div class="tier tier-runtime">
+              <p class="tier-label">ferrocore runtime</p>
+              <div class="runtime-grid">
+                <div class="rt-block rt-scenario">
+                  <h3>Scenario + scheduler</h3>
+                  <p>YAML scenario: topology, UE populations, timeline, faults, capture, stop condition, seed.</p>
+                  <p>Discrete-event scheduler on virtual time (sim) or the wall clock (run).</p>
+                </div>
+                <div class="rt-block rt-core">
+                  <h3>5G Core NFs</h3>
+                  <ul class="nf-grid">
+                    <li>AMF</li><li>SMF</li><li>UPF</li><li>AUSF</li><li>UDM/UDR</li><li>NRF</li><li>PCF</li><li>NSSF</li>
+                  </ul>
+                  <p class="mono-note">handle(input, &amp;mut Ctx)</p>
+                </div>
+                <div class="rt-block rt-ran">
+                  <h3>Simulated RAN</h3>
+                  <p>gNB and UE state machines, UE profiles and traffic, radio model with path loss, RSRP/SINR and A3 events.</p>
+                </div>
+                <div class="rt-bus">
+                  <strong>Event bus</strong>
+                  <span>typed events with causal links: every message, state transition, timer, KPI tick, fault and agent action</span>
+                  <span class="hooks">hooks: observe &middot; mutate &middot; delay &middot; drop</span>
+                </div>
+              </div>
+            </div>
+            <p class="flow" aria-hidden="true"><span>sinks</span></p>
+            <div class="tier tier-sinks">
+              <p class="tier-label">Dataset</p>
+              <ul class="tier-boxes tier-boxes-6">
+                <li><strong>pcapng</strong><span>per interface</span></li>
+                <li><strong>Events</strong><span>JSONL + Parquet</span></li>
+                <li><strong>KPIs</strong><span>TS 28.552 names</span></li>
+                <li><strong>Metrics</strong><span>Prometheus</span></li>
+                <li><strong>Labels</strong><span>ground truth</span></li>
+                <li><strong>manifest.json</strong><span>hash, seed, commit</span></li>
+              </ul>
+            </div>
+          </div>
+
+          <aside class="arch-side" aria-labelledby="modes-title">
+            <h3 id="modes-title" class="minor">Execution modes</h3>
+            <ol class="modes">
+              <li>
+                <p class="mode-name">sim</p>
+                <p>Everything in one process on virtual time. Faster than real time, many isolated scenarios per process, reproducible from scenario, seed and version.</p>
+              </li>
+              <li>
+                <p class="mode-name">run</p>
+                <p>Realtime all-in-one on the wall clock with real N2 over SCTP 38412 and N3 over GTP-U UDP 2152, so external RAN simulators can attach.</p>
+              </li>
+              <li>
+                <p class="mode-name">distributed</p>
+                <p>One container per NF, SBI over HTTP/2 with 3GPP OpenAPI JSON, NRF discovery and PFCP over UDP 8805.</p>
+              </li>
+            </ol>
+            <h3 class="minor">Ships as</h3>
+            <p class="side-note">A single static <code>ferrocore</code> binary (<code>sim</code>, <code>run</code>, <code>nf</code>, <code>serve</code>, <code>validate</code>), a multi-stage Docker image targeting &le;&nbsp;60&nbsp;MB, Compose profiles and a Helm chart, with a Kubernetes operator planned.</p>
+          </aside>
+        </div>
+
+        <div class="arch-details">
+          <div class="table-wrap" role="region" aria-label="Interfaces table" tabindex="0">
+            <table class="iface-table">
+              <caption>Interfaces and the protocols on them</caption>
+              <thead>
+                <tr><th scope="col">Interface</th><th scope="col">Between</th><th scope="col">Protocol</th><th scope="col">Reference</th></tr>
+              </thead>
+              <tbody>
+                <tr><th scope="row"><span class="sw sw-n1" aria-hidden="true"></span>N1</th><td data-label="Between">UE &harr; AMF</td><td data-label="Protocol">NAS</td><td data-label="Reference">TS 24.501</td></tr>
+                <tr><th scope="row"><span class="sw sw-n2" aria-hidden="true"></span>N2</th><td data-label="Between">gNB &harr; AMF</td><td data-label="Protocol">NGAP, ASN.1 APER</td><td data-label="Reference">TS 38.413</td></tr>
+                <tr><th scope="row"><span class="sw sw-n3" aria-hidden="true"></span>N3</th><td data-label="Between">gNB &harr; UPF</td><td data-label="Protocol">GTP-U</td><td data-label="Reference">TS 29.281</td></tr>
+                <tr><th scope="row"><span class="sw sw-n4" aria-hidden="true"></span>N4</th><td data-label="Between">SMF &harr; UPF</td><td data-label="Protocol">PFCP</td><td data-label="Reference">TS 29.244</td></tr>
+                <tr><th scope="row"><span class="sw sw-sbi" aria-hidden="true"></span>SBI</th><td data-label="Between">NF &harr; NF</td><td data-label="Protocol">HTTP/2, OpenAPI JSON</td><td data-label="Reference">3GPP OpenAPI</td></tr>
+                <tr><th scope="row"><span class="sw sw-sec" aria-hidden="true"></span>Security</th><td data-label="Between">UE, AUSF, UDM</td><td data-label="Protocol">5G-AKA, SUCI</td><td data-label="Reference">TS 33.501, TS 35.206</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="crates">
+            <h3 class="minor">A Cargo workspace of <code>fc-*</code> crates</h3>
+            <dl class="crate-groups">
+              <div><dt>Foundation</dt><dd><code>fc-types</code> <code>fc-runtime</code> <code>fc-events</code> <code>fc-capture</code> <code>fc-trace</code></dd></div>
+              <div><dt>Protocols</dt><dd><code>fc-nas</code> <code>fc-ngap</code> <code>fc-pfcp</code> <code>fc-gtpu</code> <code>fc-crypto</code> <code>fc-sbi</code></dd></div>
+              <div><dt>Network functions</dt><dd><code>fc-amf</code> <code>fc-smf</code> <code>fc-upf</code> <code>fc-ausf</code> <code>fc-udm</code> <code>fc-nrf</code> <code>fc-pcf</code> <code>fc-nssf</code></dd></div>
+              <div><dt>Simulation and data</dt><dd><code>fc-ransim</code> <code>fc-scenario</code> <code>fc-kpi</code></dd></div>
+              <div><dt>Agents</dt><dd><code>fc-control</code> <code>fc-mcp</code></dd></div>
+              <div><dt>Binary and tooling</dt><dd><code>ferrocore</code> <code>xtask</code></dd></div>
+            </dl>
+            <p class="side-note">Rust edition 2024 on a pinned 1.98 toolchain, <code>#![forbid(unsafe_code)]</code>, tested with cargo-nextest and cargo-fuzz, checked with cargo-deny, cargo-audit and tshark&nbsp;&ge;&nbsp;4.6.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How it is built -------------------------------------------------- -->
+    <section class="section section-alt" id="process" aria-labelledby="process-title">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="section-num" aria-hidden="true">04</p>
+          <div>
+            <p class="eyebrow">How it is built</p>
+            <h2 id="process-title">Anchored in the specs, written by agents, checked by oracles</h2>
+          </div>
+        </header>
+
+        <blockquote class="pull">
+          <p>Built almost entirely by AI agents through a spec-driven workflow.</p>
+        </blockquote>
+
+        <p class="section-intro">Agents do not work from memory of the standards. Each feature starts from pinned 3GPP Release&nbsp;17 clause text, becomes testable requirements, and only then becomes code. A human orchestrator acts as product owner and approves what ships.</p>
+
+        <ol class="pipeline" aria-label="Feature lifecycle">
+          <li><span class="step-n">01</span><h3>Specify</h3><p>Requirements in EARS form, each keyed to the clause it comes from.</p></li>
+          <li><span class="step-n">02</span><h3>Critic</h3><p>A spec critic hunts for gaps and ambiguity.</p></li>
+          <li><span class="step-n">03</span><h3>Approve</h3><p>The orchestrator signs off on the spec.</p></li>
+          <li><span class="step-n">04</span><h3>Plan</h3><p>Design and tasks, split into waves with file ownership.</p></li>
+          <li class="step-red"><span class="step-n">05</span><h3>Tests (red)</h3><p>A separate test author writes failing tests first.</p></li>
+          <li><span class="step-n">06</span><h3>Implement</h3><p>Parallel implementers in git worktrees, wave by wave.</p></li>
+          <li><span class="step-n">07</span><h3>Gates</h3><p>fmt, clippy, tests, doctests, trace, deny, audit, tshark.</p></li>
+          <li><span class="step-n">08</span><h3>Review</h3><p>Spec-compliance, security, test-adequacy and performance reviewers.</p></li>
+          <li><span class="step-n">09</span><h3>Verify</h3><p>Two sceptic verifiers try to refute each blocking finding.</p></li>
+          <li><span class="step-n">10</span><h3>Finalize</h3><p>Review record, status Implemented, trace check passes.</p></li>
+          <li class="step-merge"><span class="step-n">11</span><h3>Merge</h3><p>The orchestrator merges: the human-in-the-loop approval point.</p></li>
+        </ol>
+
+        <div class="process-grid">
+          <article class="panel">
+            <h3>Traceable to the clause</h3>
+            <p>Requirement IDs carry the specification clause they come from, or a project area such as OBS, SIM, SEC or PERF. Code and tests point back at them, and the trace check fails any mandatory requirement of an approved spec that lacks an implementation site and a passing test.</p>
+<pre class="code" tabindex="0" aria-label="Illustrative traceability attributes"><code><span class="c-com">// illustrative</span>
+<span class="c-attr">#[fc_trace::implements(</span><span class="c-str">"TS24501-5.5.1.2.4-R03"</span><span class="c-attr">)]</span>
+<span class="c-kw">fn</span> <span class="c-fn">on_registration_request</span>(...) { ... }
+
+<span class="c-attr">#[fc_trace::verifies(</span><span class="c-str">"TS24501-5.5.1.2.4-R03"</span><span class="c-attr">)]</span>
+<span class="c-kw">fn</span> <span class="c-fn">rejects_when_...</span>() { ... }</code></pre>
+          </article>
+
+          <article class="panel">
+            <h3>Independent oracles</h3>
+            <p>Nothing is correct because an agent says so. Encoded bytes are judged by tools that share no code with the encoder.</p>
+            <ul class="check-list">
+              <li>tshark decodes every capture with no malformed packets or expert errors</li>
+              <li>decode then re-encode must reproduce the original bytes</li>
+              <li>a differential ASN.1 codec cross-checks NGAP</li>
+              <li>interop runs against UERANSIM and PacketRusher</li>
+            </ul>
+          </article>
+
+          <article class="panel">
+            <h3>Principles every change follows</h3>
+            <ul class="check-list">
+              <li>Sans-IO network functions; no <code>unsafe</code></li>
+              <li>No panics on untrusted input</li>
+              <li>Tests first, written by a different agent than the code</li>
+              <li>Constant-time crypto compares, secrets redacted</li>
+              <li>O(message) work, &le;&nbsp;16&nbsp;KiB idle state per UE</li>
+              <li>A typed event for everything</li>
+              <li>Small tasks, around 400 changed lines</li>
+              <li>One error enum per crate</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="roles">
+          <h3 class="minor">Agent roles</h3>
+          <ul class="tag-list">
+            <li class="tag-strong">orchestrator (product owner)</li>
+            <li>spec-author</li><li>spec-critic</li><li>architect-planner</li><li>test-author</li><li>implementer</li><li>integrator</li><li>spec-compliance-reviewer</li><li>security-reviewer</li><li>test-adequacy-reviewer</li><li>perf-reviewer</li><li>verifier</li><li>interop-tester</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Roadmap ---------------------------------------------------------- -->
+    <section class="section" id="roadmap" aria-labelledby="roadmap-title">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="section-num" aria-hidden="true">05</p>
+          <div>
+            <p class="eyebrow">Roadmap</p>
+            <h2 id="roadmap-title">Six milestones, from foundations to a public release</h2>
+            <p class="section-intro">The critical path to the first vertical slice runs through the workspace, the scheduler, the event bus, capture and NGAP, NG Setup, registration, the CLI and the container image.</p>
+          </div>
+        </header>
+
+        <ol class="milestones">
+          <li class="ms ms-current">
+            <div class="ms-head"><span class="ms-id">M0</span><h3>Foundations</h3><span class="ms-badge">Now</span></div>
+            <p>Workspace, gates and CI, core types, the sans-IO runtime and scheduler, the event bus and hooks, capture, codec and crypto facades, and the SBI message layer.</p>
+            <p class="ms-feat">F001&ndash;F008, F017, F018</p>
+          </li>
+          <li class="ms">
+            <div class="ms-head"><span class="ms-id">M1</span><h3>Vertical slice in sim</h3></div>
+            <p>NG Setup, initial registration with SUCI, 5G-AKA and security mode, a PDU session through SMF and UPF over PFCP, and deregistration for N UEs across M gNBs, with pcapng, JSONL, a manifest, scenario YAML and a Docker image.</p>
+            <p class="ms-feat">F009&ndash;F016</p>
+          </li>
+          <li class="ms">
+            <div class="ms-head"><span class="ms-id">M2</span><h3>Mobility and behaviour</h3></div>
+            <p>CM-IDLE, service request and paging, periodic and mobility registration, the radio model, Xn and N2 handover, UE profiles and traffic, misbehaviour, fault injection with labels, KPIs and Parquet.</p>
+            <p class="ms-feat">F019&ndash;F031</p>
+          </li>
+          <li class="ms">
+            <div class="ms-head"><span class="ms-id">M3</span><h3>Agents and scale</h3></div>
+            <p>Control API and MCP server, snapshot and fork, the Gym wrapper, 100k UEs, campaigns on Kubernetes, realtime mode with UERANSIM and PacketRusher interop, and the LM corpus exporter.</p>
+            <p class="ms-feat">F032&ndash;F040</p>
+          </li>
+          <li class="ms">
+            <div class="ms-head"><span class="ms-id">M4</span><h3>Distributed and exposure</h3></div>
+            <p>OpenAPI code generation, SBI over HTTP/2, NRF, distributed mode, AMF and SMF event exposure, an NWDAF subset, a Kubernetes operator, EAP-AKA&prime;, an XnAP wire codec and distributed fault injection.</p>
+            <p class="ms-feat">F041&ndash;F050</p>
+          </li>
+          <li class="ms">
+            <div class="ms-head"><span class="ms-id">M5</span><h3>Visibility and public release</h3></div>
+            <p>A progress metric published by CI, this landing page, the licensing work needed before the source goes public, and an interactive front end.</p>
+            <p class="ms-feat">F051&ndash;F054</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Progress --------------------------------------------------------- -->
+    <section class="section section-alt" id="progress" aria-labelledby="progress-title">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="section-num" aria-hidden="true">06</p>
+          <div>
+            <p class="eyebrow">Live progress</p>
+            <h2 id="progress-title">Where the build stands</h2>
+            <p class="section-intro">Read from <code>progress.json</code>, which the project's CI publishes to this site. Until that pipeline is live, the file holds clearly marked placeholder values.</p>
+          </div>
+        </header>
+
+        <div id="progress-root" class="progress-root" aria-live="polite" aria-busy="true">
+          <p class="progress-loading">Loading progress&hellip;</p>
+          <noscript><p class="progress-error">Progress needs JavaScript. The milestones above describe the plan.</p></noscript>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <div class="footer-brand">
+        <svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+          <rect x="2" y="2" width="44" height="44" rx="9" class="mark-tile"/>
+          <rect x="2" y="2" width="44" height="44" rx="9" class="mark-edge"/>
+          <text x="8" y="14" class="mark-num">26</text>
+          <text x="24" y="37" class="mark-sym" text-anchor="middle">Fe</text>
+        </svg>
+        <p><strong>ferrocore</strong> is a research 5G Core. It is not intended for production traffic.</p>
+      </div>
+      <div class="footer-notes">
+        <p>ferrocore is dual-licensed Apache-2.0 OR MIT; its source repository is not public yet. This site is MIT-licensed: <a href="https://github.com/aruizrab/ferrocore-site">site source</a>.</p>
+        <p class="muted">3GPP is a trademark of ETSI. ferrocore is an independent project and is not affiliated with or endorsed by 3GPP, ETSI or the Rust Foundation.</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
