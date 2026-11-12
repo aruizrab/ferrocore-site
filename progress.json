@@ -1,28 +1,28 @@
 {
   "schema": 1,
   "placeholder": false,
-  "generatedAt": "2026-11-12T07:09:30Z",
-  "commit": "2ec0289",
+  "generatedAt": "2026-11-12T18:44:33Z",
+  "commit": "eff5a14",
   "method": "v0 interim: per-feature stage weights (merged 100, implemented 95, implementing 30-90 by tasks done, tests 30, planned 20, spec approved 15, spec draft 5, not started 0); milestone and overall are unweighted means of features (official metric: F051).",
-  "overall": 25.6,
+  "overall": 25.3,
   "milestones": [
     {
       "id": "M0",
       "name": "Foundations",
-      "percent": 97.2,
+      "percent": 98.6,
       "features": 10
     },
     {
       "id": "M1",
       "name": "Vertical slice in sim mode",
-      "percent": 51.2,
+      "percent": 56.8,
       "features": 8
     },
     {
       "id": "M2",
       "name": "Mobility and behaviour",
       "percent": 0.0,
-      "features": 13
+      "features": 14
     },
     {
       "id": "M3",
@@ -41,6 +41,18 @@
       "name": "Visibility and public release",
       "percent": 0.0,
       "features": 4
+    },
+    {
+      "id": "M6",
+      "name": "Release 18 profile (placeholder, specs later)",
+      "percent": 0.0,
+      "features": 1
+    },
+    {
+      "id": "M7",
+      "name": "Release 19 profile (placeholder, specs later)",
+      "percent": 0.0,
+      "features": 1
     }
   ],
   "features": [
@@ -70,7 +82,7 @@
       "name": "Capture: pcapng, JSONL events and run manifest",
       "milestone": "M0",
       "stage": "implementing",
-      "percent": 72.4
+      "percent": 86.5
     },
     {
       "id": "F005",
@@ -111,8 +123,8 @@
       "id": "F010",
       "name": "AMF NG Setup",
       "milestone": "M1",
-      "stage": "implementing",
-      "percent": 90.0
+      "stage": "merged",
+      "percent": 100.0
     },
     {
       "id": "F011",
@@ -126,14 +138,14 @@
       "name": "SMF and UPF: UE-requested PDU session establishment",
       "milestone": "M1",
       "stage": "implementing",
-      "percent": 51.2
+      "percent": 72.4
     },
     {
       "id": "F013",
       "name": "Simulated RAN: gNB and UE state machines",
       "milestone": "M1",
       "stage": "implementing",
-      "percent": 48.5
+      "percent": 62.3
     },
     {
       "id": "F014",
@@ -419,6 +431,27 @@
       "id": "F054",
       "name": "interactive-frontend",
       "milestone": "M5",
+      "stage": "not-started",
+      "percent": 0.0
+    },
+    {
+      "id": "F055",
+      "name": "release-profiles",
+      "milestone": "M2",
+      "stage": "not-started",
+      "percent": 0.0
+    },
+    {
+      "id": "F056",
+      "name": "rel18-profile",
+      "milestone": "M6",
+      "stage": "not-started",
+      "percent": 0.0
+    },
+    {
+      "id": "F057",
+      "name": "rel19-profile",
+      "milestone": "M7",
       "stage": "not-started",
       "percent": 0.0
     }
