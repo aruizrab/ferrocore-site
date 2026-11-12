@@ -1,21 +1,21 @@
 {
   "schema": 1,
-  "placeholder": true,
-  "generatedAt": "2026-11-11T19:54:47Z",
-  "commit": "0000000",
-  "method": "Placeholder values. v0 interim: per-feature stage weights (merged 100, implemented 95, implementing 30-90 by tasks done, tests 30, planned 20, spec approved 15, spec draft 5, not started 0); milestone and overall are unweighted means of features (official metric: F051).",
-  "overall": 4.1,
+  "placeholder": false,
+  "generatedAt": "2026-11-12T07:09:30Z",
+  "commit": "2ec0289",
+  "method": "v0 interim: per-feature stage weights (merged 100, implemented 95, implementing 30-90 by tasks done, tests 30, planned 20, spec approved 15, spec draft 5, not started 0); milestone and overall are unweighted means of features (official metric: F051).",
+  "overall": 25.6,
   "milestones": [
     {
       "id": "M0",
       "name": "Foundations",
-      "percent": 15.5,
+      "percent": 97.2,
       "features": 10
     },
     {
       "id": "M1",
-      "name": "Vertical slice (sim)",
-      "percent": 0.0,
+      "name": "Vertical slice in sim mode",
+      "percent": 51.2,
       "features": 8
     },
     {
@@ -32,395 +32,395 @@
     },
     {
       "id": "M4",
-      "name": "Distributed and exposure",
+      "name": "Distributed mode and 3GPP exposure",
       "percent": 0.0,
       "features": 10
     },
     {
       "id": "M5",
       "name": "Visibility and public release",
-      "percent": 16.2,
+      "percent": 0.0,
       "features": 4
     }
   ],
   "features": [
     {
       "id": "F001",
-      "name": "Workspace foundations",
+      "name": "workspace-foundations",
       "milestone": "M0",
-      "stage": "implementing",
-      "percent": 60
+      "stage": "merged",
+      "percent": 100.0
     },
     {
       "id": "F002",
-      "name": "Runtime and sim scheduler",
+      "name": "Runtime and discrete-event sim scheduler",
       "milestone": "M0",
-      "stage": "planned",
-      "percent": 20
+      "stage": "merged",
+      "percent": 100.0
     },
     {
       "id": "F003",
       "name": "Event bus and hooks",
       "milestone": "M0",
-      "stage": "spec-approved",
-      "percent": 15
+      "stage": "merged",
+      "percent": 100.0
     },
     {
       "id": "F004",
-      "name": "pcapng capture",
+      "name": "Capture: pcapng, JSONL events and run manifest",
       "milestone": "M0",
-      "stage": "spec-draft",
-      "percent": 5
+      "stage": "implementing",
+      "percent": 72.4
     },
     {
       "id": "F005",
-      "name": "NAS facade",
+      "name": "NAS facade: NAS-5GS codec, NAS security, canonical JSON",
       "milestone": "M0",
-      "stage": "spec-draft",
-      "percent": 5
+      "stage": "merged",
+      "percent": 100.0
     },
     {
       "id": "F006",
       "name": "NGAP facade",
       "milestone": "M0",
-      "stage": "spec-draft",
-      "percent": 5
+      "stage": "merged",
+      "percent": 100.0
     },
     {
       "id": "F007",
-      "name": "Crypto facade: 5G-AKA and SUCI",
+      "name": "Crypto facade: MILENAGE, 5G AKA key chain, NEA/NIA, SUCI",
       "milestone": "M0",
-      "stage": "spec-draft",
-      "percent": 5
+      "stage": "merged",
+      "percent": 100.0
     },
     {
       "id": "F008",
-      "name": "PFCP and GTP-U",
+      "name": "PFCP and GTP-U codecs",
       "milestone": "M0",
-      "stage": "spec-draft",
-      "percent": 5
-    },
-    {
-      "id": "F017",
-      "name": "Core types and identities",
-      "milestone": "M0",
-      "stage": "tests",
-      "percent": 30
-    },
-    {
-      "id": "F018",
-      "name": "SBI message layer",
-      "milestone": "M0",
-      "stage": "spec-draft",
-      "percent": 5
+      "stage": "merged",
+      "percent": 100.0
     },
     {
       "id": "F009",
-      "name": "UDM/UDR and AUSF 5G-AKA",
+      "name": "UDM, UDR and AUSF: 5G AKA, SUCI de-concealment, UECM and SDM",
       "milestone": "M1",
-      "stage": "not-started",
-      "percent": 0
+      "stage": "merged",
+      "percent": 100.0
     },
     {
       "id": "F010",
       "name": "AMF NG Setup",
       "milestone": "M1",
-      "stage": "not-started",
-      "percent": 0
+      "stage": "implementing",
+      "percent": 90.0
     },
     {
       "id": "F011",
-      "name": "AMF registration",
+      "name": "AMF initial registration and UE-initiated deregistration",
       "milestone": "M1",
-      "stage": "not-started",
-      "percent": 0
+      "stage": "planned",
+      "percent": 20.0
     },
     {
       "id": "F012",
-      "name": "SMF/UPF PDU session",
+      "name": "SMF and UPF: UE-requested PDU session establishment",
       "milestone": "M1",
-      "stage": "not-started",
-      "percent": 0
+      "stage": "implementing",
+      "percent": 51.2
     },
     {
       "id": "F013",
-      "name": "RAN sim gNB and UE",
+      "name": "Simulated RAN: gNB and UE state machines",
       "milestone": "M1",
-      "stage": "not-started",
-      "percent": 0
+      "stage": "implementing",
+      "percent": 48.5
     },
     {
       "id": "F014",
-      "name": "Scenario DSL",
+      "name": "Scenario DSL: parse, validate, resolve, expand",
       "milestone": "M1",
-      "stage": "not-started",
-      "percent": 0
+      "stage": "merged",
+      "percent": 100.0
     },
     {
       "id": "F015",
-      "name": "ferrocore CLI sim mode",
+      "name": "ferrocore-cli-sim-mode",
       "milestone": "M1",
       "stage": "not-started",
-      "percent": 0
+      "percent": 0.0
     },
     {
       "id": "F016",
-      "name": "Docker Compose and Helm",
+      "name": "docker-compose-helm",
       "milestone": "M1",
       "stage": "not-started",
-      "percent": 0
+      "percent": 0.0
+    },
+    {
+      "id": "F017",
+      "name": "Core types and identities",
+      "milestone": "M0",
+      "stage": "merged",
+      "percent": 100.0
+    },
+    {
+      "id": "F018",
+      "name": "SBI message layer",
+      "milestone": "M0",
+      "stage": "merged",
+      "percent": 100.0
     },
     {
       "id": "F019",
-      "name": "AN release, CM-IDLE and service request",
+      "name": "an-release-cm-idle-service-request",
       "milestone": "M2",
       "stage": "not-started",
-      "percent": 0
+      "percent": 0.0
     },
     {
       "id": "F020",
-      "name": "Paging and network-triggered service request",
+      "name": "paging-network-triggered-service-request",
       "milestone": "M2",
       "stage": "not-started",
-      "percent": 0
+      "percent": 0.0
     },
     {
       "id": "F021",
-      "name": "Mobility and periodic registration",
+      "name": "mobility-periodic-registration",
       "milestone": "M2",
       "stage": "not-started",
-      "percent": 0
+      "percent": 0.0
     },
     {
       "id": "F022",
-      "name": "Radio and mobility models",
+      "name": "radio-mobility-models",
       "milestone": "M2",
       "stage": "not-started",
-      "percent": 0
+      "percent": 0.0
     },
     {
       "id": "F023",
-      "name": "Xn handover and path switch",
+      "name": "xn-handover-path-switch",
       "milestone": "M2",
       "stage": "not-started",
-      "percent": 0
+      "percent": 0.0
     },
     {
       "id": "F024",
-      "name": "N2 handover",
+      "name": "n2-handover",
       "milestone": "M2",
       "stage": "not-started",
-      "percent": 0
+      "percent": 0.0
     },
     {
       "id": "F025",
-      "name": "UE profiles and traffic",
+      "name": "ue-profiles-traffic",
       "milestone": "M2",
       "stage": "not-started",
-      "percent": 0
+      "percent": 0.0
     },
     {
       "id": "F026",
-      "name": "Session modify, release and network deregistration",
+      "name": "session-modify-release-network-dereg",
       "milestone": "M2",
       "stage": "not-started",
-      "percent": 0
+      "percent": 0.0
     },
     {
       "id": "F027",
-      "name": "Fault injection and labels",
+      "name": "fault-injection-labels",
       "milestone": "M2",
       "stage": "not-started",
-      "percent": 0
+      "percent": 0.0
     },
     {
       "id": "F028",
-      "name": "Misbehaviour library",
+      "name": "misbehaviour-library",
       "milestone": "M2",
       "stage": "not-started",
-      "percent": 0
+      "percent": 0.0
     },
     {
       "id": "F029",
-      "name": "KPI engine (TS 28.552)",
+      "name": "kpi-engine-ts28552",
       "milestone": "M2",
       "stage": "not-started",
-      "percent": 0
+      "percent": 0.0
     },
     {
       "id": "F030",
-      "name": "Parquet dataset tables",
+      "name": "parquet-dataset-tables",
       "milestone": "M2",
       "stage": "not-started",
-      "percent": 0
+      "percent": 0.0
     },
     {
       "id": "F031",
-      "name": "PCF and NSSF lite",
+      "name": "pcf-nssf-lite",
       "milestone": "M2",
       "stage": "not-started",
-      "percent": 0
+      "percent": 0.0
     },
     {
       "id": "F032",
-      "name": "Control API",
+      "name": "control-api",
       "milestone": "M3",
       "stage": "not-started",
-      "percent": 0
+      "percent": 0.0
     },
     {
       "id": "F033",
-      "name": "MCP server",
+      "name": "mcp-server",
       "milestone": "M3",
       "stage": "not-started",
-      "percent": 0
+      "percent": 0.0
     },
     {
       "id": "F034",
-      "name": "Snapshot, restore and fork",
+      "name": "snapshot-restore-fork",
       "milestone": "M3",
       "stage": "not-started",
-      "percent": 0
+      "percent": 0.0
     },
     {
       "id": "F035",
-      "name": "Gym wrapper",
+      "name": "gym-wrapper",
       "milestone": "M3",
       "stage": "not-started",
-      "percent": 0
+      "percent": 0.0
     },
     {
       "id": "F036",
-      "name": "Scale to 100k UEs",
+      "name": "scale-100k",
       "milestone": "M3",
       "stage": "not-started",
-      "percent": 0
+      "percent": 0.0
     },
     {
       "id": "F037",
-      "name": "Campaign runner",
+      "name": "campaign-runner",
       "milestone": "M3",
       "stage": "not-started",
-      "percent": 0
+      "percent": 0.0
     },
     {
       "id": "F038",
-      "name": "Realtime all-in-one mode",
+      "name": "realtime-aio-mode",
       "milestone": "M3",
       "stage": "not-started",
-      "percent": 0
+      "percent": 0.0
     },
     {
       "id": "F039",
-      "name": "Interop with UERANSIM and PacketRusher",
+      "name": "interop-ueransim-packetrusher",
       "milestone": "M3",
       "stage": "not-started",
-      "percent": 0
+      "percent": 0.0
     },
     {
       "id": "F040",
-      "name": "LM corpus exporter",
+      "name": "lm-corpus-exporter",
       "milestone": "M3",
       "stage": "not-started",
-      "percent": 0
+      "percent": 0.0
     },
     {
       "id": "F041",
-      "name": "SBI OpenAPI codegen",
+      "name": "sbi-openapi-codegen",
       "milestone": "M4",
       "stage": "not-started",
-      "percent": 0
+      "percent": 0.0
     },
     {
       "id": "F042",
-      "name": "SBI HTTP/2 transport",
+      "name": "sbi-http2-transport",
       "milestone": "M4",
       "stage": "not-started",
-      "percent": 0
+      "percent": 0.0
     },
     {
       "id": "F043",
-      "name": "NRF registration and discovery",
+      "name": "nrf-registration-discovery",
       "milestone": "M4",
       "stage": "not-started",
-      "percent": 0
+      "percent": 0.0
     },
     {
       "id": "F044",
-      "name": "Distributed mode",
+      "name": "distributed-mode",
       "milestone": "M4",
       "stage": "not-started",
-      "percent": 0
+      "percent": 0.0
     },
     {
       "id": "F045",
-      "name": "AMF/SMF event exposure",
+      "name": "amf-smf-event-exposure",
       "milestone": "M4",
       "stage": "not-started",
-      "percent": 0
+      "percent": 0.0
     },
     {
       "id": "F046",
-      "name": "NWDAF subset",
+      "name": "nwdaf-subset",
       "milestone": "M4",
       "stage": "not-started",
-      "percent": 0
+      "percent": 0.0
     },
     {
       "id": "F047",
-      "name": "Kubernetes operator",
+      "name": "k8s-operator",
       "milestone": "M4",
       "stage": "not-started",
-      "percent": 0
+      "percent": 0.0
     },
     {
       "id": "F048",
-      "name": "EAP-AKA'",
+      "name": "eap-aka-prime",
       "milestone": "M4",
       "stage": "not-started",
-      "percent": 0
+      "percent": 0.0
     },
     {
       "id": "F049",
-      "name": "XnAP wire codec",
+      "name": "xnap-wire-codec",
       "milestone": "M4",
       "stage": "not-started",
-      "percent": 0
+      "percent": 0.0
     },
     {
       "id": "F050",
-      "name": "Distributed fault injection",
+      "name": "distributed-fault-injection",
       "milestone": "M4",
       "stage": "not-started",
-      "percent": 0
+      "percent": 0.0
     },
     {
       "id": "F051",
-      "name": "Progress metric",
+      "name": "progress-metric",
       "milestone": "M5",
-      "stage": "spec-draft",
-      "percent": 5
+      "stage": "not-started",
+      "percent": 0.0
     },
     {
       "id": "F052",
-      "name": "Landing page",
+      "name": "landing-page",
       "milestone": "M5",
-      "stage": "implementing",
-      "percent": 60
+      "stage": "not-started",
+      "percent": 0.0
     },
     {
       "id": "F053",
-      "name": "Public release licensing",
+      "name": "public-release-licensing",
       "milestone": "M5",
       "stage": "not-started",
-      "percent": 0
+      "percent": 0.0
     },
     {
       "id": "F054",
-      "name": "Interactive frontend",
+      "name": "interactive-frontend",
       "milestone": "M5",
       "stage": "not-started",
-      "percent": 0
+      "percent": 0.0
     }
   ]
 }
