@@ -21,9 +21,22 @@
 
   var toggle = document.querySelector(".theme-toggle");
 
+  /* Keep the browser chrome on the resolved theme, including after a manual
+     choice: collapse the two media-scoped theme-color metas into one. */
+  function syncThemeColor() {
+    var metas = document.querySelectorAll('meta[name="theme-color"]');
+    if (!metas.length) return;
+    var bg = getComputedStyle(root).getPropertyValue("--bg").trim();
+    if (!bg) return;
+    for (var i = 1; i < metas.length; i++) metas[i].parentNode.removeChild(metas[i]);
+    metas[0].removeAttribute("media");
+    metas[0].setAttribute("content", bg);
+  }
+
   function sync() {
     var r = resolved();
     root.setAttribute("data-theme-resolved", r);
+    syncThemeColor();
     if (toggle) {
       var next = r === "dark" ? "light" : "dark";
       toggle.setAttribute("aria-label", "Switch to " + next + " theme");

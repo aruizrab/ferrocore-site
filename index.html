@@ -8,14 +8,15 @@
   <title>ferrocore · a 5G Core in Rust for research and agents</title>
   <meta name="description" content="ferrocore is a 3GPP Release 17 5G Core written in Rust for R&amp;D and ML / LLM-agent training. It runs the core network functions with an in-tree simulated RAN and turns every run into a labelled, reproducible dataset.">
   <meta name="color-scheme" content="light dark">
-  <meta name="theme-color" content="#f5f0ea" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#0e1113" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#f4efe8" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0d1012" media="(prefers-color-scheme: dark)">
   <link rel="canonical" href="https://aruizrab.github.io/ferrocore-site/">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="assets/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 
   <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_GB">
   <meta property="og:site_name" content="ferrocore">
   <meta property="og:title" content="ferrocore · a 5G Core in Rust for research and agents">
   <meta property="og:description" content="A 3GPP Release 17 5G Core with an in-tree simulated RAN. Every run becomes a labelled, reproducible dataset, and LLM agents can observe and act on a live core.">
@@ -26,8 +27,10 @@
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="ferrocore: a 5G Core in Rust. Every run is a dataset.">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image:alt" content="ferrocore: a 5G Core in Rust. Every run is a dataset.">
 
   <script src="js/theme-init.js"></script>
+  <link rel="preload" href="assets/fonts/ubuntu-sans-latin-var.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="css/style.css">
   <script src="js/hero.js" defer></script>
   <script src="js/progress.js" defer></script>
@@ -42,7 +45,7 @@
         <svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
           <rect x="2" y="2" width="44" height="44" rx="9" class="mark-tile"/>
           <rect x="2" y="2" width="44" height="44" rx="9" class="mark-edge"/>
-          <text x="8" y="14" class="mark-num">26</text>
+          <circle cx="38" cy="10" r="3" class="mark-dot"/>
           <text x="24" y="37" class="mark-sym" text-anchor="middle">Fe</text>
         </svg>
         <span class="brand-word">ferrocore</span>
@@ -83,24 +86,26 @@
           <p class="status-chip"><span class="status-dot" aria-hidden="true"></span><span><strong>Early development.</strong> Milestone M0 (foundations) is underway; the network functions are not available yet.</span></p>
         </div>
 
-        <figure class="hero-visual" aria-labelledby="hero-visual-caption">
+        <figure class="hero-visual" aria-label="Animated 5G core sketch">
           <div class="hero-canvas-wrap">
-            <canvas id="core-canvas" role="img" aria-label="Animated sketch of a 5G core: network functions AMF, SMF, UPF, AUSF, UDM, NRF, PCF and NSSF on a service-based bus, three gNB cells below, and UEs moving between cells and handing over while signalling messages travel along the N1, N2, N3, N4 and SBI links."></canvas>
-            <button class="anim-toggle" type="button" aria-pressed="false" hidden>
-              <svg class="icon-pause" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8 5v14M16 5v14"/></svg>
-              <svg class="icon-play" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 4.5v15l12-7.5z"/></svg>
-              <span class="anim-toggle-label">Pause animation</span>
-            </button>
+            <canvas id="core-canvas" role="img" aria-label="Animated sketch of a 5G core: network functions AMF, SMF, UPF, AUSF, UDM, NRF, PCF and NSSF on a service-based bus, and three gNB cells below. UEs register, set up a PDU session and move between cells, handing over across Xn, while signalling travels on N1, N2, N4 and SBI, and user data flows over N3 to the UPF and on over N6 to the data network."></canvas>
           </div>
-          <figcaption id="hero-visual-caption">
-            <span class="sr-only">Illustration legend:</span>
-            <ul class="legend">
+          <figcaption class="hero-visual-foot">
+            <ul class="legend" aria-label="Legend">
               <li><span class="sw sw-n1" aria-hidden="true"></span>N1 <small>NAS</small></li>
               <li><span class="sw sw-n2" aria-hidden="true"></span>N2 <small>NGAP</small></li>
               <li><span class="sw sw-n3" aria-hidden="true"></span>N3 <small>GTP-U</small></li>
               <li><span class="sw sw-n4" aria-hidden="true"></span>N4 <small>PFCP</small></li>
               <li><span class="sw sw-sbi" aria-hidden="true"></span>SBI <small>HTTP/2</small></li>
+              <li><span class="sw sw-xn" aria-hidden="true"></span>Xn <small>XnAP</small></li>
+              <li><span class="sw sw-n6" aria-hidden="true"></span>N6 <small>IP to DN</small></li>
+              <li><span class="sw sw-uu" aria-hidden="true"></span>Uu <small>radio</small></li>
             </ul>
+            <button class="anim-toggle" type="button" data-paused="false" hidden>
+              <svg class="icon-pause" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8 5v14M16 5v14"/></svg>
+              <svg class="icon-play" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 4.5v15l12-7.5z"/></svg>
+              <span class="anim-toggle-label">Pause animation</span>
+            </button>
           </figcaption>
         </figure>
       </div>
@@ -409,7 +414,7 @@
           <article class="panel">
             <h3>Traceable to the clause</h3>
             <p>Requirement IDs carry the specification clause they come from, or a project area such as OBS, SIM, SEC or PERF. Code and tests point back at them, and the trace check fails any mandatory requirement of an approved spec that lacks an implementation site and a passing test.</p>
-<pre class="code" tabindex="0" aria-label="Illustrative traceability attributes"><code><span class="c-com">// illustrative</span>
+<pre class="code"><code><span class="c-com">// illustrative</span>
 <span class="c-attr">#[fc_trace::implements(</span><span class="c-str">"TS24501-5.5.1.2.4-R03"</span><span class="c-attr">)]</span>
 <span class="c-kw">fn</span> <span class="c-fn">on_registration_request</span>(...) { ... }
 
@@ -526,7 +531,7 @@
         <svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
           <rect x="2" y="2" width="44" height="44" rx="9" class="mark-tile"/>
           <rect x="2" y="2" width="44" height="44" rx="9" class="mark-edge"/>
-          <text x="8" y="14" class="mark-num">26</text>
+          <circle cx="38" cy="10" r="3" class="mark-dot"/>
           <text x="24" y="37" class="mark-sym" text-anchor="middle">Fe</text>
         </svg>
         <p><strong>ferrocore</strong> is a research 5G Core. It is not intended for production traffic.</p>

@@ -11,13 +11,18 @@
   if (!canvas || !canvas.getContext) return;
   var ctx = canvas.getContext("2d");
   var wrap = canvas.parentElement;
-  var btn = wrap.querySelector(".anim-toggle");
+  var fig = canvas.closest ? canvas.closest("figure") : null;
+  var btn = (fig || document).querySelector(".anim-toggle");
   var btnLabel = btn ? btn.querySelector(".anim-toggle-label") : null;
   var reduceMql = window.matchMedia ? window.matchMedia("(prefers-reduced-motion: reduce)") : null;
 
   /* ---------- Virtual layout (640 x 540) ---------- */
   var W = 640, H = 540;
   var BUS_Y = 128;
+  var N2_Y = 258;   /* N2 trunk: gNBs -> AMF, kept above the N3 trunk */
+  var N3_Y = 336;   /* N3 trunk: gNBs -> UPF */
+  var XN_Y = 400;   /* Xn links run between the towers */
+  var STUB_Y = 370; /* where a tower's N2 and N3 stubs fork */
   var BOX_W = 84, BOX_H = 34;
   var NF = {
     NRF: { x: 80, y: 62, top: true },
@@ -45,7 +50,7 @@
   var C = {};
   function readColors() {
     var cs = getComputedStyle(document.documentElement);
-    ["n1", "n2", "n3", "n4", "sbi", "node", "node-line", "node-text", "cell", "cell-line", "ue", "link"].forEach(function (k) {
+    ["n1", "n2", "n3", "n4", "sbi", "xn", "link-strong", "node", "node-line", "node-text", "cell", "cell-line", "ue", "link"].forEach(function (k) {
       C[k] = cs.getPropertyValue("--c-" + k).trim() || "#888";
     });
     C.rust = cs.getPropertyValue("--rust").trim() || "#c0502a";
@@ -60,17 +65,23 @@
   function nfTop(n) { return { x: n.x, y: n.y - BOX_H / 2 }; }
   function towerTop(g) { return { x: g.x, y: g.y - 20 }; }
 
+  /* N2 and N3 are drawn as orthogonal trunks so the N2 lines never cut
+     diagonally across the N3 fan: each tower forks into an N2 stub (left)
+     and an N3 stub (right). */
+  function n2Stub(g) { return [towerTop(g), { x: g.x - 7, y: STUB_Y }, { x: g.x - 7, y: N2_Y }]; }
+  function n3Stub(g) { return [towerTop(g), { x: g.x + 7, y: STUB_Y }, { x: g.x + 7, y: N3_Y }]; }
   function n2Route(gi) {
-    var g = GNBS[gi];
-    return [towerTop(g), { x: NF.AMF.x + (gi - 1) * 18, y: NF.AMF.y + BOX_H / 2 }];
+    return n2Stub(GNBS[gi]).concat([{ x: NF.AMF.x, y: N2_Y }, nfBottom(NF.AMF)]);
   }
   function n3Route(gi) {
-    var g = GNBS[gi];
-    return [towerTop(g), { x: NF.UPF.x - 30 + gi * 15, y: NF.UPF.y + BOX_H / 2 }];
+    return n3Stub(GNBS[gi]).concat([{ x: NF.UPF.x, y: N3_Y }, nfBottom(NF.UPF)]);
   }
-  function n4Route(a, b) {
-    var s = { x: NF.SMF.x, y: NF.SMF.y + BOX_H / 2 }, u = { x: NF.UPF.x - 10, y: NF.UPF.y - BOX_H / 2 };
-    return a === "SMF" ? [s, u] : [u, s];
+  function n4Route(from) {
+    var pts = [
+      { x: NF.SMF.x + 30, y: NF.SMF.y + BOX_H / 2 }, { x: NF.SMF.x + 30, y: 232 },
+      { x: NF.UPF.x - 20, y: 232 }, { x: NF.UPF.x - 20, y: NF.UPF.y - BOX_H / 2 }
+    ];
+    return from === "SMF" ? pts : pts.reverse();
   }
   function n6Route(up) {
     var u = { x: NF.UPF.x + BOX_W / 2, y: NF.UPF.y }, d = { x: DN.x - DN.r, y: DN.y };
@@ -83,12 +94,15 @@
     return [pa, { x: A.x, y: BUS_Y }, { x: B.x, y: BUS_Y }, pb];
   }
   function xnRoute(ga, gb) {
-    var a = GNBS[ga], b = GNBS[gb];
-    var mid = { x: (a.x + b.x) / 2, y: a.y - 36 };
-    return [towerTop(a), mid, towerTop(b)];
+    var a = GNBS[ga], b = GNBS[gb], dir = b.x > a.x ? 1 : -1;
+    return [{ x: a.x + dir * 14, y: XN_Y }, { x: b.x - dir * 14, y: XN_Y }];
   }
   function uePos(ue) { return { x: ue.x, y: ue.y }; }
-  function upRoute(ue) { return [uePos(ue), towerTop(GNBS[ue.serving])].concat(n2Route(ue.serving).slice(1)); }
+  function uuRoute(ue, up) {
+    var r = [uePos(ue), towerTop(GNBS[ue.serving])];
+    return up ? r : r.reverse();
+  }
+  function upRoute(ue) { return [uePos(ue)].concat(n2Route(ue.serving)); }
   function downRoute(ue) { return n2Route(ue.serving).slice().reverse().concat([uePos(ue)]); }
 
   function buildPath(pts) {
@@ -207,16 +221,23 @@
       { r: function () { return downRoute(ue); }, c: "n1", l: "Security Mode Command" },
       { r: function () { return upRoute(ue); }, c: "n1" },
       { r: function () { return sbiRoute("AMF", "UDM"); }, c: "sbi", l: "Nudm_UECM" },
-      { r: function () { return downRoute(ue); }, c: "n1", l: "Registration Accept", d: 0.35 },
+      { r: function () { return downRoute(ue); }, c: "n1", l: "Registration Accept" },
+      { r: function () { return upRoute(ue); }, c: "n1", l: "Registration Complete", d: 0.35 },
       function () { ue.state = "registered"; },
-      { r: function () { return upRoute(ue); }, c: "n1", l: "PDU Session Establishment" },
-      { r: function () { return sbiRoute("AMF", "SMF"); }, c: "sbi", l: "Nsmf_PDUSession" },
+      { r: function () { return upRoute(ue); }, c: "n1", l: "PDU Session Establishment Request" },
+      { r: function () { return sbiRoute("AMF", "SMF"); }, c: "sbi", l: "Nsmf_PDUSession_CreateSMContext" },
       { r: function () { return sbiRoute("SMF", "PCF"); }, c: "sbi", l: "Npcf_SMPolicyControl" },
       { r: function () { return sbiRoute("PCF", "SMF"); }, c: "sbi" },
       { r: function () { return n4Route("SMF"); }, c: "n4", l: "PFCP Session Establishment" },
       { r: function () { return n4Route("UPF"); }, c: "n4" },
       { r: function () { return sbiRoute("SMF", "AMF"); }, c: "sbi" },
       { r: function () { return n2Route(ue.serving).slice().reverse(); }, c: "n2", l: "PDU Session Resource Setup" },
+      { r: function () { return uuRoute(ue, false); }, c: "n1", l: "PDU Session Establishment Accept" },
+      { r: function () { return n2Route(ue.serving); }, c: "n2", l: "PDU Session Resource Setup Response" },
+      { r: function () { return sbiRoute("AMF", "SMF"); }, c: "sbi", l: "Nsmf_PDUSession_UpdateSMContext" },
+      { r: function () { return n4Route("SMF"); }, c: "n4", l: "PFCP Session Modification" },
+      { r: function () { return n4Route("UPF"); }, c: "n4" },
+      { r: function () { return sbiRoute("SMF", "AMF"); }, c: "sbi" },
       function () { ue.state = "connected"; ue.nextUp = now + rand(0.3, 1.2); }
     ], ueGuard(ue));
   }
@@ -226,8 +247,8 @@
     ue.ho = true;
     rings.push({ x: ue.x, y: ue.y, t: 0 });
     chain([
-      { r: function () { return xnRoute(from, to); }, c: "n2", l: "Xn Handover Request" },
-      { r: function () { return xnRoute(to, from); }, c: "n2" },
+      { r: function () { return xnRoute(from, to); }, c: "xn", l: "Xn Handover Request" },
+      { r: function () { return xnRoute(to, from); }, c: "xn", l: "Handover Request Ack" },
       { r: function () { return n2Route(to); }, c: "n2", l: "Path Switch Request" },
       { r: function () { return sbiRoute("AMF", "SMF"); }, c: "sbi", l: "Nsmf_UpdateSMContext" },
       { r: function () { return n4Route("SMF"); }, c: "n4", l: "PFCP Session Modification" },
@@ -261,14 +282,16 @@
   function userPlane(ue) {
     if (packets.length > 70) return;
     var gi = ue.serving;
+    /* Uu (radio) and N6 (to the data network) hops are neutral; only the
+       GTP-U tunnel between gNB and UPF is drawn in the N3 colour. */
     if (Math.random() < 0.55) {
-      send([uePos(ue), towerTop(GNBS[gi])], "n3", null, function () {
-        send(n3Route(gi), "n3", null, function () { send(n6Route(true), "n3", null, null, true); }, true);
+      send(uuRoute(ue, true), "link-strong", null, function () {
+        send(n3Route(gi), "n3", null, function () { send(n6Route(true), "link-strong", null, null, true); }, true);
       }, true);
     } else {
-      send(n6Route(false), "n3", null, function () {
+      send(n6Route(false), "link-strong", null, function () {
         send(n3Route(gi).slice().reverse(), "n3", null, function () {
-          send([towerTop(GNBS[gi]), uePos(ue)], "n3", null, null, true);
+          if (ue.alive) send(uuRoute(ue, false), "link-strong", null, null, true);
         }, true);
       }, true);
     }
@@ -331,8 +354,10 @@
       /* A3-style handover: neighbour better than serving by HYST */
       var best = nearestCell(ue.x, ue.y);
       if (best !== ue.serving && cellDist(ue, best) + HYST < cellDist(ue, ue.serving)) {
-        if (ue.state === "connected" && !ue.ho) handover(ue, ue.serving, best);
-        else if (ue.state === "idle") ue.serving = best;
+        if (ue.state === "connected") { if (!ue.ho) handover(ue, ue.serving, best); }
+        /* Idle, registering or registered: plain cell reselection; any
+           signalling still to come goes through the new cell. */
+        else if (ue.state !== "gone") ue.serving = best;
       }
       if (ue.state === "connected" && now >= ue.nextUp) {
         ue.nextUp = now + rand(0.9, 2.6);
@@ -364,6 +389,10 @@
     showLabels = scale >= 0.66;
   }
 
+  /* Font size in virtual units for a base size, never below MIN_PX CSS pixels. */
+  var MIN_PX = 10;
+  function px(base) { return Math.max(base * fontK, MIN_PX / scale); }
+
   function roundRect(x, y, w, h, r) {
     ctx.beginPath();
     ctx.moveTo(x + r, y);
@@ -388,7 +417,7 @@
   }
 
   function tag(text, x, y, color, align) {
-    var fs = 11.5 * fontK;
+    var fs = px(11.5);
     ctx.font = "700 " + fs + "px " + C.mono;
     var w = ctx.measureText(text).width + 8 * fontK, h = fs + 6;
     var bx = align === "left" ? x : x - w / 2;
@@ -405,15 +434,16 @@
   }
 
   function drawStatic() {
-    /* zone divider */
+    /* zone divider; labels sit left of gNB 1's stubs, shortened when large */
     line([{ x: 12, y: 352 }, { x: W - 12, y: 352 }], C["node-line"], 1, 0.35, [2, 6]);
     ctx.fillStyle = C.muted;
-    ctx.font = "600 " + (9.5 * fontK) + "px " + C.mono;
+    ctx.font = "600 " + px(9.5) + "px " + C.mono;
     ctx.textAlign = "left";
     ctx.textBaseline = "alphabetic";
-    ctx.fillText("5G CORE", 14, 344);
+    var room = GNBS[0].x - 7 - 6 - 14;
+    ctx.fillText(ctx.measureText("5G CORE").width <= room ? "5G CORE" : "CORE", 14, 344);
     ctx.textBaseline = "top";
-    ctx.fillText("SIMULATED RAN", 14, 360);
+    ctx.fillText(ctx.measureText("SIMULATED RAN").width <= room ? "SIMULATED RAN" : "RAN", 14, 360);
 
     /* cells */
     GNBS.forEach(function (g) {
@@ -437,20 +467,24 @@
       if (n.noSbi) return;
       line([n.top ? nfBottom(n) : nfTop(n), { x: n.x, y: BUS_Y }], C.sbi, 2, 0.5);
     });
-    for (var i = 0; i < GNBS.length; i++) {
-      line(n2Route(i), C.n2, 1.6, 0.42);
-      line(n3Route(i), C.n3, 1.6, 0.42);
-    }
-    line(xnRoute(0, 1), C.n2, 1.2, 0.35, [4, 4]);
-    line(xnRoute(1, 2), C.n2, 1.2, 0.35, [4, 4]);
-    line(n4Route("SMF"), C.n4, 1.8, 0.5);
-    line(n6Route(true), C.n3, 1.8, 0.5, [3, 3]);
+    /* N2 and N3: one stub per tower, then a shared trunk drawn once. */
+    var first = GNBS[0], last = GNBS[GNBS.length - 1];
+    GNBS.forEach(function (g) {
+      line(n2Stub(g), C.n2, 1.6, 0.5);
+      line(n3Stub(g), C.n3, 1.6, 0.5);
+    });
+    line([{ x: first.x - 7, y: N2_Y }, { x: last.x - 7, y: N2_Y }], C.n2, 1.6, 0.5);
+    line([{ x: NF.AMF.x, y: N2_Y }, nfBottom(NF.AMF)], C.n2, 1.6, 0.5);
+    line([{ x: first.x + 7, y: N3_Y }, { x: NF.UPF.x, y: N3_Y }, nfBottom(NF.UPF)], C.n3, 1.6, 0.5);
+    for (var i = 1; i < GNBS.length; i++) line(xnRoute(i - 1, i), C.xn, 1.4, 0.7, [4, 4]);
+    line(n4Route("SMF"), C.n4, 1.8, 0.55);
+    line(n6Route(true), C["link-strong"], 1.8, 0.7, [3, 3]);
 
     tag("SBI", 42, BUS_Y - 13, C.sbi, "left");
-    tag("N2", 236, 292, C.n2);
-    tag("N3", 392, 343, C.n3);
-    tag("N4", 486, 246, C.n4);
-    tag("Xn", 205, 368, C.n2);
+    tag("N2", 236, N2_Y, C.n2);
+    tag("N3", 392, N3_Y, C.n3);
+    tag("N4", NF.UPF.x - 14, 252, C.n4, "left");
+    tag("Xn", (GNBS[0].x + GNBS[1].x) / 2, XN_Y, C.xn);
   }
 
   function drawNodes() {
@@ -473,7 +507,7 @@
       ctx.stroke();
       ctx.globalAlpha = 1;
       ctx.fillStyle = C["node-text"];
-      ctx.font = "700 " + (14 * fontK) + "px " + C.mono;
+      ctx.font = "700 " + px(14) + "px " + C.mono;
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
       ctx.fillText(k, n.x, n.y + 1);
@@ -490,7 +524,7 @@
     ctx.stroke();
     ctx.restore();
     ctx.fillStyle = C.muted;
-    ctx.font = "700 " + (10.5 * fontK) + "px " + C.mono;
+    ctx.font = "700 " + px(10.5) + "px " + C.mono;
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
     ctx.fillText("DN", DN.x, DN.y + 1);
@@ -513,7 +547,7 @@
       }
       ctx.restore();
       ctx.fillStyle = C["node-text"];
-      ctx.font = "700 " + (11.5 * fontK) + "px " + C.mono;
+      ctx.font = "700 " + px(11.5) + "px " + C.mono;
       ctx.textAlign = "center";
       ctx.textBaseline = "top";
       ctx.fillText(g.name, g.x, g.y + 18);
@@ -555,22 +589,48 @@
     });
   }
 
+  /* Packet shape per interface, matching the legend swatches, so colour is
+     never the only cue: N1 ring, N2 disc, N4 square, SBI diamond, Xn
+     triangle, user plane (N3, N6, Uu) small dots. */
+  var SHAPE = { n1: "ring", n2: "circle", n3: "circle", n4: "square", sbi: "diamond", xn: "triangle", "link-strong": "circle" };
+  function markPath(shape, x, y, r) {
+    ctx.beginPath();
+    if (shape === "square") {
+      ctx.rect(x - r * 0.9, y - r * 0.9, r * 1.8, r * 1.8);
+    } else if (shape === "diamond") {
+      var d = r * 1.3;
+      ctx.moveTo(x, y - d); ctx.lineTo(x + d, y); ctx.lineTo(x, y + d); ctx.lineTo(x - d, y); ctx.closePath();
+    } else if (shape === "triangle") {
+      var t = r * 1.3;
+      ctx.moveTo(x, y - t); ctx.lineTo(x + t, y + t * 0.8); ctx.lineTo(x - t, y + t * 0.8); ctx.closePath();
+    } else {
+      ctx.arc(x, y, r, 0, Math.PI * 2);
+    }
+  }
+
   function drawPackets() {
     var labels = 0;
     packets.forEach(function (p) {
       var col = C[p.color] || C.rust;
+      var shape = SHAPE[p.color] || "circle";
       var rad = p.small ? 2.4 : 4.2;
       ctx.fillStyle = col;
       for (var t = 3; t >= 1; t--) {
         var q = pointAt(p.path, p.d - t * (p.small ? 4 : 6));
         ctx.globalAlpha = 0.12 * (4 - t);
-        ctx.beginPath(); ctx.arc(q.x, q.y, rad * (1 - t * 0.15), 0, Math.PI * 2); ctx.fill();
+        markPath(shape === "ring" ? "circle" : shape, q.x, q.y, rad * (1 - t * 0.15)); ctx.fill();
       }
       var pt = pointAt(p.path, p.d);
       ctx.globalAlpha = 0.25;
       ctx.beginPath(); ctx.arc(pt.x, pt.y, rad * 2.2, 0, Math.PI * 2); ctx.fill();
       ctx.globalAlpha = 1;
-      ctx.beginPath(); ctx.arc(pt.x, pt.y, rad, 0, Math.PI * 2); ctx.fill();
+      if (shape === "ring") {
+        markPath("circle", pt.x, pt.y, rad);
+        ctx.fillStyle = C.surface; ctx.fill();
+        ctx.lineWidth = 2; ctx.strokeStyle = col; ctx.stroke();
+      } else {
+        markPath(shape, pt.x, pt.y, rad); ctx.fill();
+      }
       p.pt = pt;
     });
     if (!showLabels) return;
@@ -578,7 +638,7 @@
     for (var i = packets.length - 1; i >= 0 && labels < 3; i--) {
       var p = packets[i];
       if (!p.label || !p.pt) continue;
-      var fs = 11.5 * fontK;
+      var fs = px(11.5);
       ctx.font = "600 " + fs + "px " + C.mono;
       var w = ctx.measureText(p.label).width + 12;
       var x = Math.max(6 + w / 2, Math.min(W - 6 - w / 2, p.pt.x));
@@ -643,10 +703,12 @@
   function update() {
     if (!userPaused && visible && !document.hidden) start(); else stop();
   }
+  /* The label states the action ("Pause animation" / "Play animation");
+     there is deliberately no aria-pressed, which would contradict it. */
   function setPaused(p) {
     userPaused = p;
     if (btn) {
-      btn.setAttribute("aria-pressed", p ? "true" : "false");
+      btn.setAttribute("data-paused", p ? "true" : "false");
       if (btnLabel) btnLabel.textContent = p ? "Play animation" : "Pause animation";
     }
     update();
@@ -663,8 +725,11 @@
   resize();
   boot();
   var reduce = !!(reduceMql && reduceMql.matches);
-  preroll(reduce ? 14 : 0.2);
+  /* Long enough that the first paint already shows registered UEs. */
+  preroll(reduce ? 14 : 6);
   draw();
+  /* Canvas text does not re-render when the web fonts arrive; redraw then. */
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { draw(); });
 
   if (btn) {
     btn.hidden = false;

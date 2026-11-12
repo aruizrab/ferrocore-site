@@ -22,11 +22,12 @@ Live at **https://aruizrab.github.io/ferrocore-site/**
 | `js/progress.js` | Fetches and renders `progress.json` |
 | `js/main.js`, `js/theme-init.js` | Theme toggle and mobile navigation |
 | `assets/` | Favicon, social card (`og.svg` is the source of `og.png`) |
+| `assets/fonts/` | Self-hosted Ubuntu Sans (Ubuntu Font Licence 1.0) and JetBrains Mono (SIL OFL 1.1) Latin subsets, with their licences |
 | `progress.json` | Progress data shown on the page |
 | `.github/workflows/pages.yml` | Deploys the repository root to GitHub Pages |
-| `.github/scripts/check_site.py` | Pre-deploy checks: `progress.json` schema, local links, no e-mail addresses |
+| `.github/scripts/check_site.py` | Pre-deploy checks: `progress.json` schema, local links, no e-mail addresses, private-repository links or absolute filesystem paths |
 
-No build step, no npm, no external fonts or scripts. All URLs are relative, so the page works under `/ferrocore-site/` (or any other repo name). The only absolute URLs are the canonical and Open Graph tags in `index.html`, which must name the published address.
+No build step, no npm, no third-party requests: the fonts are served from `assets/fonts/`. All URLs are relative, so the page works under `/ferrocore-site/` (or any other repo name). The only absolute URLs are the canonical and Open Graph tags in `index.html`, which must name the published address.
 
 ## Local preview
 
@@ -47,7 +48,9 @@ python3 .github/scripts/check_site.py
 
 The file in this repo starts as a placeholder (`"placeholder": true`), and the page shows a "Placeholder data" banner while that flag is set.
 
-Once ferrocore's progress metric lands, ferrocore's CI will compute progress on every push to its `main` branch (`cargo xtask progress --json`) and commit the result here as `progress.json`, authenticated with a deploy key that has write access to this repository (the private half is stored in ferrocore as the `SITE_DEPLOY_KEY` secret). That push to `main` triggers the Pages workflow, which redeploys the site.
+ferrocore's CI computes progress with an interim (v0) script on pushes to its `main` and `feat/**` branches and on a schedule, and commits the result here as `progress.json`, authenticated with a deploy key that has write access to this repository (the private half is stored in ferrocore as the `SITE_DEPLOY_KEY` secret). It commits only when the numbers change, not when only `generatedAt` or `commit` would. That push to `main` triggers the Pages workflow, which redeploys the site. The official metric (ferrocore feature F051) will replace the v0 script later and keep this schema.
+
+The v0 script derives a stage per roadmap feature from the feature's spec, plan, tasks and branch state, and weights it: merged 100, implemented 95 (spec marked implemented, branch not merged yet), implementing 30 to 90 by the share of tasks done, tests 30 (failing tests committed), planned 20, spec approved 15, spec draft 5, not started 0. Milestone and overall percentages are unweighted means of their features.
 
 Schema version 1:
 
@@ -64,18 +67,18 @@ Schema version 1:
 }
 ```
 
-`stage` is one of `merged`, `implementing`, `tests`, `planned`, `spec-approved`, `spec-draft`, `not-started`. Percentages are 0 to 100. If the file is missing or invalid the page says so and keeps the rest of the content.
+`stage` is one of `merged`, `implemented`, `implementing`, `tests`, `planned`, `spec-approved`, `spec-draft`, `not-started`. `milestones[].features` is the number of features in the milestone (the page also accepts a list of feature ids). Percentages are 0 to 100. An all-zero `commit` is treated as "no commit" and not shown. If the file is missing or invalid the page says so and keeps the rest of the content.
 
 ## Deployment
 
-`.github/workflows/pages.yml` runs on every push to `main` and on manual dispatch. It checks the site, then uploads the repository root with `actions/upload-pages-artifact` and publishes it with `actions/deploy-pages`. Deployments share the `pages` concurrency group, so a newer push cancels an older one still in flight.
+`.github/workflows/pages.yml` runs on every push to `main` and on manual dispatch. It checks the site, then uploads the repository root with `actions/upload-pages-artifact` and publishes it with `actions/deploy-pages`. Deployments share the `pages` concurrency group without cancelling: a deployment in flight completes and the newer run waits for it.
 
 In the repository settings, **Pages > Build and deployment > Source** must be set to **GitHub Actions**.
 
 ## Publishing rules
 
-This page is public; ferrocore's source is not yet. Keep it that way: no 3GPP specification text, no keys or secrets, no e-mail addresses, no links to private repositories and no internal file paths. The pre-deploy check catches e-mail addresses and broken local links; the rest is on review.
+This page is public; ferrocore's source is not yet. Keep it that way: no 3GPP specification text, no keys or secrets, no e-mail addresses, no links to private repositories and no internal file paths. The pre-deploy check catches e-mail addresses, links to the private ferrocore repository, absolute filesystem paths and broken local links; the rest is on review.
 
 ## Licence
 
-MIT, see [LICENSE](LICENSE). ferrocore itself is dual-licensed Apache-2.0 OR MIT.
+MIT, see [LICENSE](LICENSE). ferrocore itself is dual-licensed Apache-2.0 OR MIT. The fonts in `assets/fonts/` keep their own licences: Ubuntu Sans under the [Ubuntu Font Licence 1.0](assets/fonts/UBUNTU-FONT-LICENCE.txt) (Canonical's upstream Latin webfont subset, unmodified) and JetBrains Mono under the [SIL Open Font License 1.1](assets/fonts/JETBRAINS-MONO-OFL.txt).

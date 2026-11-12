@@ -4,7 +4,8 @@
 1. progress.json parses and follows schema 1.
 2. Every local href/src in index.html points at a file in the repo, and no
    URL is root-absolute (the site is served under /<repo>/).
-3. No e-mail addresses in the published text files.
+3. No e-mail addresses, links to the private ferrocore repository or absolute
+   filesystem paths in the published text files.
 """
 import json
 import re
@@ -13,7 +14,9 @@ from html.parser import HTMLParser
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-STAGES = {"merged", "implementing", "tests", "planned", "spec-approved", "spec-draft", "not-started"}
+# Keep in sync with STAGES in js/progress.js and with the stage ladder of the
+# progress feed in ferrocore's CI.
+STAGES = {"merged", "implemented", "implementing", "tests", "planned", "spec-approved", "spec-draft", "not-started"}
 errors = []
 
 
@@ -43,6 +46,9 @@ def check_progress():
     for m in data.get("milestones", []):
         ms_ids.add(m.get("id"))
         pct(m.get("id"), m.get("percent"))
+        count = m.get("features")
+        if isinstance(count, bool) or not isinstance(count, int) or count < 0:
+            errors.append(f"progress.json: {m.get('id')} features must be a non-negative integer count, got {count!r}")
     if not ms_ids:
         errors.append("progress.json: milestones must not be empty")
     for f in data.get("features", []):
@@ -81,20 +87,29 @@ def check_refs():
             errors.append(f"index.html: missing file for {ref}")
 
 
-def check_no_emails():
-    pattern = re.compile(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+\.[A-Za-z0-9.-]*[A-Za-z]")
+LEAKS = [
+    ("e-mail address", re.compile(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+\.[A-Za-z0-9.-]*[A-Za-z]")),
+    # The ferrocore source repository is private; only ferrocore-site may be linked.
+    ("link to the private repository", re.compile(r"github\.com[/:]aruizrab/ferrocore(?![-\w])", re.IGNORECASE)),
+    ("absolute filesystem path", re.compile(r"(?<![\w.:/])(?:/home/|/Users/|/mnt/[a-z]/|/tmp/|[A-Za-z]:\\(?:Users|Windows)\\)")),
+]
+
+
+def check_no_leaks():
     for path in ROOT.rglob("*"):
         if ".git" in path.parts or not path.is_file():
             continue
         if path.suffix not in {".html", ".css", ".js", ".json", ".svg", ".md", ".txt"}:
             continue
-        for match in pattern.findall(path.read_text(encoding="utf-8", errors="ignore")):
-            errors.append(f"{path.relative_to(ROOT)}: e-mail address found: {match}")
+        text = path.read_text(encoding="utf-8", errors="ignore")
+        for what, pattern in LEAKS:
+            for match in pattern.findall(text):
+                errors.append(f"{path.relative_to(ROOT)}: {what} found: {match}")
 
 
 check_progress()
 check_refs()
-check_no_emails()
+check_no_leaks()
 if errors:
     print("\n".join(errors))
     sys.exit(1)

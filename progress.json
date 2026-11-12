@@ -3,13 +3,13 @@
   "placeholder": true,
   "generatedAt": "2026-11-11T19:54:47Z",
   "commit": "0000000",
-  "method": "Placeholder values. Stage weights: merged 100, implementing 60, tests 40, planned 25, spec-approved 15, spec-draft 5, not-started 0; milestone = mean of its features; overall = mean of all features.",
-  "overall": 4.4,
+  "method": "Placeholder values. v0 interim: per-feature stage weights (merged 100, implemented 95, implementing 30-90 by tasks done, tests 30, planned 20, spec approved 15, spec draft 5, not started 0); milestone and overall are unweighted means of features (official metric: F051).",
+  "overall": 4.1,
   "milestones": [
     {
       "id": "M0",
       "name": "Foundations",
-      "percent": 17.0,
+      "percent": 15.5,
       "features": 10
     },
     {
@@ -56,7 +56,7 @@
       "name": "Runtime and sim scheduler",
       "milestone": "M0",
       "stage": "planned",
-      "percent": 25
+      "percent": 20
     },
     {
       "id": "F003",
@@ -105,7 +105,7 @@
       "name": "Core types and identities",
       "milestone": "M0",
       "stage": "tests",
-      "percent": 40
+      "percent": 30
     },
     {
       "id": "F018",

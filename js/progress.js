@@ -2,7 +2,7 @@
    Schema 1:
    { schema: 1, placeholder: bool, generatedAt: ISO 8601, commit: "<sha7>",
      method: "<one line>", overall: 0-100,
-     milestones: [{ id, name, percent, features }],
+     milestones: [{ id, name, percent, features }],   features: count (a list of ids is accepted)
      features:   [{ id, name, milestone, stage, percent }] }
    All text is inserted with textContent; nothing from the file is parsed as HTML. */
 (function () {
@@ -13,6 +13,7 @@
 
   var STAGES = [
     ["merged", "Merged"],
+    ["implemented", "Implemented"],
     ["implementing", "Implementing"],
     ["tests", "Tests (red)"],
     ["planned", "Planned"],
@@ -22,7 +23,7 @@
   ];
   var STAGE_LABEL = {};
   STAGES.forEach(function (s) { STAGE_LABEL[s[0]] = s[1]; });
-  var IN_FLIGHT = { implementing: 1, tests: 1, planned: 1, "spec-approved": 1, "spec-draft": 1 };
+  var IN_FLIGHT = { implemented: 1, implementing: 1, tests: 1, planned: 1, "spec-approved": 1, "spec-draft": 1 };
 
   var SVG_NS = "http://www.w3.org/2000/svg";
 
@@ -61,7 +62,10 @@
     return h("span", { class: stageClass(stage), text: STAGE_LABEL[stage] || "Unknown" });
   }
 
+  var placeholderMode = false;
+
   function bar(value, label) {
+    if (placeholderMode) label += " (placeholder)";
     var fill = h("span", { class: "bar-fill" + (value >= 100 ? " is-done" : "") });
     var b = h("span", {
       class: "bar", role: "progressbar", "aria-valuemin": "0", "aria-valuemax": "100",
@@ -80,16 +84,21 @@
     if (reduce) apply(); else window.requestAnimationFrame(function () { window.requestAnimationFrame(apply); });
   }
 
-  function gauge(value) {
+  function gauge(value, placeholder) {
     var R = 70, C = 2 * Math.PI * R;
-    var svg = s("svg", { viewBox: "0 0 170 170", class: "gauge", role: "img", "aria-label": "Overall completion " + fmtPct(value) });
+    var svg = s("svg", {
+      viewBox: "0 0 170 170", class: "gauge", role: "img",
+      "aria-label": "Overall completion " + fmtPct(value) + (placeholder ? " (placeholder)" : "")
+    });
     svg.appendChild(s("circle", { cx: "85", cy: "85", r: String(R), class: "gauge-track" }));
+    svg.appendChild(s("circle", { cx: "85", cy: "85", r: String(R + 7.5), class: "gauge-edge" }));
+    svg.appendChild(s("circle", { cx: "85", cy: "85", r: String(R - 7.5), class: "gauge-edge" }));
     var arc = s("circle", { cx: "85", cy: "85", r: String(R), class: "gauge-value" });
     arc.style.strokeDasharray = C.toFixed(2);
     arc.style.strokeDashoffset = C.toFixed(2);
     svg.appendChild(arc);
     svg.appendChild(s("text", { x: "85", y: "88", "text-anchor": "middle", class: "gauge-num", text: fmtPct(value) }));
-    svg.appendChild(s("text", { x: "85", y: "112", "text-anchor": "middle", class: "gauge-sub", text: "complete" }));
+    svg.appendChild(s("text", { x: "85", y: "112", "text-anchor": "middle", class: "gauge-sub", text: placeholder ? "placeholder" : "complete" }));
     var target = (C * (1 - value / 100)).toFixed(2);
     var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduce) arc.style.strokeDashoffset = target;
@@ -132,7 +141,8 @@
 
     var overall = pct(data.overall);
     var milestones = data.milestones.slice(0, 32).map(function (m) {
-      return { id: str(m.id, 8), name: str(m.name, 80), percent: pct(m.percent), features: Number(m.features) || 0 };
+      var count = Array.isArray(m.features) ? m.features.length : Number(m.features);
+      return { id: str(m.id, 8), name: str(m.name, 80), percent: pct(m.percent), features: count > 0 ? Math.floor(count) : 0 };
     });
     var features = data.features.slice(0, 500).map(function (f) {
       return { id: str(f.id, 12), name: str(f.name, 120), milestone: str(f.milestone, 8), stage: str(f.stage, 24), percent: pct(f.percent) };
@@ -140,7 +150,9 @@
 
     var frag = document.createDocumentFragment();
 
-    if (data.placeholder === true) {
+    placeholderMode = data.placeholder === true;
+    root.classList.toggle("is-placeholder", placeholderMode);
+    if (placeholderMode) {
       frag.appendChild(h("div", { class: "placeholder-banner", role: "note" }, [
         h("p", null, [
           h("strong", { text: "Placeholder data" }),
@@ -157,14 +169,15 @@
       meta.appendChild(document.createTextNode("Generated "));
       meta.appendChild(h("time", { datetime: when.iso, text: when.text }));
     }
-    if (/^[0-9a-f]{7,40}$/i.test(sha)) {
+    /* An all-zero sha marks placeholder data: there is no real commit to show. */
+    if (/^[0-9a-f]{7,40}$/i.test(sha) && !/^0+$/.test(sha)) {
       if (when) meta.appendChild(h("br"));
       meta.appendChild(document.createTextNode("at commit "));
       meta.appendChild(h("code", { text: sha.slice(0, 7).toLowerCase() }));
     }
     var overallBox = h("div", { class: "overall" }, [
       h("h3", { class: "minor", text: "Overall" }),
-      gauge(overall),
+      gauge(overall, placeholderMode),
       meta
     ]);
 
