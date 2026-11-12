@@ -1,10 +1,10 @@
 {
   "schema": 1,
   "placeholder": false,
-  "generatedAt": "2026-11-12T19:17:57Z",
-  "commit": "2e61788",
+  "generatedAt": "2026-11-12T19:20:03Z",
+  "commit": "26a1c7e",
   "method": "v0 interim: per-feature stage weights (merged 100, implemented 95, implementing 30-90 by tasks done, tests 30, planned 20, spec approved 15, spec draft 5, not started 0); milestone and overall are unweighted means of features (official metric: F051).",
-  "overall": 24.8,
+  "overall": 24.4,
   "milestones": [
     {
       "id": "M0",
@@ -15,8 +15,8 @@
     {
       "id": "M1",
       "name": "Vertical slice in sim mode",
-      "percent": 50.5,
-      "features": 9
+      "percent": 45.5,
+      "features": 10
     },
     {
       "id": "M2",
@@ -458,6 +458,13 @@
     {
       "id": "F058",
       "name": "dev-quality-gates",
+      "milestone": "M1",
+      "stage": "not-started",
+      "percent": 0.0
+    },
+    {
+      "id": "F059",
+      "name": "baseline-remediation",
       "milestone": "M1",
       "stage": "not-started",
       "percent": 0.0
