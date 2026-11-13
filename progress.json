@@ -1,58 +1,73 @@
 {
   "schema": 1,
   "placeholder": false,
-  "generatedAt": "2026-11-13T02:38:54Z",
-  "commit": "55c5cfc",
-  "method": "v0 interim: per-feature stage weights (merged 100, implemented 95, implementing 30-90 by tasks done, tests 30, planned 20, spec approved 15, spec draft 5, not started 0); milestone and overall are unweighted means of features (official metric: F051).",
+  "generatedAt": "2026-11-13T10:01:37Z",
+  "commit": "ec7f4c2",
+  "method": "v0 interim: per-feature stage weights (merged 100, implemented 95, implementing 30-90 by tasks done, tests 30, planned 20, spec approved 15, spec draft 5, not started 0); milestone, cross-cutting and overall are unweighted means of features (official metric: F051).",
   "overall": 24.7,
   "milestones": [
     {
       "id": "M0",
       "name": "Foundations",
+      "kind": "milestone",
       "percent": 100.0,
       "features": 10
     },
     {
       "id": "M1",
       "name": "Vertical slice in sim mode",
-      "percent": 45.5,
-      "features": 10
+      "kind": "milestone",
+      "percent": 56.8,
+      "features": 8
     },
     {
       "id": "M2",
       "name": "Mobility and behaviour",
+      "kind": "milestone",
       "percent": 0.0,
       "features": 14
     },
     {
       "id": "M3",
       "name": "Agents and scale",
+      "kind": "milestone",
       "percent": 0.0,
       "features": 9
     },
     {
       "id": "M4",
       "name": "Distributed mode and 3GPP exposure",
+      "kind": "milestone",
       "percent": 0.0,
       "features": 10
     },
     {
       "id": "M5",
       "name": "Visibility and public release",
+      "kind": "milestone",
       "percent": 0.0,
       "features": 4
     },
     {
       "id": "M6",
-      "name": "Release 18 profile (placeholder, specs later)",
+      "name": "Release 18 profile",
+      "kind": "milestone",
       "percent": 0.0,
       "features": 1
     },
     {
       "id": "M7",
-      "name": "Release 19 profile (placeholder, specs later)",
+      "name": "Release 19 profile",
+      "kind": "milestone",
       "percent": 0.0,
       "features": 1
+    },
+    {
+      "id": "CC",
+      "name": "Development quality gates",
+      "kind": "cross-cutting",
+      "percent": 0.0,
+      "features": 2
     }
   ],
   "features": [
@@ -458,14 +473,14 @@
     {
       "id": "F058",
       "name": "dev-quality-gates",
-      "milestone": "M1",
+      "milestone": "CC",
       "stage": "not-started",
       "percent": 0.0
     },
     {
       "id": "F059",
       "name": "baseline-remediation",
-      "milestone": "M1",
+      "milestone": "CC",
       "stage": "not-started",
       "percent": 0.0
     }
