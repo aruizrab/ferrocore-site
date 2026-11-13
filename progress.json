@@ -1,10 +1,10 @@
 {
   "schema": 1,
   "placeholder": false,
-  "generatedAt": "2026-11-13T10:30:40Z",
-  "commit": "0cd7656",
+  "generatedAt": "2026-11-13T12:16:32Z",
+  "commit": "542001c",
   "method": "v0 interim: per-feature stage weights (merged 100, implemented 95, implementing 30-90 by tasks done, tests 30, planned 20, spec approved 15, spec draft 5, not started 0); milestone, cross-cutting and overall are unweighted means of features (official metric: F051).",
-  "overall": 24.2,
+  "overall": 26.3,
   "milestones": [
     {
       "id": "M0",
@@ -66,7 +66,7 @@
       "id": "CC",
       "name": "Development quality gates",
       "kind": "cross-cutting",
-      "percent": 0.0,
+      "percent": 40.7,
       "features": 3
     }
   ],
@@ -472,10 +472,10 @@
     },
     {
       "id": "F058",
-      "name": "dev-quality-gates",
+      "name": "Development quality gates",
       "milestone": "CC",
-      "stage": "not-started",
-      "percent": 0.0
+      "stage": "implementing",
+      "percent": 87.5
     },
     {
       "id": "F059",
@@ -486,10 +486,10 @@
     },
     {
       "id": "F060",
-      "name": "stage2-traceability",
+      "name": "Stage 2 traceability",
       "milestone": "CC",
-      "stage": "not-started",
-      "percent": 0.0
+      "stage": "implementing",
+      "percent": 34.6
     }
   ]
 }
