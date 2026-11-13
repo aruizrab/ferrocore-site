@@ -2,8 +2,13 @@
    Schema 1:
    { schema: 1, placeholder: bool, generatedAt: ISO 8601, commit: "<sha7>",
      method: "<one line>", overall: 0-100,
-     milestones: [{ id, name, percent, features }],   features: count (a list of ids is accepted)
+     milestones: [{ id, name, kind?, percent, features }],   features: count (a list of ids is accepted)
      features:   [{ id, name, milestone, stage, percent }] }
+   kind is "milestone" (the default when absent) or "cross-cutting": a group of
+   features that belongs to no milestone (id "CC"); features name it in their
+   milestone field. A trailing "(placeholder, specs later)"-style note is
+   dropped from group names. The feed also drives the hero status chip and the
+   "Now" marker in the roadmap.
    All text is inserted with textContent; nothing from the file is parsed as HTML. */
 (function () {
   "use strict";
@@ -56,6 +61,13 @@
   }
   function fmtPct(v) { return (Math.round(v) === v ? String(v) : v.toFixed(1)) + "%"; }
   function str(v, max) { return typeof v === "string" ? v.slice(0, max || 200) : ""; }
+  /* "Release 18 profile (placeholder, specs later)" -> "Release 18 profile" */
+  function displayName(v) {
+    var name = typeof v === "string" ? v : "";
+    var stripped = name.replace(/\s*\((?:placeholder|tbd|to be defined)\b[^()]*\)\s*$/i, "").trim();
+    return stripped || name;
+  }
+  var CROSS = "cross-cutting";
 
   function stageClass(stage) { return STAGE_LABEL[stage] ? "stage stage-" + stage : "stage"; }
   function stageBadge(stage) {
@@ -140,10 +152,15 @@
     if (problem) { showError("Progress data could not be read:", problem + "."); return; }
 
     var overall = pct(data.overall);
-    var milestones = data.milestones.slice(0, 32).map(function (m) {
+    var groupsAll = data.milestones.slice(0, 32).filter(function (m) { return m && typeof m === "object"; }).map(function (m) {
       var count = Array.isArray(m.features) ? m.features.length : Number(m.features);
-      return { id: str(m.id, 8), name: str(m.name, 80), percent: pct(m.percent), features: count > 0 ? Math.floor(count) : 0 };
+      return {
+        id: str(m.id, 8), name: str(displayName(m.name), 80), cross: m.kind === CROSS,
+        percent: pct(m.percent), features: count > 0 ? Math.floor(count) : 0
+      };
     });
+    var milestones = groupsAll.filter(function (m) { return !m.cross; });
+    var crossGroups = groupsAll.filter(function (m) { return m.cross; });
     var features = data.features.slice(0, 500).map(function (f) {
       return { id: str(f.id, 12), name: str(f.name, 120), milestone: str(f.milestone, 8), stage: str(f.stage, 24), percent: pct(f.percent) };
     });
@@ -181,17 +198,25 @@
       meta
     ]);
 
-    /* Milestone bars */
-    var list = h("ol");
-    milestones.forEach(function (m) {
-      list.appendChild(h("li", { class: "bar-row" }, [
-        h("span", { class: "bar-id", text: m.id }),
-        h("span", { class: "bar-name", text: m.name + (m.features ? " · " + m.features + (m.features === 1 ? " feature" : " features") : "") }),
-        bar(m.percent, m.id + " " + m.name + " completion"),
-        h("span", { class: "bar-pct", text: fmtPct(m.percent) })
-      ]));
-    });
-    var msBox = h("div", { class: "ms-bars" }, [h("h3", { class: "minor", text: "Milestones" }), list]);
+    /* Milestone bars, then cross-cutting groups (outside every milestone) */
+    function barList(items, cls) {
+      var list = h("ol", cls ? { class: cls } : null);
+      items.forEach(function (m) {
+        list.appendChild(h("li", { class: "bar-row" }, [
+          h("span", { class: "bar-id", text: m.id }),
+          h("span", { class: "bar-name", text: m.name + (m.features ? " · " + m.features + (m.features === 1 ? " feature" : " features") : "") }),
+          bar(m.percent, m.id + " " + m.name + " completion"),
+          h("span", { class: "bar-pct", text: fmtPct(m.percent) })
+        ]));
+      });
+      return list;
+    }
+    var msBox = h("div", { class: "ms-bars" }, [h("h3", { class: "minor", text: "Milestones" }), barList(milestones)]);
+    if (crossGroups.length) {
+      msBox.appendChild(h("h3", { class: "minor cross-head", text: "Cross-cutting" }));
+      msBox.appendChild(h("p", { class: "cross-note", text: "Part of the overall figure, not of any milestone." }));
+      msBox.appendChild(barList(crossGroups, "cross-bars"));
+    }
     var method = str(data.method, 300);
     if (method) msBox.appendChild(h("p", { class: "method" }, [h("strong", { text: "Method: " }), method]));
 
@@ -204,7 +229,7 @@
     frag.appendChild(legend);
 
     var groups = h("div", { class: "feature-groups" });
-    var order = milestones.map(function (m) { return m.id; });
+    var order = groupsAll.map(function (m) { return m.id; });
     var byMs = {};
     features.forEach(function (f) {
       var key = order.indexOf(f.milestone) >= 0 ? f.milestone : "other";
@@ -215,16 +240,16 @@
     keys.forEach(function (key) {
       var items = byMs[key];
       if (!items || !items.length) return;
-      var m = milestones.filter(function (x) { return x.id === key; })[0];
+      var m = groupsAll.filter(function (x) { return x.id === key; })[0];
       var done = items.filter(function (f) { return f.stage === "merged"; }).length;
       var active = items.filter(function (f) { return IN_FLIGHT[f.stage]; }).length;
-      var details = h("details", { class: "fgroup" });
-      if (!opened && m && m.percent < 100) { details.open = true; opened = true; }
+      var details = h("details", { class: "fgroup" + (m && m.cross ? " fgroup-cross" : "") });
+      if (!opened && m && !m.cross && m.percent < 100) { details.open = true; opened = true; }
       var summaryText = items.length + (items.length === 1 ? " feature · " : " features · ") + done + " merged · " + active + " in progress";
       details.appendChild(h("summary", null, [
         h("span", { class: "fg-id", text: m ? m.id : "—" }),
         h("span", { class: "fg-name" }, [
-          m ? m.name : "Other", " ",
+          m ? (m.cross ? "Cross-cutting: " + m.name : m.name) : "Other", " ",
           h("span", { class: "muted", text: "· " + summaryText })
         ])
       ]));
@@ -246,6 +271,38 @@
     root.appendChild(frag);
     root.setAttribute("aria-busy", "false");
     animateBars(root);
+    showCurrent(milestones);
+  }
+
+  /* Hero status chip and roadmap "Now" marker: the current milestone is the
+     first milestone below 100 %. Without a feed both keep their static text. */
+  function showCurrent(milestones) {
+    if (!milestones.length) return;
+    var current = milestones.filter(function (m) { return m.percent < 100; })[0] || null;
+    var chip = document.getElementById("status-text");
+    if (chip) {
+      chip.textContent = "";
+      if (current) {
+        chip.appendChild(h("strong", { text: placeholderMode ? "Placeholder data." : "In development." }));
+        chip.appendChild(document.createTextNode(
+          " Current milestone: " + current.id + (current.name ? " (" + current.name + ")" : "") + ", " + fmtPct(current.percent) + " complete."));
+      } else {
+        chip.appendChild(h("strong", { text: "All milestones complete." }));
+      }
+    }
+    var cards = document.querySelectorAll(".milestones .ms[data-ms]");
+    for (var i = 0; i < cards.length; i++) {
+      var card = cards[i];
+      var isNow = !!current && card.getAttribute("data-ms") === current.id;
+      card.classList.toggle("ms-current", isNow);
+      var badge = card.querySelector(".ms-badge");
+      if (isNow && !badge) {
+        var head = card.querySelector(".ms-head");
+        if (head) head.appendChild(h("span", { class: "ms-badge", text: "Now" }));
+      } else if (!isNow && badge) {
+        badge.parentNode.removeChild(badge);
+      }
+    }
   }
 
   function load() {

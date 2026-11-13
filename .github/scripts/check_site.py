@@ -17,6 +17,7 @@ ROOT = Path(__file__).resolve().parents[2]
 # Keep in sync with STAGES in js/progress.js and with the stage ladder of the
 # progress feed in ferrocore's CI.
 STAGES = {"merged", "implemented", "implementing", "tests", "planned", "spec-approved", "spec-draft", "not-started"}
+KINDS = {"milestone", "cross-cutting"}
 errors = []
 
 
@@ -46,6 +47,9 @@ def check_progress():
     for m in data.get("milestones", []):
         ms_ids.add(m.get("id"))
         pct(m.get("id"), m.get("percent"))
+        # Optional: "milestone" (default) or "cross-cutting" (a group outside every milestone).
+        if m.get("kind", "milestone") not in KINDS:
+            errors.append(f"progress.json: {m.get('id')} has unknown kind {m.get('kind')!r}")
         count = m.get("features")
         if isinstance(count, bool) or not isinstance(count, int) or count < 0:
             errors.append(f"progress.json: {m.get('id')} features must be a non-negative integer count, got {count!r}")

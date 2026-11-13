@@ -6,7 +6,7 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <title>ferrocore · a 5G Core in Rust for research and agents</title>
-  <meta name="description" content="ferrocore is a 3GPP Release 17 5G Core written in Rust for R&amp;D and ML / LLM-agent training. It runs the core network functions with an in-tree simulated RAN and turns every run into a labelled, reproducible dataset.">
+  <meta name="description" content="ferrocore is a 5G Core written in Rust for R&amp;D and ML / LLM-agent training, with a 3GPP Release 17 baseline and later releases as runtime release profiles. It runs the core network functions with an in-tree simulated RAN and turns every run into a labelled, reproducible dataset.">
   <meta name="color-scheme" content="light dark">
   <meta name="theme-color" content="#f4efe8" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#0d1012" media="(prefers-color-scheme: dark)">
@@ -19,7 +19,7 @@
   <meta property="og:locale" content="en_GB">
   <meta property="og:site_name" content="ferrocore">
   <meta property="og:title" content="ferrocore · a 5G Core in Rust for research and agents">
-  <meta property="og:description" content="A 3GPP Release 17 5G Core with an in-tree simulated RAN. Every run becomes a labelled, reproducible dataset, and LLM agents can observe and act on a live core.">
+  <meta property="og:description" content="A 5G Core with a 3GPP Release 17 baseline, later releases as runtime profiles, and an in-tree simulated RAN. Every run becomes a labelled, reproducible dataset, and LLM agents can observe and act on a live core.">
   <meta property="og:url" content="https://aruizrab.github.io/ferrocore-site/">
   <meta property="og:image" content="https://aruizrab.github.io/ferrocore-site/assets/og.png">
   <meta property="og:image:type" content="image/png">
@@ -76,14 +76,14 @@
     <section class="hero" id="top" aria-labelledby="hero-title">
       <div class="wrap hero-grid">
         <div class="hero-copy">
-          <p class="eyebrow">3GPP Release 17 &middot; 5G Core &middot; written in Rust</p>
+          <p class="eyebrow">3GPP Rel-17 baseline &middot; 5G Core &middot; written in Rust</p>
           <h1 id="hero-title">A 5G Core that turns every run into a <span class="hl">dataset</span>.</h1>
-          <p class="lede">ferrocore runs the 5G core network functions together with a simulated RAN of gNBs and UEs, records every message, state change and fault as labelled, reproducible data, and lets LLM agents observe and act on a live core. It is built for R&amp;D and ML / LLM-agent training, not for production traffic.</p>
+          <p class="lede">ferrocore runs the 5G core network functions together with a simulated RAN of gNBs and UEs, records every message, state change and fault as labelled, reproducible data, and lets LLM agents observe and act on a live core. Release&nbsp;17 is the baseline; later 3GPP releases arrive as runtime release profiles in the same codebase. It is built for R&amp;D and ML / LLM-agent training, not for production traffic.</p>
           <div class="cta-row">
             <a class="btn btn-primary" href="#progress">See live progress</a>
             <a class="btn btn-ghost" href="#architecture">Explore the architecture</a>
           </div>
-          <p class="status-chip"><span class="status-dot" aria-hidden="true"></span><span><strong>Early development.</strong> Milestone M0 (foundations) is underway; the network functions are not available yet.</span></p>
+          <p class="status-chip"><span class="status-dot" aria-hidden="true"></span><span id="status-text"><strong>In development.</strong> See live progress below.</span></p>
         </div>
 
         <figure class="hero-visual" aria-label="Animated 5G core sketch">
@@ -231,6 +231,12 @@
             <h3>Scenarios as one YAML file</h3>
             <p>A schema-validated document describes topology, UE populations, a timeline of events, faults and config changes, capture settings, a stop condition and the seed. Scenario plus seed plus version is the whole experiment.</p>
             <p class="cap-tag">M1</p>
+          </li>
+          <li class="cap">
+            <svg class="cap-icon" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M6 8h20M6 16h20M6 24h20"/><circle cx="11" cy="8" r="2.5"/><circle cx="21" cy="16" r="2.5"/><circle cx="15" cy="24" r="2.5"/></svg>
+            <h3>3GPP releases as runtime profiles</h3>
+            <p>Release&nbsp;17 is the baseline. Later releases (Release&nbsp;18 in M6, Release&nbsp;19 in M7) are release profiles in the same codebase, set per NF, gNB and UE, so one scenario can mix releases. Encoders never emit IEs outside the configured release, and the run manifest records each one.</p>
+            <p class="cap-tag">framework M2 &middot; Rel-18 M6 &middot; Rel-19 M7</p>
           </li>
           <li class="cap">
             <svg class="cap-icon" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M16 4 6 8v7c0 6.2 4.3 11 10 13 5.7-2 10-6.8 10-13V8z"/><path d="m11.5 16 3 3 6-6"/></svg>
@@ -394,12 +400,12 @@
           <p>Built almost entirely by AI agents through a spec-driven workflow.</p>
         </blockquote>
 
-        <p class="section-intro">Agents do not work from memory of the standards. Each feature starts from pinned 3GPP Release&nbsp;17 clause text, becomes testable requirements, and only then becomes code. A human orchestrator acts as product owner and approves what ships.</p>
+        <p class="section-intro">Agents do not work from memory of the standards. Each feature starts from pinned 3GPP clause text (Release&nbsp;17 today; each later release profile gets its own pinned corpus), becomes testable requirements, and only then becomes code. An AI orchestrator agent acts as product owner, under the direction of the human project owner: it approves specs, signs off on security and merges.</p>
 
         <ol class="pipeline" aria-label="Feature lifecycle">
           <li><span class="step-n">01</span><h3>Specify</h3><p>Requirements in EARS form, each keyed to the clause it comes from.</p></li>
           <li><span class="step-n">02</span><h3>Critic</h3><p>A spec critic hunts for gaps and ambiguity.</p></li>
-          <li><span class="step-n">03</span><h3>Approve</h3><p>The orchestrator signs off on the spec.</p></li>
+          <li><span class="step-n">03</span><h3>Approve</h3><p>The orchestrator agent signs off on the spec.</p></li>
           <li><span class="step-n">04</span><h3>Plan</h3><p>Design and tasks, split into waves with file ownership.</p></li>
           <li class="step-red"><span class="step-n">05</span><h3>Tests (red)</h3><p>A separate test author writes failing tests first.</p></li>
           <li><span class="step-n">06</span><h3>Implement</h3><p>Parallel implementers in git worktrees, wave by wave.</p></li>
@@ -407,7 +413,7 @@
           <li><span class="step-n">08</span><h3>Review</h3><p>Spec-compliance, security, test-adequacy and performance reviewers.</p></li>
           <li><span class="step-n">09</span><h3>Verify</h3><p>Two sceptic verifiers try to refute each blocking finding.</p></li>
           <li><span class="step-n">10</span><h3>Finalize</h3><p>Review record, status Implemented, trace check passes.</p></li>
-          <li class="step-merge"><span class="step-n">11</span><h3>Merge</h3><p>The orchestrator merges: the human-in-the-loop approval point.</p></li>
+          <li class="step-merge"><span class="step-n">11</span><h3>Merge</h3><p>The orchestrator agent merges once gates, review and security sign-off are done.</p></li>
         </ol>
 
         <div class="process-grid">
@@ -451,7 +457,7 @@
         <div class="roles">
           <h3 class="minor">Agent roles</h3>
           <ul class="tag-list">
-            <li class="tag-strong">orchestrator (product owner)</li>
+            <li class="tag-strong">orchestrator agent (product owner)</li>
             <li>spec-author</li><li>spec-critic</li><li>architect-planner</li><li>test-author</li><li>implementer</li><li>integrator</li><li>spec-compliance-reviewer</li><li>security-reviewer</li><li>test-adequacy-reviewer</li><li>perf-reviewer</li><li>verifier</li><li>interop-tester</li>
           </ul>
         </div>
@@ -465,41 +471,51 @@
           <p class="section-num" aria-hidden="true">05</p>
           <div>
             <p class="eyebrow">Roadmap</p>
-            <h2 id="roadmap-title">Six milestones, from foundations to a public release</h2>
+            <h2 id="roadmap-title">Eight milestones, from foundations to later 3GPP releases</h2>
             <p class="section-intro">The critical path to the first vertical slice runs through the workspace, the scheduler, the event bus, capture and NGAP, NG Setup, registration, the CLI and the container image.</p>
           </div>
         </header>
 
         <ol class="milestones">
-          <li class="ms ms-current">
-            <div class="ms-head"><span class="ms-id">M0</span><h3>Foundations</h3><span class="ms-badge">Now</span></div>
+          <li class="ms" data-ms="M0">
+            <div class="ms-head"><span class="ms-id">M0</span><h3>Foundations</h3></div>
             <p>Workspace, gates and CI, core types, the sans-IO runtime and scheduler, the event bus and hooks, capture, codec and crypto facades, and the SBI message layer.</p>
             <p class="ms-feat">F001&ndash;F008, F017, F018</p>
           </li>
-          <li class="ms">
+          <li class="ms" data-ms="M1">
             <div class="ms-head"><span class="ms-id">M1</span><h3>Vertical slice in sim</h3></div>
             <p>NG Setup, initial registration with SUCI, 5G-AKA and security mode, a PDU session through SMF and UPF over PFCP, and deregistration for N UEs across M gNBs, with pcapng, JSONL, a manifest, scenario YAML and a Docker image.</p>
             <p class="ms-feat">F009&ndash;F016</p>
           </li>
-          <li class="ms">
+          <li class="ms" data-ms="M2">
             <div class="ms-head"><span class="ms-id">M2</span><h3>Mobility and behaviour</h3></div>
-            <p>CM-IDLE, service request and paging, periodic and mobility registration, the radio model, Xn and N2 handover, UE profiles and traffic, misbehaviour, fault injection with labels, KPIs and Parquet.</p>
-            <p class="ms-feat">F019&ndash;F031</p>
+            <p>The release-profile framework, CM-IDLE, service request and paging, periodic and mobility registration, the radio model, Xn and N2 handover, UE profiles and traffic, misbehaviour, fault injection with labels, KPIs and Parquet.</p>
+            <p class="ms-feat">F019&ndash;F031, F055</p>
           </li>
-          <li class="ms">
+          <li class="ms" data-ms="M3">
             <div class="ms-head"><span class="ms-id">M3</span><h3>Agents and scale</h3></div>
             <p>Control API and MCP server, snapshot and fork, the Gym wrapper, 100k UEs, campaigns on Kubernetes, realtime mode with UERANSIM and PacketRusher interop, and the LM corpus exporter.</p>
             <p class="ms-feat">F032&ndash;F040</p>
           </li>
-          <li class="ms">
+          <li class="ms" data-ms="M4">
             <div class="ms-head"><span class="ms-id">M4</span><h3>Distributed and exposure</h3></div>
             <p>OpenAPI code generation, SBI over HTTP/2, NRF, distributed mode, AMF and SMF event exposure, an NWDAF subset, a Kubernetes operator, EAP-AKA&prime;, an XnAP wire codec and distributed fault injection.</p>
             <p class="ms-feat">F041&ndash;F050</p>
           </li>
-          <li class="ms">
+          <li class="ms" data-ms="M5">
             <div class="ms-head"><span class="ms-id">M5</span><h3>Visibility and public release</h3></div>
             <p>A progress metric published by CI, this landing page, the licensing work needed before the source goes public, and an interactive front end.</p>
             <p class="ms-feat">F051&ndash;F054</p>
+          </li>
+          <li class="ms" data-ms="M6">
+            <div class="ms-head"><span class="ms-id">M6</span><h3>Release 18 profile</h3></div>
+            <p>A <code>rel18</code> profile: the pinned Release&nbsp;18 corpus, a clause diff against Release&nbsp;17, and the changed procedures and IEs behind capabilities, also run against Release&nbsp;17 peers.</p>
+            <p class="ms-feat">F056</p>
+          </li>
+          <li class="ms" data-ms="M7">
+            <div class="ms-head"><span class="ms-id">M7</span><h3>Release 19 profile</h3></div>
+            <p>The same pattern for Release&nbsp;19. Later frozen releases get further milestones in the same form.</p>
+            <p class="ms-feat">F057</p>
           </li>
         </ol>
       </div>
@@ -513,7 +529,7 @@
           <div>
             <p class="eyebrow">Live progress</p>
             <h2 id="progress-title">Where the build stands</h2>
-            <p class="section-intro">Read from <code>progress.json</code>, which the project's CI publishes to this site. Until that pipeline is live, the file holds clearly marked placeholder values.</p>
+            <p class="section-intro">Read from <code>progress.json</code>, which the project's CI publishes to this site.</p>
           </div>
         </header>
 

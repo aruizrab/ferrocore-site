@@ -724,6 +724,9 @@ small { font-size: 0.8em; }
 }
 
 .method { font-size: 0.86rem; color: var(--muted); margin: 14px 0 0; }
+.ms-bars .cross-head { margin-top: 22px; padding-top: 16px; border-top: 1px dashed var(--line); }
+.cross-note { font-size: 0.82rem; color: var(--muted); margin: -4px 0 12px; }
+.fgroup-cross { border-style: dashed; }
 
 .stage-legend { list-style: none; padding: 0; margin: 0 0 16px; display: flex; flex-wrap: wrap; gap: 8px; }
 .stage {

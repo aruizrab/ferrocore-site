@@ -6,7 +6,7 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-a3381a.svg)](LICENSE)
 [![Static site](https://img.shields.io/badge/build-none%20%28static%29-1c675b.svg)](#local-preview)
 
-**The landing page for ferrocore, a 3GPP Release 17 5G Core written in Rust for R&D and ML / LLM-agent training.** It explains what ferrocore is, its architecture and how it is built, and shows live build progress read from `progress.json`.
+**The landing page for ferrocore, a 5G Core written in Rust for R&D and ML / LLM-agent training, with a 3GPP Release 17 baseline and later releases as runtime release profiles.** It explains what ferrocore is, its architecture and how it is built, and shows live build progress read from `progress.json`.
 
 Live at **https://aruizrab.github.io/ferrocore-site/**
 
@@ -50,7 +50,7 @@ The file in this repo starts as a placeholder (`"placeholder": true`), and the p
 
 ferrocore's CI computes progress with an interim (v0) script on pushes to its `main` and `feat/**` branches and on a schedule, and commits the result here as `progress.json`, authenticated with a deploy key that has write access to this repository (the private half is stored in ferrocore as the `SITE_DEPLOY_KEY` secret). It commits only when the numbers change, not when only `generatedAt` or `commit` would. That push to `main` triggers the Pages workflow, which redeploys the site. The official metric (ferrocore feature F051) will replace the v0 script later and keep this schema.
 
-The v0 script derives a stage per roadmap feature from the feature's spec, plan, tasks and branch state, and weights it: merged 100, implemented 95 (spec marked implemented, branch not merged yet), implementing 30 to 90 by the share of tasks done, tests 30 (failing tests committed), planned 20, spec approved 15, spec draft 5, not started 0. Milestone and overall percentages are unweighted means of their features.
+The v0 script derives a stage per roadmap feature from the feature's spec, plan, tasks and branch state, and weights it: merged 100, implemented 95 (spec marked implemented, branch not merged yet), implementing 30 to 90 by the share of tasks done, tests 30 (failing tests committed), planned 20, spec approved 15, spec draft 5, not started 0. Milestone and overall percentages are unweighted means of their features. Features that belong to no milestone (the roadmap's cross-cutting development quality gates) form their own group, which counts in the overall figure only.
 
 Schema version 1:
 
@@ -62,12 +62,15 @@ Schema version 1:
   "commit": "abc1234",
   "method": "one line describing how the numbers are computed",
   "overall": 42.5,
-  "milestones": [{ "id": "M0", "name": "Foundations", "percent": 80, "features": 10 }],
+  "milestones": [
+    { "id": "M0", "name": "Foundations", "kind": "milestone", "percent": 80, "features": 10 },
+    { "id": "CC", "name": "Development quality gates", "kind": "cross-cutting", "percent": 0, "features": 2 }
+  ],
   "features": [{ "id": "F001", "name": "Workspace foundations", "milestone": "M0", "stage": "merged", "percent": 100 }]
 }
 ```
 
-`stage` is one of `merged`, `implemented`, `implementing`, `tests`, `planned`, `spec-approved`, `spec-draft`, `not-started`. `milestones[].features` is the number of features in the milestone (the page also accepts a list of feature ids). Percentages are 0 to 100. An all-zero `commit` is treated as "no commit" and not shown. If the file is missing or invalid the page says so and keeps the rest of the content.
+`stage` is one of `merged`, `implemented`, `implementing`, `tests`, `planned`, `spec-approved`, `spec-draft`, `not-started`. `milestones[].features` is the number of features in the milestone (the page also accepts a list of feature ids). `milestones[].kind` is optional: `milestone` (the default) or `cross-cutting`, a group outside every milestone that features reference through their `milestone` field and the page lists separately. A trailing note such as `(placeholder, specs later)` is dropped from names on display. The hero status chip and the roadmap's "Now" marker show the first milestone below 100 %. Percentages are 0 to 100. An all-zero `commit` is treated as "no commit" and not shown. If the file is missing or invalid the page says so and keeps the rest of the content.
 
 ## Deployment
 
