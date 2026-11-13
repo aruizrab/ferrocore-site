@@ -46,7 +46,7 @@ python3 .github/scripts/check_site.py
 
 ## How `progress.json` is updated
 
-The file in this repo starts as a placeholder (`"placeholder": true`), and the page shows a "Placeholder data" banner while that flag is set.
+The file holds real data published by ferrocore's CI. The schema keeps a `"placeholder"` flag: when it is `true` (as in the very first version of the file, before CI published), the page shows a "Placeholder data" banner.
 
 ferrocore's CI computes progress with an interim (v0) script on pushes to its `main` and `feat/**` branches and on a schedule, and commits the result here as `progress.json`, authenticated with a deploy key that has write access to this repository (the private half is stored in ferrocore as the `SITE_DEPLOY_KEY` secret). It commits only when the numbers change, not when only `generatedAt` or `commit` would. That push to `main` triggers the Pages workflow, which redeploys the site. The official metric (ferrocore feature F051) will replace the v0 script later and keep this schema.
 

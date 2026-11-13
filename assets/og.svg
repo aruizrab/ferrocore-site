@@ -79,9 +79,9 @@
   <g font-family="Ubuntu Sans, DejaVu Sans, sans-serif" fill="#ece5dc">
     <text x="72" y="300" font-size="56" font-weight="800" letter-spacing="-1.5">A 5G Core in Rust.</text>
     <text x="72" y="368" font-size="56" font-weight="800" letter-spacing="-1.5">Every run is a <tspan fill="#ec6f42">dataset</tspan>.</text>
-    <text x="72" y="430" font-size="25" fill="#a59d93">3GPP Release 17 core network functions with a</text>
-    <text x="72" y="464" font-size="25" fill="#a59d93">simulated RAN, reproducible labelled datasets and</text>
-    <text x="72" y="498" font-size="25" fill="#a59d93">MCP control for LLM agents.</text>
+    <text x="72" y="430" font-size="25" fill="#a59d93">5G core network functions on a 3GPP Rel-17 baseline,</text>
+    <text x="72" y="464" font-size="25" fill="#a59d93">later releases as runtime profiles, a simulated RAN,</text>
+    <text x="72" y="498" font-size="25" fill="#a59d93">labelled datasets and MCP control for LLM agents.</text>
   </g>
   <text x="72" y="572" font-family="Ubuntu Sans Mono, DejaVu Sans Mono, monospace" font-size="20" font-weight="700" fill="#62c0ad">aruizrab.github.io/ferrocore-site</text>
   <rect x="0" y="622" width="1200" height="8" fill="#a3381a"/>
