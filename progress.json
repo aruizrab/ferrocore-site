@@ -1,10 +1,10 @@
 {
   "schema": 1,
   "placeholder": false,
-  "generatedAt": "2026-11-13T10:01:37Z",
-  "commit": "ec7f4c2",
+  "generatedAt": "2026-11-13T10:30:40Z",
+  "commit": "0cd7656",
   "method": "v0 interim: per-feature stage weights (merged 100, implemented 95, implementing 30-90 by tasks done, tests 30, planned 20, spec approved 15, spec draft 5, not started 0); milestone, cross-cutting and overall are unweighted means of features (official metric: F051).",
-  "overall": 24.7,
+  "overall": 24.2,
   "milestones": [
     {
       "id": "M0",
@@ -67,7 +67,7 @@
       "name": "Development quality gates",
       "kind": "cross-cutting",
       "percent": 0.0,
-      "features": 2
+      "features": 3
     }
   ],
   "features": [
@@ -480,6 +480,13 @@
     {
       "id": "F059",
       "name": "baseline-remediation",
+      "milestone": "CC",
+      "stage": "not-started",
+      "percent": 0.0
+    },
+    {
+      "id": "F060",
+      "name": "stage2-traceability",
       "milestone": "CC",
       "stage": "not-started",
       "percent": 0.0
