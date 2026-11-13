@@ -1,15 +1,15 @@
 {
   "schema": 1,
   "placeholder": false,
-  "generatedAt": "2026-11-12T19:20:03Z",
-  "commit": "26a1c7e",
+  "generatedAt": "2026-11-13T02:38:54Z",
+  "commit": "55c5cfc",
   "method": "v0 interim: per-feature stage weights (merged 100, implemented 95, implementing 30-90 by tasks done, tests 30, planned 20, spec approved 15, spec draft 5, not started 0); milestone and overall are unweighted means of features (official metric: F051).",
-  "overall": 24.4,
+  "overall": 24.7,
   "milestones": [
     {
       "id": "M0",
       "name": "Foundations",
-      "percent": 98.6,
+      "percent": 100.0,
       "features": 10
     },
     {
@@ -81,8 +81,8 @@
       "id": "F004",
       "name": "Capture: pcapng, JSONL events and run manifest",
       "milestone": "M0",
-      "stage": "implementing",
-      "percent": 86.5
+      "stage": "merged",
+      "percent": 100.0
     },
     {
       "id": "F005",
