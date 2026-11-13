@@ -1,10 +1,10 @@
 {
   "schema": 1,
   "placeholder": false,
-  "generatedAt": "2026-11-13T13:35:12Z",
-  "commit": "1c3e2cf",
+  "generatedAt": "2026-11-13T20:22:32Z",
+  "commit": "4deef0b",
   "method": "v0 interim: per-feature stage weights (merged 100, implemented 95, implementing 30-90 by tasks done, tests 30, planned 20, spec approved 15, spec draft 5, not started 0); milestone, cross-cutting and overall are unweighted means of features (official metric: F051).",
-  "overall": 26.3,
+  "overall": 25.8,
   "milestones": [
     {
       "id": "M0",
@@ -46,7 +46,7 @@
       "name": "Visibility and public release",
       "kind": "milestone",
       "percent": 0.0,
-      "features": 4
+      "features": 5
     },
     {
       "id": "M6",
@@ -490,6 +490,13 @@
       "milestone": "CC",
       "stage": "implementing",
       "percent": 34.6
+    },
+    {
+      "id": "F061",
+      "name": "Browser demo: the core running in WebAssembly",
+      "milestone": "M5",
+      "stage": "not-started",
+      "percent": 0.0
     }
   ]
 }
