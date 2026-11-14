@@ -1,10 +1,10 @@
 {
   "schema": 1,
   "placeholder": false,
-  "generatedAt": "2026-11-13T20:22:32Z",
-  "commit": "4deef0b",
+  "generatedAt": "2026-11-14T09:05:05Z",
+  "commit": "e23858f",
   "method": "v0 interim: per-feature stage weights (merged 100, implemented 95, implementing 30-90 by tasks done, tests 30, planned 20, spec approved 15, spec draft 5, not started 0); milestone, cross-cutting and overall are unweighted means of features (official metric: F051).",
-  "overall": 25.8,
+  "overall": 27.3,
   "milestones": [
     {
       "id": "M0",
@@ -17,14 +17,14 @@
       "id": "M1",
       "name": "Vertical slice in sim mode",
       "kind": "milestone",
-      "percent": 56.8,
+      "percent": 62.5,
       "features": 8
     },
     {
       "id": "M2",
       "name": "Mobility and behaviour",
       "kind": "milestone",
-      "percent": 0.0,
+      "percent": 2.9,
       "features": 14
     },
     {
@@ -153,7 +153,7 @@
       "name": "SMF and UPF: UE-requested PDU session establishment",
       "milestone": "M1",
       "stage": "implementing",
-      "percent": 72.4
+      "percent": 82.9
     },
     {
       "id": "F013",
@@ -173,15 +173,15 @@
       "id": "F015",
       "name": "ferrocore CLI: sim and validate commands",
       "milestone": "M1",
-      "stage": "not-started",
-      "percent": 0.0
+      "stage": "spec-approved",
+      "percent": 15.0
     },
     {
       "id": "F016",
       "name": "Container image, Docker Compose and Helm chart",
       "milestone": "M1",
-      "stage": "not-started",
-      "percent": 0.0
+      "stage": "planned",
+      "percent": 20.0
     },
     {
       "id": "F017",
@@ -201,15 +201,15 @@
       "id": "F019",
       "name": "AN release, CM-IDLE and UE-triggered service request",
       "milestone": "M2",
-      "stage": "not-started",
-      "percent": 0.0
+      "stage": "planned",
+      "percent": 20.0
     },
     {
       "id": "F020",
       "name": "Paging and network-triggered service request",
       "milestone": "M2",
-      "stage": "not-started",
-      "percent": 0.0
+      "stage": "planned",
+      "percent": 20.0
     },
     {
       "id": "F021",
