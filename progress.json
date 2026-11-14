@@ -73,7 +73,7 @@
   "features": [
     {
       "id": "F001",
-      "name": "workspace-foundations",
+      "name": "Workspace foundations",
       "milestone": "M0",
       "stage": "merged",
       "percent": 100.0
@@ -220,21 +220,21 @@
     },
     {
       "id": "F022",
-      "name": "radio-mobility-models",
+      "name": "Radio and UE mobility models",
       "milestone": "M2",
       "stage": "not-started",
       "percent": 0.0
     },
     {
       "id": "F023",
-      "name": "xn-handover-path-switch",
+      "name": "Xn handover and path switch",
       "milestone": "M2",
       "stage": "not-started",
       "percent": 0.0
     },
     {
       "id": "F024",
-      "name": "n2-handover",
+      "name": "N2 handover",
       "milestone": "M2",
       "stage": "not-started",
       "percent": 0.0
@@ -269,182 +269,182 @@
     },
     {
       "id": "F029",
-      "name": "kpi-engine-ts28552",
+      "name": "KPI engine (TS 28.552 counters)",
       "milestone": "M2",
       "stage": "not-started",
       "percent": 0.0
     },
     {
       "id": "F030",
-      "name": "parquet-dataset-tables",
+      "name": "Parquet dataset tables",
       "milestone": "M2",
       "stage": "merged",
       "percent": 100.0
     },
     {
       "id": "F031",
-      "name": "pcf-nssf-lite",
+      "name": "PCF and NSSF (lite)",
       "milestone": "M2",
       "stage": "merged",
       "percent": 100.0
     },
     {
       "id": "F032",
-      "name": "control-api",
+      "name": "Control API (gRPC and REST)",
       "milestone": "M3",
       "stage": "not-started",
       "percent": 0.0
     },
     {
       "id": "F033",
-      "name": "mcp-server",
+      "name": "MCP server for LLM agents",
       "milestone": "M3",
       "stage": "not-started",
       "percent": 0.0
     },
     {
       "id": "F034",
-      "name": "snapshot-restore-fork",
+      "name": "Snapshot, restore and fork",
       "milestone": "M3",
       "stage": "not-started",
       "percent": 0.0
     },
     {
       "id": "F035",
-      "name": "gym-wrapper",
+      "name": "Gymnasium environment",
       "milestone": "M3",
       "stage": "not-started",
       "percent": 0.0
     },
     {
       "id": "F036",
-      "name": "scale-100k",
+      "name": "Scale to 100k UEs",
       "milestone": "M3",
       "stage": "not-started",
       "percent": 0.0
     },
     {
       "id": "F037",
-      "name": "campaign-runner",
+      "name": "Campaign runner",
       "milestone": "M3",
       "stage": "not-started",
       "percent": 0.0
     },
     {
       "id": "F038",
-      "name": "realtime-aio-mode",
+      "name": "Real-time all-in-one mode",
       "milestone": "M3",
       "stage": "not-started",
       "percent": 0.0
     },
     {
       "id": "F039",
-      "name": "interop-ueransim-packetrusher",
+      "name": "Interop with UERANSIM and PacketRusher",
       "milestone": "M3",
       "stage": "not-started",
       "percent": 0.0
     },
     {
       "id": "F040",
-      "name": "lm-corpus-exporter",
+      "name": "Language-model corpus exporter",
       "milestone": "M3",
       "stage": "not-started",
       "percent": 0.0
     },
     {
       "id": "F041",
-      "name": "sbi-openapi-codegen",
+      "name": "SBI OpenAPI code generator",
       "milestone": "M4",
       "stage": "not-started",
       "percent": 0.0
     },
     {
       "id": "F042",
-      "name": "sbi-http2-transport",
+      "name": "SBI HTTP/2 transport",
       "milestone": "M4",
       "stage": "not-started",
       "percent": 0.0
     },
     {
       "id": "F043",
-      "name": "nrf-registration-discovery",
+      "name": "NRF registration and discovery",
       "milestone": "M4",
       "stage": "not-started",
       "percent": 0.0
     },
     {
       "id": "F044",
-      "name": "distributed-mode",
+      "name": "Distributed mode",
       "milestone": "M4",
       "stage": "not-started",
       "percent": 0.0
     },
     {
       "id": "F045",
-      "name": "amf-smf-event-exposure",
+      "name": "AMF and SMF event exposure",
       "milestone": "M4",
       "stage": "not-started",
       "percent": 0.0
     },
     {
       "id": "F046",
-      "name": "nwdaf-subset",
+      "name": "NWDAF analytics subset",
       "milestone": "M4",
       "stage": "not-started",
       "percent": 0.0
     },
     {
       "id": "F047",
-      "name": "k8s-operator",
+      "name": "Kubernetes operator",
       "milestone": "M4",
       "stage": "not-started",
       "percent": 0.0
     },
     {
       "id": "F048",
-      "name": "eap-aka-prime",
+      "name": "EAP-AKA' authentication",
       "milestone": "M4",
       "stage": "not-started",
       "percent": 0.0
     },
     {
       "id": "F049",
-      "name": "xnap-wire-codec",
+      "name": "XnAP wire codec",
       "milestone": "M4",
       "stage": "not-started",
       "percent": 0.0
     },
     {
       "id": "F050",
-      "name": "distributed-fault-injection",
+      "name": "Distributed fault injection",
       "milestone": "M4",
       "stage": "not-started",
       "percent": 0.0
     },
     {
       "id": "F051",
-      "name": "progress-metric",
+      "name": "Progress metric",
       "milestone": "M5",
       "stage": "not-started",
       "percent": 0.0
     },
     {
       "id": "F052",
-      "name": "landing-page",
+      "name": "Landing page",
       "milestone": "M5",
       "stage": "not-started",
       "percent": 0.0
     },
     {
       "id": "F053",
-      "name": "public-release-licensing",
+      "name": "Public release and licensing",
       "milestone": "M5",
       "stage": "not-started",
       "percent": 0.0
     },
     {
       "id": "F054",
-      "name": "interactive-frontend",
+      "name": "Interactive frontend",
       "milestone": "M5",
       "stage": "not-started",
       "percent": 0.0
@@ -458,14 +458,14 @@
     },
     {
       "id": "F056",
-      "name": "rel18-profile",
+      "name": "Release 18 profile",
       "milestone": "M6",
       "stage": "not-started",
       "percent": 0.0
     },
     {
       "id": "F057",
-      "name": "rel19-profile",
+      "name": "Release 19 profile",
       "milestone": "M7",
       "stage": "not-started",
       "percent": 0.0
@@ -493,7 +493,7 @@
     },
     {
       "id": "F061",
-      "name": "browser-demo",
+      "name": "Browser demo: the core running in WebAssembly",
       "milestone": "M5",
       "stage": "not-started",
       "percent": 0.0
