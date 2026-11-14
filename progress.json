@@ -1,10 +1,10 @@
 {
   "schema": 1,
   "placeholder": false,
-  "generatedAt": "2026-11-14T18:22:38Z",
+  "generatedAt": "2026-11-14T22:12:07Z",
   "commit": "e23858f",
   "method": "v0 interim: per-feature stage weights (merged 100, implemented 95, implementing 30-90 by tasks done, tests 30, planned 20, spec approved 15, spec draft 5, not started 0); milestone, cross-cutting and overall are unweighted means of features (official metric: F051).",
-  "overall": 32.5,
+  "overall": 31.2,
   "milestones": [
     {
       "id": "M0",
@@ -24,7 +24,7 @@
       "id": "M2",
       "name": "Mobility and behaviour",
       "kind": "milestone",
-      "percent": 20.0,
+      "percent": 14.3,
       "features": 14
     },
     {
@@ -276,10 +276,10 @@
     },
     {
       "id": "F030",
-      "name": "Parquet dataset tables",
+      "name": "Parquet dataset tables and offline decode",
       "milestone": "M2",
-      "stage": "merged",
-      "percent": 100.0
+      "stage": "planned",
+      "percent": 20.0
     },
     {
       "id": "F031",
