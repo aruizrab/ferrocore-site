@@ -1,10 +1,10 @@
 {
   "schema": 1,
   "placeholder": false,
-  "generatedAt": "2026-11-15T09:26:55Z",
-  "commit": "e23858f",
+  "generatedAt": "2026-11-15T09:54:29Z",
+  "commit": "e87046b",
   "method": "v0 interim: per-feature stage weights (merged 100, implemented 95, implementing 30-90 by tasks done, tests 30, planned 20, spec approved 15, spec draft 5, not started 0); milestone, cross-cutting and overall are unweighted means of features (official metric: F051).",
-  "overall": 34.5,
+  "overall": 31.0,
   "milestones": [
     {
       "id": "M0",
@@ -31,15 +31,15 @@
       "id": "M3",
       "name": "Agents and scale",
       "kind": "milestone",
-      "percent": 13.3,
-      "features": 9
+      "percent": 8.6,
+      "features": 14
     },
     {
       "id": "M4",
       "name": "Distributed mode and 3GPP exposure",
       "kind": "milestone",
-      "percent": 6.0,
-      "features": 10
+      "percent": 5.0,
+      "features": 12
     },
     {
       "id": "M5",
@@ -66,7 +66,7 @@
       "id": "CC",
       "name": "Development quality gates",
       "kind": "cross-cutting",
-      "percent": 68.3,
+      "percent": 70.0,
       "features": 3
     }
   ],
@@ -474,8 +474,8 @@
       "id": "F058",
       "name": "Development quality gates",
       "milestone": "CC",
-      "stage": "implemented",
-      "percent": 95.0
+      "stage": "merged",
+      "percent": 100.0
     },
     {
       "id": "F059",
@@ -495,6 +495,55 @@
       "id": "F061",
       "name": "Browser demo: the core running in WebAssembly",
       "milestone": "M5",
+      "stage": "not-started",
+      "percent": 0.0
+    },
+    {
+      "id": "F062",
+      "name": "Campaigns on Kubernetes with object-storage upload",
+      "milestone": "M3",
+      "stage": "not-started",
+      "percent": 0.0
+    },
+    {
+      "id": "F063",
+      "name": "Control API streams, remote hooks and remote listeners",
+      "milestone": "M3",
+      "stage": "not-started",
+      "percent": 0.0
+    },
+    {
+      "id": "F064",
+      "name": "Language-model corpus: further views and task formats",
+      "milestone": "M3",
+      "stage": "not-started",
+      "percent": 0.0
+    },
+    {
+      "id": "F065",
+      "name": "Real-time N6 through a TUN device",
+      "milestone": "M3",
+      "stage": "not-started",
+      "percent": 0.0
+    },
+    {
+      "id": "F066",
+      "name": "Scenario stop condition on KPIs",
+      "milestone": "M3",
+      "stage": "not-started",
+      "percent": 0.0
+    },
+    {
+      "id": "F067",
+      "name": "TLS for SBI",
+      "milestone": "M4",
+      "stage": "not-started",
+      "percent": 0.0
+    },
+    {
+      "id": "F068",
+      "name": "SMF subscribes to UE reachability",
+      "milestone": "M4",
       "stage": "not-started",
       "percent": 0.0
     }
