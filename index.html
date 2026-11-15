@@ -403,7 +403,7 @@
         <p class="section-intro">Agents do not work from memory of the standards. Each feature starts from pinned 3GPP clause text (Release&nbsp;17 today; each later release profile gets its own pinned corpus), becomes testable requirements, and only then becomes code. An AI orchestrator agent acts as product owner, under the direction of the human project owner: it approves specs, signs off on security and merges.</p>
 
         <ol class="pipeline" aria-label="Feature lifecycle">
-          <li><span class="step-n">01</span><h3>Specify</h3><p>Requirements in EARS form, each keyed to the clause it comes from.</p></li>
+          <li><span class="step-n">01</span><h3>Specify</h3><p>Requirements in EARS form, each keyed to the clause it comes from, plus procedure step tables.</p></li>
           <li><span class="step-n">02</span><h3>Critic</h3><p>A spec critic hunts for gaps and ambiguity.</p></li>
           <li><span class="step-n">03</span><h3>Approve</h3><p>The orchestrator agent signs off on the spec.</p></li>
           <li><span class="step-n">04</span><h3>Plan</h3><p>Design and tasks, split into waves with file ownership.</p></li>
@@ -419,7 +419,7 @@
         <div class="process-grid">
           <article class="panel">
             <h3>Traceable to the clause</h3>
-            <p>Requirement IDs carry the specification clause they come from, or a project area such as OBS, SIM, SEC or PERF. Code and tests point back at them, and the trace check fails any mandatory requirement of an approved spec that lacks an implementation site and a passing test.</p>
+            <p>Requirement IDs carry the specification clause they come from, or a project area such as OBS, SIM, SEC or PERF. Code and tests point back at them, and the trace check fails any mandatory requirement of an approved spec that lacks an implementation site and a passing test. Procedure-level specifications are traced too: each procedure a feature implements gets a step table mapping every step to the requirements that realise it, and the trace check fails a step left unmapped.</p>
 <pre class="code"><code><span class="c-com">// illustrative</span>
 <span class="c-attr">#[fc_trace::implements(</span><span class="c-str">"TS24501-5.5.1.2.4-R03"</span><span class="c-attr">)]</span>
 <span class="c-kw">fn</span> <span class="c-fn">on_registration_request</span>(...) { ... }
