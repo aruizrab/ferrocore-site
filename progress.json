@@ -1,10 +1,10 @@
 {
   "schema": 1,
   "placeholder": false,
-  "generatedAt": "2026-11-15T16:21:37Z",
+  "generatedAt": "2026-11-15T16:35:54Z",
   "commit": "092678b",
   "method": "v0 interim: per-feature stage weights (merged 100, implemented 95, implementing 30-90 by tasks done, tests 30, planned 20, spec approved 15, spec draft 5, not started 0); milestone, cross-cutting and overall are unweighted means of features (official metric: F051).",
-  "overall": 29.9,
+  "overall": 30.1,
   "milestones": [
     {
       "id": "M0",
@@ -31,7 +31,7 @@
       "id": "M3",
       "name": "Agents and scale",
       "kind": "milestone",
-      "percent": 8.6,
+      "percent": 10.0,
       "features": 14
     },
     {
@@ -528,10 +528,10 @@
     },
     {
       "id": "F066",
-      "name": "Scenario stop condition on KPIs",
+      "name": "KPI stop condition for scenarios",
       "milestone": "M3",
-      "stage": "not-started",
-      "percent": 0.0
+      "stage": "planned",
+      "percent": 20.0
     },
     {
       "id": "F067",
