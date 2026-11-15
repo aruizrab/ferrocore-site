@@ -1,10 +1,10 @@
 {
   "schema": 1,
   "placeholder": false,
-  "generatedAt": "2026-11-15T14:13:32Z",
-  "commit": "e87046b",
+  "generatedAt": "2026-11-15T16:21:37Z",
+  "commit": "092678b",
   "method": "v0 interim: per-feature stage weights (merged 100, implemented 95, implementing 30-90 by tasks done, tests 30, planned 20, spec approved 15, spec draft 5, not started 0); milestone, cross-cutting and overall are unweighted means of features (official metric: F051).",
-  "overall": 31.9,
+  "overall": 29.9,
   "milestones": [
     {
       "id": "M0",
@@ -38,8 +38,8 @@
       "id": "M4",
       "name": "Distributed mode and 3GPP exposure",
       "kind": "milestone",
-      "percent": 10.0,
-      "features": 12
+      "percent": 7.1,
+      "features": 17
     },
     {
       "id": "M5",
@@ -66,7 +66,7 @@
       "id": "CC",
       "name": "Development quality gates",
       "kind": "cross-cutting",
-      "percent": 70.0,
+      "percent": 73.3,
       "features": 3
     }
   ],
@@ -488,8 +488,8 @@
       "id": "F060",
       "name": "Stage 2 traceability",
       "milestone": "CC",
-      "stage": "implementing",
-      "percent": 90.0
+      "stage": "merged",
+      "percent": 100.0
     },
     {
       "id": "F061",
@@ -543,6 +543,41 @@
     {
       "id": "F068",
       "name": "SMF subscribes to UE reachability",
+      "milestone": "M4",
+      "stage": "not-started",
+      "percent": 0.0
+    },
+    {
+      "id": "F069",
+      "name": "NWDAF NF load and UE mobility analytics",
+      "milestone": "M4",
+      "stage": "not-started",
+      "percent": 0.0
+    },
+    {
+      "id": "F070",
+      "name": "Helm values for distributed mode",
+      "milestone": "M4",
+      "stage": "not-started",
+      "percent": 0.0
+    },
+    {
+      "id": "F071",
+      "name": "NRF matching by subscriber ranges",
+      "milestone": "M4",
+      "stage": "not-started",
+      "percent": 0.0
+    },
+    {
+      "id": "F072",
+      "name": "SBI overload abatement by consumers",
+      "milestone": "M4",
+      "stage": "not-started",
+      "percent": 0.0
+    },
+    {
+      "id": "F073",
+      "name": "N3 between processes in distributed mode",
       "milestone": "M4",
       "stage": "not-started",
       "percent": 0.0
