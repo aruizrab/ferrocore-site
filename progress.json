@@ -1,10 +1,10 @@
 {
   "schema": 1,
   "placeholder": false,
-  "generatedAt": "2026-11-15T09:54:29Z",
+  "generatedAt": "2026-11-15T10:01:52Z",
   "commit": "e87046b",
   "method": "v0 interim: per-feature stage weights (merged 100, implemented 95, implementing 30-90 by tasks done, tests 30, planned 20, spec approved 15, spec draft 5, not started 0); milestone, cross-cutting and overall are unweighted means of features (official metric: F051).",
-  "overall": 31.0,
+  "overall": 31.3,
   "milestones": [
     {
       "id": "M0",
@@ -38,7 +38,7 @@
       "id": "M4",
       "name": "Distributed mode and 3GPP exposure",
       "kind": "milestone",
-      "percent": 5.0,
+      "percent": 6.7,
       "features": 12
     },
     {
@@ -388,10 +388,10 @@
     },
     {
       "id": "F046",
-      "name": "NWDAF analytics subset",
+      "name": "NWDAF subset: abnormal behaviour analytics through Nnwdaf_AnalyticsInfo and Nnwdaf_EventsSubscription",
       "milestone": "M4",
-      "stage": "not-started",
-      "percent": 0.0
+      "stage": "planned",
+      "percent": 20.0
     },
     {
       "id": "F047",
