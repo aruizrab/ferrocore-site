@@ -1,10 +1,10 @@
 {
   "schema": 1,
   "placeholder": false,
-  "generatedAt": "2026-11-15T19:16:19Z",
-  "commit": "4f0dede",
+  "generatedAt": "2026-11-15T19:47:45Z",
+  "commit": "a59780e",
   "method": "v0 interim: per-feature stage weights (merged 100, implemented 95, implementing 30-90 by tasks done, tests 30, planned 20, spec approved 15, spec draft 5, not started 0); milestone, cross-cutting and overall are unweighted means of features (official metric: F051).",
-  "overall": 31.4,
+  "overall": 30.9,
   "milestones": [
     {
       "id": "M0",
@@ -31,8 +31,8 @@
       "id": "M3",
       "name": "Agents and scale",
       "kind": "milestone",
-      "percent": 12.0,
-      "features": 15
+      "percent": 11.2,
+      "features": 16
     },
     {
       "id": "M4",
@@ -588,6 +588,13 @@
       "milestone": "M3",
       "stage": "planned",
       "percent": 20.0
+    },
+    {
+      "id": "F075",
+      "name": "Control API in `run`, operate RPCs, protected objects, MCP extensions",
+      "milestone": "M3",
+      "stage": "not-started",
+      "percent": 0.0
     }
   ]
 }
