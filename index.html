@@ -409,7 +409,7 @@
           <li><span class="step-n">04</span><h3>Plan</h3><p>Design and tasks, split into waves with file ownership.</p></li>
           <li class="step-red"><span class="step-n">05</span><h3>Tests (red)</h3><p>A separate test author writes failing tests first.</p></li>
           <li><span class="step-n">06</span><h3>Implement</h3><p>Parallel implementers in git worktrees, wave by wave.</p></li>
-          <li><span class="step-n">07</span><h3>Gates</h3><p>fmt, clippy, tests, doctests, trace, deny, audit, tshark.</p></li>
+          <li><span class="step-n">07</span><h3>Gates</h3><p>fmt, clippy, tests, trace, supply chain, fuzzing, tshark, architecture and size limits, coverage of every changed line (reasoned exceptions only), mutation testing of every change, and a baseline that may only shrink.</p></li>
           <li><span class="step-n">08</span><h3>Review</h3><p>Spec-compliance, security, test-adequacy and performance reviewers.</p></li>
           <li><span class="step-n">09</span><h3>Verify</h3><p>Two sceptic verifiers try to refute each blocking finding.</p></li>
           <li><span class="step-n">10</span><h3>Finalize</h3><p>Review record, status Implemented, trace check passes.</p></li>
@@ -449,6 +449,7 @@
               <li>O(message) work, &le;&nbsp;16&nbsp;KiB idle state per UE</li>
               <li>A typed event for everything</li>
               <li>Small tasks, around 400 changed lines</li>
+              <li>Existing findings are fixed before new features build on them</li>
               <li>One error enum per crate</li>
             </ul>
           </article>
@@ -495,17 +496,17 @@
           <li class="ms" data-ms="M3">
             <div class="ms-head"><span class="ms-id">M3</span><h3>Agents and scale</h3></div>
             <p>Control API and MCP server, snapshot and fork, the Gym wrapper, 100k UEs, campaigns on Kubernetes, realtime mode with UERANSIM and PacketRusher interop, and the LM corpus exporter.</p>
-            <p class="ms-feat">F032&ndash;F040</p>
+            <p class="ms-feat">F032&ndash;F040, F062&ndash;F066</p>
           </li>
           <li class="ms" data-ms="M4">
             <div class="ms-head"><span class="ms-id">M4</span><h3>Distributed and exposure</h3></div>
             <p>OpenAPI code generation, SBI over HTTP/2, NRF, distributed mode, AMF and SMF event exposure, an NWDAF subset, a Kubernetes operator, EAP-AKA&prime;, an XnAP wire codec and distributed fault injection.</p>
-            <p class="ms-feat">F041&ndash;F050</p>
+            <p class="ms-feat">F041&ndash;F050, F067, F068</p>
           </li>
           <li class="ms" data-ms="M5">
             <div class="ms-head"><span class="ms-id">M5</span><h3>Visibility and public release</h3></div>
-            <p>A progress metric published by CI, this landing page, the licensing work needed before the source goes public, and an interactive front end.</p>
-            <p class="ms-feat">F051&ndash;F054</p>
+            <p>A progress metric published by CI, this landing page, the licensing work needed before the source goes public, an interactive front end, and a browser demo that runs the core itself in WebAssembly.</p>
+            <p class="ms-feat">F051&ndash;F054, F061</p>
           </li>
           <li class="ms" data-ms="M6">
             <div class="ms-head"><span class="ms-id">M6</span><h3>Release 18 profile</h3></div>
