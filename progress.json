@@ -1,10 +1,10 @@
 {
   "schema": 1,
   "placeholder": false,
-  "generatedAt": "2026-11-15T08:39:21Z",
+  "generatedAt": "2026-11-15T08:46:48Z",
   "commit": "e23858f",
   "method": "v0 interim: per-feature stage weights (merged 100, implemented 95, implementing 30-90 by tasks done, tests 30, planned 20, spec approved 15, spec draft 5, not started 0); milestone, cross-cutting and overall are unweighted means of features (official metric: F051).",
-  "overall": 33.9,
+  "overall": 34.2,
   "milestones": [
     {
       "id": "M0",
@@ -38,7 +38,7 @@
       "id": "M4",
       "name": "Distributed mode and 3GPP exposure",
       "kind": "milestone",
-      "percent": 2.5,
+      "percent": 4.0,
       "features": 10
     },
     {
@@ -362,8 +362,8 @@
       "id": "F042",
       "name": "SBI HTTP/2 transport: h2c client and server, transport-level TS 29.500 rules, capture tap",
       "milestone": "M4",
-      "stage": "spec-draft",
-      "percent": 5.0
+      "stage": "planned",
+      "percent": 20.0
     },
     {
       "id": "F043",
