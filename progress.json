@@ -1,10 +1,10 @@
 {
   "schema": 1,
   "placeholder": false,
-  "generatedAt": "2026-11-15T03:42:57Z",
+  "generatedAt": "2026-11-15T03:50:39Z",
   "commit": "e23858f",
   "method": "v0 interim: per-feature stage weights (merged 100, implemented 95, implementing 30-90 by tasks done, tests 30, planned 20, spec approved 15, spec draft 5, not started 0); milestone, cross-cutting and overall are unweighted means of features (official metric: F051).",
-  "overall": 32.9,
+  "overall": 33.2,
   "milestones": [
     {
       "id": "M0",
@@ -31,7 +31,7 @@
       "id": "M3",
       "name": "Agents and scale",
       "kind": "milestone",
-      "percent": 11.1,
+      "percent": 13.3,
       "features": 9
     },
     {
@@ -332,10 +332,10 @@
     },
     {
       "id": "F038",
-      "name": "Real-time all-in-one mode",
+      "name": "Realtime all-in-one mode: `ferrocore run`, kernel SCTP N2, UDP GTP-U N3, input journal",
       "milestone": "M3",
-      "stage": "not-started",
-      "percent": 0.0
+      "stage": "planned",
+      "percent": 20.0
     },
     {
       "id": "F039",
