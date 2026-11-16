@@ -1,10 +1,10 @@
 {
   "schema": 1,
   "placeholder": false,
-  "generatedAt": "2026-11-16T04:29:25Z",
-  "commit": "a59780e",
+  "generatedAt": "2026-11-16T04:30:08Z",
+  "commit": "00c81d9",
   "method": "v0 interim: per-feature stage weights (merged 100, implemented 95, implementing 30-90 by tasks done, tests 30, planned 20, spec approved 15, spec draft 5, not started 0); milestone, cross-cutting and overall are unweighted means of features (official metric: F051).",
-  "overall": 32.5,
+  "overall": 30.9,
   "milestones": [
     {
       "id": "M0",
@@ -31,15 +31,15 @@
       "id": "M3",
       "name": "Agents and scale",
       "kind": "milestone",
-      "percent": 13.8,
-      "features": 16
+      "percent": 12.9,
+      "features": 17
     },
     {
       "id": "M4",
       "name": "Distributed mode and 3GPP exposure",
       "kind": "milestone",
-      "percent": 11.8,
-      "features": 17
+      "percent": 10.0,
+      "features": 20
     },
     {
       "id": "M5",
@@ -592,6 +592,34 @@
     {
       "id": "F075",
       "name": "Control API in `run`, operate RPCs, protected objects, MCP extensions",
+      "milestone": "M3",
+      "stage": "not-started",
+      "percent": 0.0
+    },
+    {
+      "id": "F076",
+      "name": "Operator: CoreInstance, live progress, upload wiring",
+      "milestone": "M4",
+      "stage": "not-started",
+      "percent": 0.0
+    },
+    {
+      "id": "F077",
+      "name": "SBI overload: OCI header, 502 relay, message priority",
+      "milestone": "M4",
+      "stage": "not-started",
+      "percent": 0.0
+    },
+    {
+      "id": "F078",
+      "name": "N3 with several gNBs and DSCP marking",
+      "milestone": "M4",
+      "stage": "not-started",
+      "percent": 0.0
+    },
+    {
+      "id": "F079",
+      "name": "UPF uplink source address check",
       "milestone": "M3",
       "stage": "not-started",
       "percent": 0.0
