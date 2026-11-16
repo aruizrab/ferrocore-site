@@ -3,7 +3,7 @@
    { schema: 1, placeholder: bool, generatedAt: ISO 8601, commit: "<sha7>",
      method: "<one line>", overall: 0-100,
      milestones: [{ id, name, kind?, percent, features }],   features: count (a list of ids is accepted)
-     features:   [{ id, name, milestone, stage, percent }] }
+     features:   [{ id, name, milestone, stage, percent, idle?, lastCommit? }] }
    kind is "milestone" (the default when absent) or "cross-cutting": a group of
    features that belongs to no milestone (id "CC"); features name it in their
    milestone field. A trailing "(placeholder, specs later)"-style note is
@@ -162,7 +162,7 @@
     var milestones = groupsAll.filter(function (m) { return !m.cross; });
     var crossGroups = groupsAll.filter(function (m) { return m.cross; });
     var features = data.features.slice(0, 500).map(function (f) {
-      return { id: str(f.id, 12), name: str(f.name, 120), milestone: str(f.milestone, 8), stage: str(f.stage, 24), percent: pct(f.percent) };
+      return { id: str(f.id, 12), name: str(f.name, 120), milestone: str(f.milestone, 8), stage: str(f.stage, 24), percent: pct(f.percent), idle: f.idle === true, lastCommit: str(f.lastCommit || "", 20) };
     });
 
     var frag = document.createDocumentFragment();
@@ -259,8 +259,9 @@
           h("span", { class: "frow-id", text: f.id }),
           h("span", { class: "frow-name", text: f.name }),
           bar(f.percent, f.id + " " + f.name + " completion"),
-          stageBadge(f.stage)
-        ]));
+          stageBadge(f.stage),
+          f.idle ? h("span", { class: "muted frow-idle", title: "No commit since " + f.lastCommit, text: "idle since " + f.lastCommit.slice(0, 10) }) : null
+        ].filter(Boolean)));
       });
       details.appendChild(ul);
       groups.appendChild(details);
