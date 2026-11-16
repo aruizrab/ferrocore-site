@@ -1,10 +1,10 @@
 {
   "schema": 1,
   "placeholder": false,
-  "generatedAt": "2026-11-16T17:05:34Z",
-  "commit": "115b42f",
+  "generatedAt": "2026-11-16T17:11:28Z",
+  "commit": "2f82543",
   "method": "v0 interim: per-feature stage weights (merged 100, implemented 95, implementing 30-90 by tasks done, tests 30, planned 20, spec approved 15, spec draft 5, not started 0); milestone, cross-cutting and overall are unweighted means of features (official metric: F051).",
-  "overall": 29.7,
+  "overall": 29.6,
   "milestones": [
     {
       "id": "M0",
@@ -31,15 +31,15 @@
       "id": "M3",
       "name": "Agents and scale",
       "kind": "milestone",
-      "percent": 13.7,
+      "percent": 14.7,
       "features": 19
     },
     {
       "id": "M4",
       "name": "Distributed mode and 3GPP exposure",
       "kind": "milestone",
-      "percent": 12.2,
-      "features": 23
+      "percent": 11.7,
+      "features": 24
     },
     {
       "id": "M5",
@@ -633,10 +633,10 @@
     },
     {
       "id": "F081",
-      "name": "Language-model corpus: task formats, auth removal, Croissant",
+      "name": "Language-model corpus: task formats and auth removal",
       "milestone": "M3",
-      "stage": "not-started",
-      "percent": 0.0
+      "stage": "planned",
+      "percent": 20.0
     },
     {
       "id": "F082",
@@ -655,6 +655,13 @@
     {
       "id": "F084",
       "name": "NWDAF subscriptions and NRF attributes for NF load and UE mobility",
+      "milestone": "M4",
+      "stage": "not-started",
+      "percent": 0.0
+    },
+    {
+      "id": "F085",
+      "name": "LM corpus: Croissant metadata, topology pseudonyms, named values",
       "milestone": "M4",
       "stage": "not-started",
       "percent": 0.0
