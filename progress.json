@@ -1,10 +1,10 @@
 {
   "schema": 1,
   "placeholder": false,
-  "generatedAt": "2026-11-16T19:11:32Z",
-  "commit": "d5c2804",
+  "generatedAt": "2026-11-16T21:58:25Z",
+  "commit": "909a03f",
   "method": "v0 interim: per-feature stage weights (merged 100, implemented 95, implementing 30-90 by tasks done, tests 30, planned 20, spec approved 15, spec draft 5, not started 0); milestone, cross-cutting and overall are unweighted means of features (official metric: F051).",
-  "overall": 30.1,
+  "overall": 29.8,
   "milestones": [
     {
       "id": "M0",
@@ -38,8 +38,8 @@
       "id": "M4",
       "name": "Distributed mode and 3GPP exposure",
       "kind": "milestone",
-      "percent": 12.8,
-      "features": 25
+      "percent": 12.3,
+      "features": 26
     },
     {
       "id": "M5",
@@ -667,7 +667,7 @@
       "stage": "planned",
       "percent": 20.0,
       "lastCommit": "2026-11-15T19:16:19Z",
-      "idle": false
+      "idle": true
     },
     {
       "id": "F075",
@@ -752,6 +752,13 @@
     {
       "id": "F085",
       "name": "LM corpus: Croissant metadata, topology pseudonyms, named values",
+      "milestone": "M4",
+      "stage": "not-started",
+      "percent": 0.0
+    },
+    {
+      "id": "F086",
+      "name": "F078 Part B: DSCP marking of G-PDUs on N3 (split decided at F078 plan time)",
       "milestone": "M4",
       "stage": "not-started",
       "percent": 0.0
