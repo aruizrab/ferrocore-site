@@ -1,8 +1,8 @@
 {
   "schema": 1,
   "placeholder": false,
-  "generatedAt": "2026-11-16T18:38:40Z",
-  "commit": "f0a91f6",
+  "generatedAt": "2026-11-16T19:11:32Z",
+  "commit": "d5c2804",
   "method": "v0 interim: per-feature stage weights (merged 100, implemented 95, implementing 30-90 by tasks done, tests 30, planned 20, spec approved 15, spec draft 5, not started 0); milestone, cross-cutting and overall are unweighted means of features (official metric: F051).",
   "overall": 30.1,
   "milestones": [
@@ -146,21 +146,27 @@
       "name": "AMF initial registration and UE-initiated deregistration",
       "milestone": "M1",
       "stage": "planned",
-      "percent": 20.0
+      "percent": 20.0,
+      "lastCommit": "2026-11-12T18:25:36Z",
+      "idle": true
     },
     {
       "id": "F012",
       "name": "SMF and UPF: UE-requested PDU session establishment",
       "milestone": "M1",
       "stage": "implementing",
-      "percent": 90.0
+      "percent": 90.0,
+      "lastCommit": "2026-11-16T11:55:20Z",
+      "idle": false
     },
     {
       "id": "F013",
       "name": "Simulated RAN: gNB and UE state machines",
       "milestone": "M1",
       "stage": "implementing",
-      "percent": 90.0
+      "percent": 90.0,
+      "lastCommit": "2026-11-16T18:38:40Z",
+      "idle": false
     },
     {
       "id": "F014",
@@ -181,7 +187,9 @@
       "name": "Container image, Docker Compose and Helm chart",
       "milestone": "M1",
       "stage": "planned",
-      "percent": 20.0
+      "percent": 20.0,
+      "lastCommit": "2026-11-13T20:25:26Z",
+      "idle": true
     },
     {
       "id": "F017",
@@ -202,21 +210,27 @@
       "name": "AN release, CM-IDLE and UE-triggered service request",
       "milestone": "M2",
       "stage": "planned",
-      "percent": 20.0
+      "percent": 20.0,
+      "lastCommit": "2026-11-14T08:24:53Z",
+      "idle": true
     },
     {
       "id": "F020",
       "name": "Paging and network-triggered service request",
       "milestone": "M2",
       "stage": "planned",
-      "percent": 20.0
+      "percent": 20.0,
+      "lastCommit": "2026-11-14T09:05:05Z",
+      "idle": true
     },
     {
       "id": "F021",
       "name": "Mobility and periodic registration update",
       "milestone": "M2",
       "stage": "planned",
-      "percent": 20.0
+      "percent": 20.0,
+      "lastCommit": "2026-11-14T12:19:11Z",
+      "idle": true
     },
     {
       "id": "F022",
@@ -244,70 +258,90 @@
       "name": "UE profiles and traffic models",
       "milestone": "M2",
       "stage": "planned",
-      "percent": 20.0
+      "percent": 20.0,
+      "lastCommit": "2026-11-14T13:33:00Z",
+      "idle": true
     },
     {
       "id": "F026",
       "name": "PDU session modification, release and network-initiated de-registration",
       "milestone": "M2",
       "stage": "planned",
-      "percent": 20.0
+      "percent": 20.0,
+      "lastCommit": "2026-11-15T09:28:20Z",
+      "idle": true
     },
     {
       "id": "F027",
       "name": "Fault injection with ground-truth labels",
       "milestone": "M2",
       "stage": "planned",
-      "percent": 20.0
+      "percent": 20.0,
+      "lastCommit": "2026-11-14T17:17:27Z",
+      "idle": true
     },
     {
       "id": "F028",
       "name": "UE misbehaviour library",
       "milestone": "M2",
       "stage": "planned",
-      "percent": 20.0
+      "percent": 20.0,
+      "lastCommit": "2026-11-14T17:50:30Z",
+      "idle": true
     },
     {
       "id": "F029",
       "name": "KPI engine (TS 28.552 counters)",
       "milestone": "M2",
       "stage": "planned",
-      "percent": 20.0
+      "percent": 20.0,
+      "lastCommit": "2026-11-15T08:39:21Z",
+      "idle": true
     },
     {
       "id": "F030",
       "name": "Parquet dataset tables and offline decode",
       "milestone": "M2",
       "stage": "planned",
-      "percent": 20.0
+      "percent": 20.0,
+      "lastCommit": "2026-11-14T22:12:07Z",
+      "idle": true
     },
     {
       "id": "F031",
       "name": "PCF and NSSF (lite)",
       "milestone": "M2",
       "stage": "planned",
-      "percent": 20.0
+      "percent": 20.0,
+      "lastCommit": "2026-11-14T18:22:38Z",
+      "idle": true
     },
     {
       "id": "F032",
       "name": "Control API (gRPC and REST)",
       "milestone": "M3",
       "stage": "planned",
-      "percent": 20.0
+      "percent": 20.0,
+      "lastCommit": "2026-11-14T22:25:06Z",
+      "idle": true
     },
     {
       "id": "F033",
       "name": "MCP server for LLM agents",
       "milestone": "M3",
       "stage": "planned",
-      "percent": 20.0
+      "percent": 20.0,
+      "lastCommit": "2026-11-14T23:02:52Z",
+      "idle": true
     },
     {
       "id": "F034",
       "name": "Snapshot, restore and fork",
       "milestone": "M3",
       "stage": "planned",
-      "percent": 20.0
+      "percent": 20.0,
+      "lastCommit": "2026-11-14T22:40:30Z",
+      "idle": true
     },
     {
       "id": "F035",
@@ -328,14 +362,18 @@
       "name": "Campaign runner: local sweeps, campaign index and resume",
       "milestone": "M3",
       "stage": "planned",
-      "percent": 20.0
+      "percent": 20.0,
+      "lastCommit": "2026-11-14T23:38:08Z",
+      "idle": true
     },
     {
       "id": "F038",
       "name": "Realtime all-in-one mode: `ferrocore run`, kernel SCTP N2, UDP GTP-U N3, input journal",
       "milestone": "M3",
       "stage": "planned",
-      "percent": 20.0
+      "percent": 20.0,
+      "lastCommit": "2026-11-15T03:50:39Z",
+      "idle": true
     },
     {
       "id": "F039",
@@ -349,56 +387,72 @@
       "name": "Language-model corpus exporter",
       "milestone": "M3",
       "stage": "planned",
-      "percent": 20.0
+      "percent": 20.0,
+      "lastCommit": "2026-11-15T03:42:57Z",
+      "idle": true
     },
     {
       "id": "F041",
       "name": "SBI OpenAPI code generator",
       "milestone": "M4",
       "stage": "planned",
-      "percent": 20.0
+      "percent": 20.0,
+      "lastCommit": "2026-11-15T07:24:56Z",
+      "idle": true
     },
     {
       "id": "F042",
       "name": "SBI HTTP/2 transport: h2c client and server, transport-level TS 29.500 rules, capture tap",
       "milestone": "M4",
       "stage": "planned",
-      "percent": 20.0
+      "percent": 20.0,
+      "lastCommit": "2026-11-15T08:46:48Z",
+      "idle": true
     },
     {
       "id": "F043",
       "name": "NRF registration and discovery",
       "milestone": "M4",
       "stage": "planned",
-      "percent": 20.0
+      "percent": 20.0,
+      "lastCommit": "2026-11-15T13:38:51Z",
+      "idle": true
     },
     {
       "id": "F044",
       "name": "Distributed mode",
       "milestone": "M4",
       "stage": "planned",
-      "percent": 20.0
+      "percent": 20.0,
+      "lastCommit": "2026-11-15T14:13:32Z",
+      "idle": true
     },
     {
       "id": "F045",
       "name": "AMF and SMF event exposure: Namf_EventExposure and Nsmf_EventExposure subscriptions and notifications",
       "milestone": "M4",
       "stage": "planned",
-      "percent": 20.0
+      "percent": 20.0,
+      "lastCommit": "2026-11-15T09:26:55Z",
+      "idle": true
     },
     {
       "id": "F046",
       "name": "NWDAF subset: abnormal behaviour analytics through Nnwdaf_AnalyticsInfo and Nnwdaf_EventsSubscription",
       "milestone": "M4",
       "stage": "planned",
-      "percent": 20.0
+      "percent": 20.0,
+      "lastCommit": "2026-11-15T10:01:52Z",
+      "idle": true
     },
     {
       "id": "F047",
       "name": "Kubernetes operator: ScenarioRun and Campaign",
       "milestone": "M4",
       "stage": "planned",
-      "percent": 20.0
+      "percent": 20.0,
+      "lastCommit": "2026-11-15T23:39:41Z",
+      "idle": false
     },
     {
       "id": "F048",
@@ -454,7 +508,9 @@
       "name": "3GPP release profiles",
       "milestone": "M2",
       "stage": "planned",
-      "percent": 20.0
+      "percent": 20.0,
+      "lastCommit": "2026-11-13T21:33:16Z",
+      "idle": true
     },
     {
       "id": "F056",
@@ -503,35 +559,45 @@
       "name": "Campaigns on Kubernetes with object-storage upload",
       "milestone": "M3",
       "stage": "planned",
-      "percent": 20.0
+      "percent": 20.0,
+      "lastCommit": "2026-11-16T00:09:56Z",
+      "idle": false
     },
     {
       "id": "F063",
       "name": "Control API streams, remote hooks and remote listeners",
       "milestone": "M3",
       "stage": "planned",
-      "percent": 20.0
+      "percent": 20.0,
+      "lastCommit": "2026-11-15T18:27:23Z",
+      "idle": true
     },
     {
       "id": "F064",
       "name": "Language-model corpus: further views and corpus scope",
       "milestone": "M3",
       "stage": "planned",
-      "percent": 20.0
+      "percent": 20.0,
+      "lastCommit": "2026-11-16T09:51:05Z",
+      "idle": false
     },
     {
       "id": "F065",
       "name": "Real-time N6 through a TUN device",
       "milestone": "M3",
       "stage": "planned",
-      "percent": 20.0
+      "percent": 20.0,
+      "lastCommit": "2026-11-16T04:29:25Z",
+      "idle": false
     },
     {
       "id": "F066",
       "name": "KPI stop condition for scenarios",
       "milestone": "M3",
       "stage": "planned",
-      "percent": 20.0
+      "percent": 20.0,
+      "lastCommit": "2026-11-15T16:35:54Z",
+      "idle": true
     },
     {
       "id": "F067",
@@ -545,49 +611,63 @@
       "name": "SMF subscribes to UE reachability and returns to buffering",
       "milestone": "M4",
       "stage": "planned",
-      "percent": 20.0
+      "percent": 20.0,
+      "lastCommit": "2026-11-16T04:33:52Z",
+      "idle": false
     },
     {
       "id": "F069",
       "name": "NWDAF NF load and UE mobility analytics",
       "milestone": "M4",
       "stage": "planned",
-      "percent": 20.0
+      "percent": 20.0,
+      "lastCommit": "2026-11-16T17:04:46Z",
+      "idle": false
     },
     {
       "id": "F070",
       "name": "Helm values for distributed mode",
       "milestone": "M4",
       "stage": "planned",
-      "percent": 20.0
+      "percent": 20.0,
+      "lastCommit": "2026-11-16T02:06:43Z",
+      "idle": false
     },
     {
       "id": "F071",
       "name": "NRF matching by subscriber ranges",
       "milestone": "M4",
       "stage": "planned",
-      "percent": 20.0
+      "percent": 20.0,
+      "lastCommit": "2026-11-16T15:20:25Z",
+      "idle": false
     },
     {
       "id": "F072",
       "name": "SBI overload abatement by consumers",
       "milestone": "M4",
       "stage": "planned",
-      "percent": 20.0
+      "percent": 20.0,
+      "lastCommit": "2026-11-16T01:42:48Z",
+      "idle": false
     },
     {
       "id": "F073",
       "name": "Distributed N3: GTP-U over UDP between the `ransim` and UPF processes",
       "milestone": "M4",
       "stage": "planned",
-      "percent": 20.0
+      "percent": 20.0,
+      "lastCommit": "2026-11-16T03:40:23Z",
+      "idle": false
     },
     {
       "id": "F074",
       "name": "Control API: time policies, several scenarios per `serve`, pause/step, snapshot and fork RPCs",
       "milestone": "M3",
       "stage": "planned",
-      "percent": 20.0
+      "percent": 20.0,
+      "lastCommit": "2026-11-15T19:16:19Z",
+      "idle": false
     },
     {
       "id": "F075",
@@ -608,14 +688,18 @@
       "name": "SBI overload: 502 relay and OCI-based overload control",
       "milestone": "M4",
       "stage": "planned",
-      "percent": 20.0
+      "percent": 20.0,
+      "lastCommit": "2026-11-16T15:19:49Z",
+      "idle": false
     },
     {
       "id": "F078",
       "name": "Distributed N3 with several gNBs, and DSCP marking of G-PDUs on N3",
       "milestone": "M4",
       "stage": "planned",
-      "percent": 20.0
+      "percent": 20.0,
+      "lastCommit": "2026-11-16T17:43:07Z",
+      "idle": false
     },
     {
       "id": "F079",
@@ -629,14 +713,18 @@
       "name": "PDU Session Container on N3 at both ends",
       "milestone": "M3",
       "stage": "planned",
-      "percent": 20.0
+      "percent": 20.0,
+      "lastCommit": "2026-11-16T11:37:19Z",
+      "idle": false
     },
     {
       "id": "F081",
       "name": "Language-model corpus: task formats and auth removal",
       "milestone": "M3",
       "stage": "planned",
-      "percent": 20.0
+      "percent": 20.0,
+      "lastCommit": "2026-11-16T17:10:32Z",
+      "idle": false
     },
     {
       "id": "F082",
@@ -650,7 +738,9 @@
       "name": "SBI message priority and OCI conveyance",
       "milestone": "M4",
       "stage": "planned",
-      "percent": 20.0
+      "percent": 20.0,
+      "lastCommit": "2026-11-16T17:53:19Z",
+      "idle": false
     },
     {
       "id": "F084",
