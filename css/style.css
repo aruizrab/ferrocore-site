@@ -744,6 +744,18 @@ small { font-size: 0.8em; }
 .stage-spec-draft { color: var(--steel); }
 .stage-not-started { color: var(--muted); border-style: dashed; }
 .stage-not-started::before { background: transparent; border: 1.5px solid currentColor; width: 5px; height: 5px; }
+/* Statuses sit beside the stage badge: square-cornered so they do not read as another stage. */
+.stage-legend { align-items: center; }
+.stage-legend li { display: flex; }
+.stage-legend .legend-sep { margin-left: 4px; padding-left: 12px; border-left: 1px solid var(--line); }
+.status {
+  display: inline-flex; align-items: center; gap: 5px; white-space: nowrap;
+  padding: 3px 8px; border-radius: 6px; font: 600 0.74rem var(--font-mono);
+  border: 1px solid var(--line-strong); color: var(--muted); background: var(--surface-2);
+}
+.status-paused::before { content: ""; box-sizing: content-box; width: 2px; height: 8px; border-left: 2px solid currentColor; border-right: 2px solid currentColor; }
+.status-paused { color: var(--steel); border-color: color-mix(in srgb, var(--steel) 45%, var(--line)); }
+.status-idle::before { content: ""; width: 7px; height: 2px; background: currentColor; }
 
 .feature-groups { display: grid; gap: 10px; }
 .fgroup { border: 1px solid var(--line); border-radius: 12px; background: var(--surface); overflow: hidden; }
@@ -768,12 +780,14 @@ small { font-size: 0.8em; }
 .frow-name { font-size: 0.93rem; overflow-wrap: anywhere; }
 .frow-id { grid-column: 1; grid-row: 1; }
 .frow-name { grid-column: 2; grid-row: 1; }
-.frow .stage { grid-column: 3; grid-row: 1; justify-self: end; }
+/* Narrow screens stack a status under the stage so the name keeps its width. */
+.frow-tags { grid-column: 3; grid-row: 1; justify-self: end; display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
 .frow .bar { grid-column: 2 / 4; grid-row: 2; height: 5px; }
 @media (min-width: 640px) {
-  .frow { grid-template-columns: 56px minmax(0, 1fr) 140px auto; }
+  /* Fixed tag column (stage plus an optional status) so every row's bar lines up. */
+  .frow { grid-template-columns: 56px minmax(0, 1fr) 140px 13.5rem; }
   .frow .bar { grid-column: 3; grid-row: 1; }
-  .frow .stage { grid-column: 4; }
+  .frow-tags { grid-column: 4; flex-direction: row; gap: 6px; }
 }
 
 /* ---------- Footer ---------- */

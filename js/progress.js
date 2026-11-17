@@ -3,7 +3,9 @@
    { schema: 1, placeholder: bool, generatedAt: ISO 8601, commit: "<sha7>",
      method: "<one line>", overall: 0-100,
      milestones: [{ id, name, kind?, percent, features }],   features: count (a list of ids is accepted)
-     features:   [{ id, name, milestone, stage, percent, idle?, lastCommit? }] }
+     features:   [{ id, name, milestone, stage, percent, lastCommit?, idle?, paused?, pausedReason? }] }
+   idle and paused are statuses shown beside the stage, not stages: paused (work deliberately
+   stopped, optionally with a reason) wins over idle (no commit for a while, as the feed decides).
    kind is "milestone" (the default when absent) or "cross-cutting": a group of
    features that belongs to no milestone (id "CC"); features name it in their
    milestone field. A trailing "(placeholder, specs later)"-style note is
@@ -29,7 +31,7 @@
   var STAGE_LABEL = {};
   STAGES.forEach(function (s) { STAGE_LABEL[s[0]] = s[1]; });
   /* Work under way: a plan or later, not yet merged. A spec without a plan is "specified", and an
-     in-flight feature with no commit for 24 h ("idle") is not counted as in progress. */
+     idle or paused feature is not counted as in progress. */
   var IN_FLIGHT = { implemented: 1, implementing: 1, tests: 1, planned: 1 };
   var SPECIFIED = { "spec-approved": 1, "spec-draft": 1 };
 
@@ -75,6 +77,17 @@
   function stageClass(stage) { return STAGE_LABEL[stage] ? "stage stage-" + stage : "stage"; }
   function stageBadge(stage) {
     return h("span", { class: stageClass(stage), text: STAGE_LABEL[stage] || "Unknown" });
+  }
+
+  var STATUSES = [["paused", "Paused"], ["idle", "Idle"]];
+  function featureStatus(f) { return f.paused ? "paused" : f.idle ? "idle" : ""; }
+  function statusBadge(f) {
+    var st = featureStatus(f);
+    if (!st) return null;
+    var date = f.lastCommit ? fmtDate(f.lastCommit) : null;
+    var title = st === "paused" ? "Paused" + (f.pausedReason ? ": " + f.pausedReason : "") : "No recent commits";
+    if (date) title += " (last commit " + date.text + ")";
+    return h("span", { class: "status status-" + st, title: title, text: st === "paused" ? "Paused" : "Idle" });
   }
 
   var placeholderMode = false;
@@ -165,7 +178,8 @@
     var milestones = groupsAll.filter(function (m) { return !m.cross; });
     var crossGroups = groupsAll.filter(function (m) { return m.cross; });
     var features = data.features.slice(0, 500).map(function (f) {
-      return { id: str(f.id, 12), name: str(f.name, 120), milestone: str(f.milestone, 8), stage: str(f.stage, 24), percent: pct(f.percent), idle: f.idle === true, lastCommit: str(f.lastCommit || "", 20) };
+      return { id: str(f.id, 12), name: str(f.name, 120), milestone: str(f.milestone, 8), stage: str(f.stage, 24), percent: pct(f.percent),
+        idle: f.idle === true, paused: f.paused === true, pausedReason: str(f.pausedReason, 160), lastCommit: str(f.lastCommit, 40) };
     });
 
     var frag = document.createDocumentFragment();
@@ -229,6 +243,9 @@
     frag.appendChild(h("h3", { class: "minor", text: "Features by milestone" }));
     var legend = h("ul", { class: "stage-legend", "aria-label": "Stages, from done to not started" });
     STAGES.forEach(function (st) { legend.appendChild(h("li", null, [stageBadge(st[0])])); });
+    STATUSES.forEach(function (st, i) {
+      legend.appendChild(h("li", { class: i ? "legend-status" : "legend-status legend-sep" }, [h("span", { class: "status status-" + st[0], text: st[1] })]));
+    });
     frag.appendChild(legend);
 
     var groups = h("div", { class: "feature-groups" });
@@ -245,13 +262,14 @@
       if (!items || !items.length) return;
       var m = groupsAll.filter(function (x) { return x.id === key; })[0];
       var done = items.filter(function (f) { return f.stage === "merged"; }).length;
-      var active = items.filter(function (f) { return IN_FLIGHT[f.stage] && !f.idle; }).length;
-      var idle = items.filter(function (f) { return IN_FLIGHT[f.stage] && f.idle; }).length;
-      var specified = items.filter(function (f) { return SPECIFIED[f.stage]; }).length;
+      var active = items.filter(function (f) { return IN_FLIGHT[f.stage] && !featureStatus(f); }).length;
+      var paused = items.filter(function (f) { return f.stage !== "merged" && featureStatus(f) === "paused"; }).length;
+      var idle = items.filter(function (f) { return f.stage !== "merged" && featureStatus(f) === "idle"; }).length;
+      var specified = items.filter(function (f) { return SPECIFIED[f.stage] && !featureStatus(f); }).length;
       var details = h("details", { class: "fgroup" + (m && m.cross ? " fgroup-cross" : "") });
       if (!opened && m && !m.cross && m.percent < 100) { details.open = true; opened = true; }
       var summaryText = items.length + (items.length === 1 ? " feature · " : " features · ") + done + " merged · " + active + " in progress" +
-        (idle ? " · " + idle + " idle" : "") + (specified ? " · " + specified + " specified" : "");
+        (paused ? " · " + paused + " paused" : "") + (idle ? " · " + idle + " idle" : "") + (specified ? " · " + specified + " specified" : "");
       details.appendChild(h("summary", null, [
         h("span", { class: "fg-id", text: m ? m.id : "—" }),
         h("span", { class: "fg-name" }, [
@@ -265,9 +283,8 @@
           h("span", { class: "frow-id", text: f.id }),
           h("span", { class: "frow-name", text: f.name }),
           bar(f.percent, f.id + " " + f.name + " completion"),
-          stageBadge(f.stage),
-          f.idle ? h("span", { class: "muted frow-idle", title: "No commit since " + f.lastCommit, text: "idle since " + f.lastCommit.slice(0, 10) }) : null
-        ].filter(Boolean)));
+          h("span", { class: "frow-tags" }, [stageBadge(f.stage), f.stage === "merged" ? null : statusBadge(f)])
+        ]));
       });
       details.appendChild(ul);
       groups.appendChild(details);

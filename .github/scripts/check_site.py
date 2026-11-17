@@ -62,6 +62,13 @@ def check_progress():
             errors.append(f"progress.json: {fid} has unknown stage {f.get('stage')!r}")
         if f.get("milestone") not in ms_ids:
             errors.append(f"progress.json: {fid} references unknown milestone {f.get('milestone')!r}")
+        # Optional statuses shown beside the stage: idle (no recent commit) and paused.
+        for flag in ("idle", "paused"):
+            if flag in f and not isinstance(f[flag], bool):
+                errors.append(f"progress.json: {fid} {flag} must be true or false, got {f[flag]!r}")
+        for text in ("lastCommit", "pausedReason"):
+            if text in f and not isinstance(f[text], str):
+                errors.append(f"progress.json: {fid} {text} must be a string, got {f[text]!r}")
 
 
 class Refs(HTMLParser):
