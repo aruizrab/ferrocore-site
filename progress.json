@@ -1,10 +1,10 @@
 {
   "schema": 1,
   "placeholder": false,
-  "generatedAt": "2026-11-17T06:55:46Z",
-  "commit": "ab0f88f",
+  "generatedAt": "2026-11-17T08:42:59Z",
+  "commit": "818f00f",
   "method": "v0 interim: per-feature stage weights (merged 100, implemented 95, implementing 30-90 by tasks done, tests 30, planned 20, spec approved 15, spec draft 5, not started 0); milestone, cross-cutting and overall are unweighted means of features (official metric: F051).",
-  "overall": 27.3,
+  "overall": 27.4,
   "milestones": [
     {
       "id": "M0",
@@ -24,7 +24,7 @@
       "id": "M2",
       "name": "Mobility and behaviour",
       "kind": "milestone",
-      "percent": 12.1,
+      "percent": 12.5,
       "features": 14
     },
     {
@@ -275,8 +275,10 @@
       "id": "F029",
       "name": "KPI engine (TS 28.552 counters)",
       "milestone": "M2",
-      "stage": "spec-approved",
-      "percent": 15.0
+      "stage": "planned",
+      "percent": 20.0,
+      "lastCommit": "2026-11-17T08:42:59Z",
+      "idle": false
     },
     {
       "id": "F030",
