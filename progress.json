@@ -1,8 +1,8 @@
 {
   "schema": 1,
   "placeholder": false,
-  "generatedAt": "2026-11-17T08:48:11Z",
-  "commit": "e6edf77",
+  "generatedAt": "2026-11-17T09:06:17Z",
+  "commit": "4f771d5",
   "method": "v0 interim: per-feature stage weights (merged 100, implemented 95, implementing 30-90 by tasks done, tests 30, planned 20, spec approved 15, spec draft 5, not started 0); milestone, cross-cutting and overall are unweighted means of features (official metric: F051).",
   "overall": 27.5,
   "milestones": [
@@ -178,7 +178,9 @@
       "name": "ferrocore CLI: sim and validate commands",
       "milestone": "M1",
       "stage": "spec-approved",
-      "percent": 15.0
+      "percent": 15.0,
+      "paused": true,
+      "pausedReason": "Implementation waits for F012 and F013 to merge (shared crates)."
     },
     {
       "id": "F016",
@@ -494,7 +496,9 @@
       "stage": "implementing",
       "percent": 33.9,
       "lastCommit": "2026-11-16T04:22:13Z",
-      "idle": true
+      "idle": true,
+      "paused": true,
+      "pausedReason": "Remaining work item waits for F012 and F013 to merge (shared runtime crate)."
     },
     {
       "id": "F060",
