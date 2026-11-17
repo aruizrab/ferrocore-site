@@ -6,7 +6,7 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <title>ferrocore · a 5G Core in Rust for research and agents</title>
-  <meta name="description" content="ferrocore is a 5G Core written in Rust for R&amp;D and ML / LLM-agent training, with a 3GPP Release 17 baseline and later releases as runtime release profiles. It runs the core network functions with an in-tree simulated RAN and turns every run into a labelled, reproducible dataset.">
+  <meta name="description" content="ferrocore is a 5G Core written in Rust for R&amp;D and ML / LLM-agent training, with a 3GPP Release 17 baseline and later releases as runtime release profiles. It is being built to run the core network functions with an in-tree simulated RAN and turn every run into a labelled, reproducible dataset.">
   <meta name="color-scheme" content="light dark">
   <meta name="theme-color" content="#f4efe8" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#0d1012" media="(prefers-color-scheme: dark)">
@@ -19,7 +19,7 @@
   <meta property="og:locale" content="en_GB">
   <meta property="og:site_name" content="ferrocore">
   <meta property="og:title" content="ferrocore · a 5G Core in Rust for research and agents">
-  <meta property="og:description" content="A 5G Core with a 3GPP Release 17 baseline, later releases as runtime profiles, and an in-tree simulated RAN. Every run becomes a labelled, reproducible dataset, and LLM agents can observe and act on a live core.">
+  <meta property="og:description" content="A 5G Core with a 3GPP Release 17 baseline, later releases as runtime profiles, and an in-tree simulated RAN. It is designed so every run becomes a labelled, reproducible dataset and LLM agents can observe and act on a live core.">
   <meta property="og:url" content="https://aruizrab.github.io/ferrocore-site/">
   <meta property="og:image" content="https://aruizrab.github.io/ferrocore-site/assets/og.png">
   <meta property="og:image:type" content="image/png">
@@ -78,7 +78,7 @@
         <div class="hero-copy">
           <p class="eyebrow">3GPP Rel-17 baseline &middot; 5G Core &middot; written in Rust</p>
           <h1 id="hero-title">A 5G Core that turns every run into a <span class="hl">dataset</span>.</h1>
-          <p class="lede">ferrocore runs the 5G core network functions together with a simulated RAN of gNBs and UEs, records every message, state change and fault as labelled, reproducible data, and lets LLM agents observe and act on a live core. Release&nbsp;17 is the baseline; later 3GPP releases arrive as runtime release profiles in the same codebase. It is built for R&amp;D and ML / LLM-agent training, not for production traffic.</p>
+          <p class="lede">ferrocore is being built to run the 5G core network functions together with a simulated RAN of gNBs and UEs, record every message, state change and fault as labelled, reproducible data, and let LLM agents observe and act on a live core. Release&nbsp;17 is the baseline; later 3GPP releases arrive as runtime release profiles in the same codebase. It is built for R&amp;D and ML / LLM-agent training, not for production traffic.</p>
           <div class="cta-row">
             <a class="btn btn-primary" href="#progress">See live progress</a>
             <a class="btn btn-ghost" href="#architecture">Explore the architecture</a>
@@ -113,7 +113,7 @@
       <div class="wrap">
         <ul class="hero-facts" aria-label="Key properties">
           <li><span class="k">Sans-IO</span> deterministic network functions</li>
-          <li><span class="k">Bit-for-bit</span> reproducible from scenario + seed</li>
+          <li><span class="k">Bit-for-bit</span> reproducible from scenario + seed + version</li>
           <li><span class="k">Real bytes</span> NAS, NGAP, PFCP, GTP-U</li>
           <li><span class="k">MCP + gRPC</span> control for agents</li>
         </ul>
@@ -133,9 +133,9 @@
 
         <div class="what-grid">
           <div class="prose">
-            <p>ferrocore runs the core network functions of a 5G system (<abbr title="Access and Mobility Management Function">AMF</abbr>, <abbr title="Session Management Function">SMF</abbr>, <abbr title="User Plane Function">UPF</abbr>, <abbr title="Authentication Server Function">AUSF</abbr>, <abbr title="Unified Data Management / Unified Data Repository">UDM/UDR</abbr>, <abbr title="Network Repository Function">NRF</abbr>, <abbr title="Policy Control Function">PCF</abbr> and <abbr title="Network Slice Selection Function">NSSF</abbr>, with NWDAF and NEF later) alongside an in-tree simulated RAN of gNBs and UEs.</p>
+            <p>ferrocore is designed to run the core network functions of a 5G system (<abbr title="Access and Mobility Management Function">AMF</abbr>, <abbr title="Session Management Function">SMF</abbr>, <abbr title="User Plane Function">UPF</abbr>, <abbr title="Authentication Server Function">AUSF</abbr>, <abbr title="Unified Data Management / Unified Data Repository">UDM/UDR</abbr>, <abbr title="Network Repository Function">NRF</abbr>, <abbr title="Policy Control Function">PCF</abbr> and <abbr title="Network Slice Selection Function">NSSF</abbr>, with an NWDAF subset later) alongside an in-tree simulated RAN of gNBs and UEs.</p>
             <p>Every run is a dataset: per-interface pcapng that Wireshark decodes, event tables in JSONL and Parquet, KPIs named after TS&nbsp;28.552, ground-truth label tables and a run manifest. The same scenario, seed and version give the same bytes, every time.</p>
-            <p>A northbound control API (gRPC and REST) and an MCP server let LLM agents read state and take actions on a live core, from operator changes to injecting faults, spawning UEs or forking a snapshot.</p>
+            <p>A northbound control API (gRPC and REST) and an MCP server (planned for milestone M3) will let LLM agents read state and take actions on a live core, from operator changes to injecting faults, spawning UEs or forking a snapshot.</p>
           </div>
 
           <div class="audience">
@@ -346,8 +346,8 @@
                 <p>One container per NF, SBI over HTTP/2 with 3GPP OpenAPI JSON, NRF discovery and PFCP over UDP 8805.</p>
               </li>
             </ol>
-            <h3 class="minor">Ships as</h3>
-            <p class="side-note">A single static <code>ferrocore</code> binary (<code>sim</code>, <code>run</code>, <code>nf</code>, <code>serve</code>, <code>validate</code>), a multi-stage Docker image targeting &le;&nbsp;60&nbsp;MB, Compose profiles and a Helm chart, with a Kubernetes operator planned.</p>
+            <h3 class="minor">Packaging (planned)</h3>
+            <p class="side-note">A single <code>ferrocore</code> binary (<code>sim</code>, <code>run</code>, <code>nf</code>, <code>serve</code>, <code>validate</code>), a multi-stage distroless Docker image targeting &le;&nbsp;60&nbsp;MB, Compose profiles and a Helm chart, with a Kubernetes operator planned.</p>
           </aside>
         </div>
 
@@ -435,7 +435,7 @@
               <li>tshark decodes every capture with no malformed packets or expert errors</li>
               <li>decode then re-encode must reproduce the original bytes</li>
               <li>a differential ASN.1 codec cross-checks NGAP</li>
-              <li>interop runs against UERANSIM and PacketRusher</li>
+              <li>interop runs against UERANSIM and PacketRusher (from M3)</li>
             </ul>
           </article>
 
@@ -449,7 +449,7 @@
               <li>O(message) work, &le;&nbsp;16&nbsp;KiB idle state per UE</li>
               <li>A typed event for everything</li>
               <li>Small tasks, around 400 changed lines</li>
-              <li>Existing findings are fixed before new features build on them</li>
+              <li>Quality-gate findings on existing code are fixed alongside new features</li>
               <li>One error enum per crate</li>
             </ul>
           </article>
@@ -490,18 +490,18 @@
           </li>
           <li class="ms" data-ms="M2">
             <div class="ms-head"><span class="ms-id">M2</span><h3>Mobility and behaviour</h3></div>
-            <p>The release-profile framework, CM-IDLE, service request and paging, periodic and mobility registration, the radio model, Xn and N2 handover, UE profiles and traffic, misbehaviour, fault injection with labels, KPIs and Parquet.</p>
+            <p>The release-profile framework, CM-IDLE, service request and paging, periodic and mobility registration, the radio model, Xn and N2 handover, UE profiles and traffic, misbehaviour, fault injection with labels, PDU session modification and release, network-initiated deregistration, PCF and NSSF (lite), KPIs and Parquet.</p>
             <p class="ms-feat">F019&ndash;F031, F055</p>
           </li>
           <li class="ms" data-ms="M3">
             <div class="ms-head"><span class="ms-id">M3</span><h3>Agents and scale</h3></div>
-            <p>Control API and MCP server, snapshot and fork, the Gym wrapper, 100k UEs, campaigns on Kubernetes, realtime mode with UERANSIM and PacketRusher interop, and the LM corpus exporter.</p>
-            <p class="ms-feat">F032&ndash;F040, F062&ndash;F066</p>
+            <p>Control API and MCP server, snapshot and fork, the Gym wrapper, 100k UEs, campaigns on Kubernetes, realtime mode with UERANSIM and PacketRusher interop and N6 through a TUN device, control API streams and remote hooks, and the LM corpus exporter with task formats and Croissant metadata.</p>
+            <p class="ms-feat">F032&ndash;F040, F062&ndash;F066, F074, F075, F079&ndash;F081, F085</p>
           </li>
           <li class="ms" data-ms="M4">
             <div class="ms-head"><span class="ms-id">M4</span><h3>Distributed and exposure</h3></div>
-            <p>OpenAPI code generation, SBI over HTTP/2, NRF, distributed mode, AMF and SMF event exposure, an NWDAF subset, a Kubernetes operator, EAP-AKA&prime;, an XnAP wire codec and distributed fault injection.</p>
-            <p class="ms-feat">F041&ndash;F050, F067, F068</p>
+            <p>OpenAPI code generation, SBI over HTTP/2, NRF, distributed mode, AMF and SMF event exposure, an NWDAF subset, a Kubernetes operator, EAP-AKA&prime;, an XnAP wire codec, distributed fault injection, TLS, overload control and message priority on the SBI, NWDAF load and mobility analytics, distributed N3 with DSCP marking, and third-party SBI peers.</p>
+            <p class="ms-feat">F041&ndash;F050, F067&ndash;F073, F076&ndash;F078, F082&ndash;F084, F086, F087</p>
           </li>
           <li class="ms" data-ms="M5">
             <div class="ms-head"><span class="ms-id">M5</span><h3>Visibility and public release</h3></div>
@@ -519,6 +519,7 @@
             <p class="ms-feat">F057</p>
           </li>
         </ol>
+        <p class="roadmap-cross"><strong>Cross-cutting, outside every milestone:</strong> development quality gates, remediation of existing code to those gates, and Stage&nbsp;2 traceability (F058&ndash;F060).</p>
       </div>
     </section>
 
