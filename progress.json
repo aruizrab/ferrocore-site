@@ -1,8 +1,8 @@
 {
   "schema": 1,
   "placeholder": false,
-  "generatedAt": "2026-11-17T13:10:33Z",
-  "commit": "b32b2bd",
+  "generatedAt": "2026-11-17T13:16:55Z",
+  "commit": "08518fe",
   "method": "v0 interim: per-feature stage weights (merged 100, implemented 95, implementing 30-90 by tasks done, tests 30, planned 20, spec approved 15, spec draft 5, not started 0); milestone, cross-cutting and overall are unweighted means of features (official metric: F051).",
   "overall": 27.6,
   "milestones": [
@@ -24,7 +24,7 @@
       "id": "M2",
       "name": "Mobility and behaviour",
       "kind": "milestone",
-      "percent": 13.6,
+      "percent": 13.9,
       "features": 14
     },
     {
@@ -263,8 +263,10 @@
       "id": "F027",
       "name": "Fault injection with ground-truth labels",
       "milestone": "M2",
-      "stage": "spec-approved",
-      "percent": 15.0
+      "stage": "planned",
+      "percent": 20.0,
+      "lastCommit": "2026-11-17T13:16:30Z",
+      "idle": false
     },
     {
       "id": "F028",
