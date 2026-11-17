@@ -28,7 +28,10 @@
   ];
   var STAGE_LABEL = {};
   STAGES.forEach(function (s) { STAGE_LABEL[s[0]] = s[1]; });
-  var IN_FLIGHT = { implemented: 1, implementing: 1, tests: 1, planned: 1, "spec-approved": 1, "spec-draft": 1 };
+  /* Work under way: a plan or later, not yet merged. A spec without a plan is "specified", and an
+     in-flight feature with no commit for 24 h ("idle") is not counted as in progress. */
+  var IN_FLIGHT = { implemented: 1, implementing: 1, tests: 1, planned: 1 };
+  var SPECIFIED = { "spec-approved": 1, "spec-draft": 1 };
 
   var SVG_NS = "http://www.w3.org/2000/svg";
 
@@ -242,10 +245,13 @@
       if (!items || !items.length) return;
       var m = groupsAll.filter(function (x) { return x.id === key; })[0];
       var done = items.filter(function (f) { return f.stage === "merged"; }).length;
-      var active = items.filter(function (f) { return IN_FLIGHT[f.stage]; }).length;
+      var active = items.filter(function (f) { return IN_FLIGHT[f.stage] && !f.idle; }).length;
+      var idle = items.filter(function (f) { return IN_FLIGHT[f.stage] && f.idle; }).length;
+      var specified = items.filter(function (f) { return SPECIFIED[f.stage]; }).length;
       var details = h("details", { class: "fgroup" + (m && m.cross ? " fgroup-cross" : "") });
       if (!opened && m && !m.cross && m.percent < 100) { details.open = true; opened = true; }
-      var summaryText = items.length + (items.length === 1 ? " feature · " : " features · ") + done + " merged · " + active + " in progress";
+      var summaryText = items.length + (items.length === 1 ? " feature · " : " features · ") + done + " merged · " + active + " in progress" +
+        (idle ? " · " + idle + " idle" : "") + (specified ? " · " + specified + " specified" : "");
       details.appendChild(h("summary", null, [
         h("span", { class: "fg-id", text: m ? m.id : "—" }),
         h("span", { class: "fg-name" }, [
