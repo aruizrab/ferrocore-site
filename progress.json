@@ -1,8 +1,8 @@
 {
   "schema": 1,
   "placeholder": false,
-  "generatedAt": "2026-11-18T08:12:55Z",
-  "commit": "df634d2",
+  "generatedAt": "2026-11-18T21:12:01Z",
+  "commit": "133c082",
   "method": "v0 interim: per-feature stage weights (merged 100, implemented 95, implementing 30-90 by tasks done, tests 30, planned 20, spec approved 15, spec draft 5, not started 0); milestone, cross-cutting and overall are unweighted means of features (official metric: F051).",
   "overall": 28.1,
   "milestones": [
@@ -17,7 +17,7 @@
       "id": "M1",
       "name": "Vertical slice in sim mode",
       "kind": "milestone",
-      "percent": 64.9,
+      "percent": 65.5,
       "features": 8
     },
     {
@@ -161,9 +161,9 @@
       "id": "F013",
       "name": "Simulated RAN: gNB and UE state machines",
       "milestone": "M1",
-      "stage": "implementing",
-      "percent": 90.0,
-      "lastCommit": "2026-11-18T07:26:11Z",
+      "stage": "implemented",
+      "percent": 95.0,
+      "lastCommit": "2026-11-18T21:12:01Z",
       "idle": false
     },
     {
@@ -266,7 +266,7 @@
       "stage": "planned",
       "percent": 20.0,
       "lastCommit": "2026-11-17T13:16:30Z",
-      "idle": false
+      "idle": true
     },
     {
       "id": "F028",
@@ -298,7 +298,7 @@
       "stage": "planned",
       "percent": 20.0,
       "lastCommit": "2026-11-17T08:47:38Z",
-      "idle": false
+      "idle": true
     },
     {
       "id": "F032",
