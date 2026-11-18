@@ -1,8 +1,8 @@
 {
   "schema": 1,
   "placeholder": false,
-  "generatedAt": "2026-11-18T04:08:47Z",
-  "commit": "08518fe",
+  "generatedAt": "2026-11-18T06:55:54Z",
+  "commit": "adc311d",
   "method": "v0 interim: per-feature stage weights (merged 100, implemented 95, implementing 30-90 by tasks done, tests 30, planned 20, spec approved 15, spec draft 5, not started 0); milestone, cross-cutting and overall are unweighted means of features (official metric: F051).",
   "overall": 28.1,
   "milestones": [
@@ -154,7 +154,7 @@
       "milestone": "M1",
       "stage": "implementing",
       "percent": 90.0,
-      "lastCommit": "2026-11-17T11:34:51Z",
+      "lastCommit": "2026-11-18T06:55:54Z",
       "idle": false
     },
     {
@@ -164,7 +164,7 @@
       "stage": "implementing",
       "percent": 90.0,
       "lastCommit": "2026-11-17T04:31:43Z",
-      "idle": false
+      "idle": true
     },
     {
       "id": "F014",
@@ -468,7 +468,7 @@
       "stage": "planned",
       "percent": 20.0,
       "lastCommit": "2026-11-17T06:42:56Z",
-      "idle": false
+      "idle": true
     },
     {
       "id": "F056",
