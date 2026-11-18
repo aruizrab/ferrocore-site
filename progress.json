@@ -1,8 +1,8 @@
 {
   "schema": 1,
   "placeholder": false,
-  "generatedAt": "2026-11-18T07:26:11Z",
-  "commit": "adc311d",
+  "generatedAt": "2026-11-18T08:12:55Z",
+  "commit": "df634d2",
   "method": "v0 interim: per-feature stage weights (merged 100, implemented 95, implementing 30-90 by tasks done, tests 30, planned 20, spec approved 15, spec draft 5, not started 0); milestone, cross-cutting and overall are unweighted means of features (official metric: F051).",
   "overall": 28.1,
   "milestones": [
@@ -17,7 +17,7 @@
       "id": "M1",
       "name": "Vertical slice in sim mode",
       "kind": "milestone",
-      "percent": 65.6,
+      "percent": 64.9,
       "features": 8
     },
     {
@@ -153,8 +153,8 @@
       "name": "SMF and UPF: UE-requested PDU session establishment",
       "milestone": "M1",
       "stage": "implementing",
-      "percent": 90.0,
-      "lastCommit": "2026-11-18T06:55:54Z",
+      "percent": 84.0,
+      "lastCommit": "2026-11-18T08:12:51Z",
       "idle": false
     },
     {
